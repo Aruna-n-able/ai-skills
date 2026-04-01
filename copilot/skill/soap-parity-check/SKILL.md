@@ -187,8 +187,7 @@ Output a full Jira STORY TICKET using exactly this Markdown structure:
 **Labels:** soap-to-rest, api-parity, {domain}
 
 ## Description
-{2–4 sentences explaining what the SOAP operation does, who uses it, and why a REST
-equivalent is needed. No implementation detail here.}
+The SOAP `{SOAP_OPERATION_NAME}` operation {one sentence: what it does and what data it returns, e.g. "retrieves system-wide configuration key-value entries from the N-central server, such as feature flags, integration URLs, and server-side settings"}.
 
 ## REST Endpoint
 
@@ -256,6 +255,6 @@ equivalent is needed. No implementation detail here.}
 - [ ] `{param}` correctly filters/scopes results _(repeat for each key input param)_
 - [ ] Each error case returns the correct HTTP status + structured JSON error body
 - [ ] Response includes `pageDetails` with `pageNumber`, `pageSize`, and `totalItems`
-- [ ] OpenAPI / Swagger annotation added to the controller method
+- [ ] OpenAPI documentation added to the controller method
 - [ ] Unit tests cover: happy path, {key error cases}, unexpected DMS error
 ---
