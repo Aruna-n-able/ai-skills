@@ -12,15 +12,57 @@ Analyses a single SOAP operation and produces either:
 - A **Jira parity comment** — if a REST endpoint already exists (fully or partially)
 - A **Jira story ticket** — if no REST equivalent exists yet
 
+All output is in **Markdown** so it pastes cleanly into Jira's rich text editor.
+
 Located at: `copilot/skill/soap-parity-check/SKILL.md`
+
+---
+
+## How to Add This Skill to Copilot
+
+To make this skill available in a repository, add a reference to it in that repo's
+`.github/copilot-instructions.md` file.
+
+### Step 1 — Create or open `.github/copilot-instructions.md`
+
+If the file doesn't exist yet, create it at `.github/copilot-instructions.md` in the
+target repository.
+
+### Step 2 — Add the trigger phrase
+
+Paste the following line into the file:
+
+```
+"Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}"
+```
+
+This tells Copilot to recognise the trigger phrase and load the skill instructions
+from `Aruna-n-able/ai-skills` when it is used.
+
+### Step 3 — Reference the skill file (optional but recommended)
+
+If your organisation uses a skill-loading mechanism, point it at:
+
+```
+Aruna-n-able/ai-skills : copilot/skill/soap-parity-check/SKILL.md
+```
+
+### Step 4 — Use it
+
+Open GitHub Copilot Chat in the target repo and type:
+
+```
+Run soap-parity-check for Customer.List from ServerUI
+```
+
+Copilot will read the WSDL, search for a REST implementation, produce a gap analysis,
+and output a ready-to-paste Jira comment or story ticket.
 
 ---
 
 ## How to Use
 
 ### Trigger phrase
-
-Type the following in GitHub Copilot Chat (in any repo that references this skill):
 
 ```
 Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}
@@ -57,7 +99,7 @@ When you run the skill, Copilot will automatically:
 
 1. **Read the WSDL** — extracts all input parameters, response fields, and complex types for the named operation
 2. **Check `nable-nc/api-service`** — searches all service modules for an existing REST controller, DMS wrapper, and DTO
-3. **Produce a gap analysis table** — compares every SOAP field against the REST implementation with a ✅ / ⚠️ / ❌ status
+3. **Produce a gap analysis table** — compares every SOAP field against the REST implementation with a ��� / ⚠️ / ❌ status
 4. **Output a Jira-ready result** based on what it finds:
 
 | Finding | Output |
@@ -70,6 +112,8 @@ When you run the skill, Copilot will automatically:
 
 ### Output format
 
+All output is **Markdown** — paste directly into Jira's description or comment box using the rich text editor. No formatting mode switching needed.
+
 #### Case A — Fully implemented → Jira Comment
 Includes: Overview · Field Mapping · Request Parameter Mapping · Behavioral Differences · Missing Fields · Conclusion · Code References
 
@@ -77,7 +121,6 @@ Includes: Overview · Field Mapping · Request Parameter Mapping · Behavioral D
 Comment same as Case A. Sub-task includes: Background · Missing Fields to Add · Behavioural Gaps to Fix · Acceptance Criteria · Technical Notes
 
 #### Case C — Not implemented → Jira Story Ticket
-Includes:
 
 | Section | Content |
 |---|---|
