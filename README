@@ -1,147 +1,53 @@
-# ai-skills
+Available Skill
+🔍 soap-parity-check
+What this skill does
 
-A collection of GitHub Copilot skills for the N-central platform engineering team.
+soap-parity-check analyzes a single SOAP operation and determines whether an equivalent REST endpoint exists in the codebase.
 
----
+It automatically:
 
-## Skills
+parses WSDL definitions
+compares SOAP fields against REST DTOs and controllers
+produces a gap analysis
+generates Jira-ready Markdown output
 
-### 🔍 soap-parity-check
+Example Workflow
 
-Analyses a single SOAP operation and produces either:
-- A **Jira parity comment** — if a REST endpoint already exists (fully or partially)
-- A **Jira story ticket** — if no REST equivalent exists yet
+A typical engineering workflow using this skill:
 
-All output is in **Markdown** so it pastes cleanly into Jira's rich text editor.
+SOAP operation identified
+        ↓
+Run soap-parity-check
+        ↓
+Copilot generates gap analysis
+        ↓
+Jira ticket or comment created
+        ↓
+REST parity work tracked and implemented
 
-Located at: `copilot/skill/soap-parity-check/SKILL.md`
+All outputs are formatted in Markdown and paste directly into Jira without formatting changes.
 
----
+How to Enable the Skill in a Repository
 
-## How to Add This Skill to Copilot
+GitHub Copilot loads skills based on instructions defined in:
 
-To make this skill available in a repository, add a reference to it in that repo's
-`.github/copilot-instructions.md` file.
+.github/copilot-instructions.md
+Step 1 — Create the instructions file
 
-### Step 1 — Create or open `.github/copilot-instructions.md`
+Create this file in your repository if it does not already exist:
 
-If the file doesn't exist yet, create it at `.github/copilot-instructions.md` in the
-target repository.
+.github/copilot-instructions.md
+Step 2 — Add the trigger phrase
 
-### Step 2 — Add the trigger phrase
+Add the following line:
 
-Paste the following line into the file:
-
-```
-"Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}"
-```
-
-This tells Copilot to recognise the trigger phrase and load the skill instructions
-from `Aruna-n-able/ai-skills` when it is used.
-
-### Step 3 — Reference the skill file (optional but recommended)
-
-If your organisation uses a skill-loading mechanism, point it at:
-
-```
-Aruna-n-able/ai-skills : copilot/skill/soap-parity-check/SKILL.md
-```
-
-### Step 4 — Use it
-
-Open GitHub Copilot Chat in the target repo and type:
-
-```
-Run soap-parity-check for Customer.List from ServerUI
-```
-
-Copilot will read the WSDL, search for a REST implementation, produce a gap analysis,
-and output a ready-to-paste Jira comment or story ticket.
-
----
-
-## How to Use
-
-### Trigger phrase
-
-```
 Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}
-```
 
-**Examples:**
+This tells Copilot when to activate the skill.
 
-```
-Run soap-parity-check for SysConfig.Get from ServerUI
-```
+How to Use the Skill
 
-```
-Run soap-parity-check for VersionInfoGet from ServerEI
-```
+Open GitHub Copilot Chat inside your repository and run:
 
-```
 Run soap-parity-check for Customer.List from ServerUI
-```
 
----
-
-### Parameters
-
-| Parameter | Description | Values |
-|---|---|---|
-| `SOAP_OPERATION_NAME` | The exact SOAP operation name as it appears in the WSDL | e.g. `SysConfig.Get`, `Customer.List`, `Device.Get` |
-| `ServerEI` or `ServerUI` | Which WSDL file the operation belongs to | `ServerEI` → `common/ServerEI.wsdl` · `ServerUI` → `common/opeartion.wsdl` |
-
----
-
-### What Copilot does
-
-When you run the skill, Copilot will automatically:
-
-1. **Read the WSDL** — extracts all input parameters, response fields, and complex types for the named operation
-2. **Check `nable-nc/api-service`** — searches all service modules for an existing REST controller, DMS wrapper, and DTO
-3. **Produce a gap analysis table** — compares every SOAP field against the REST implementation with a ��� / ⚠️ / ❌ status
-4. **Output a Jira-ready result** based on what it finds:
-
-| Finding | Output |
-|---|---|
-| ✅ REST fully implements SOAP | Jira **comment** with field mapping and any minor differences |
-| ⚠️ REST partially implements SOAP | Jira **comment** (with gaps marked ❌) + Jira **sub-task** for the missing fields |
-| ❌ No REST endpoint exists | Full Jira **story ticket** with Description, REST Endpoint, Request, Response, Error Codes, and Acceptance Criteria |
-
----
-
-### Output format
-
-All output is **Markdown** — paste directly into Jira's description or comment box using the rich text editor. No formatting mode switching needed.
-
-#### Case A — Fully implemented → Jira Comment
-Includes: Overview · Field Mapping · Request Parameter Mapping · Behavioral Differences · Missing Fields · Conclusion · Code References
-
-#### Case B — Partially implemented → Jira Comment + Sub-task
-Comment same as Case A. Sub-task includes: Background · Missing Fields to Add · Behavioural Gaps to Fix · Acceptance Criteria · Technical Notes
-
-#### Case C — Not implemented → Jira Story Ticket
-
-| Section | Content |
-|---|---|
-| **Description** | What the SOAP operation does and why REST is needed |
-| **REST Endpoint** | HTTP method + URL + auth |
-| **Request** | Path params · Query params · Request body (POST/PUT only) |
-| **Response** | Success JSON example · typed field mapping table with SOAP → REST mapping |
-| **Error Codes** | HTTP status codes and when each occurs |
-| **Acceptance Criteria** | Testable checklist ready for a developer to pick up |
-
----
-
-### WSDL source reference
-
-| WSDL | File | Example operations |
-|---|---|---|
-| `ServerEI` | `nable-nc/api-service : common/ServerEI.wsdl` | `VersionInfoGet`, `CustomerList`, `DeviceList`, `DeviceGet` |
-| `ServerUI` | `nable-nc/api-service : common/opeartion.wsdl` | `Customer.List`, `Device.Get`, `SysConfig.Get`, `AuditLog.List` |
-
----
-
-### Epic
-
-All generated tickets link to Epic **NCCF-1206785** — SOAP API to REST endpoint migration.
