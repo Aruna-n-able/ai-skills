@@ -1,1 +1,104 @@
-README
+# ai-skills
+
+A collection of GitHub Copilot skills for the N-central platform engineering team.
+
+---
+
+## Skills
+
+### 🔍 soap-parity-check
+
+Analyses a single SOAP operation and produces either:
+- A **Jira parity comment** — if a REST endpoint already exists (fully or partially)
+- A **Jira story ticket** — if no REST equivalent exists yet
+
+Located at: `copilot/skill/soap-parity-check/SKILL.md`
+
+---
+
+## How to Use
+
+### Trigger phrase
+
+Type the following in GitHub Copilot Chat (in any repo that references this skill):
+
+```
+Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}
+```
+
+**Examples:**
+
+```
+Run soap-parity-check for SysConfig.Get from ServerUI
+```
+
+```
+Run soap-parity-check for VersionInfoGet from ServerEI
+```
+
+```
+Run soap-parity-check for Customer.List from ServerUI
+```
+
+---
+
+### Parameters
+
+| Parameter | Description | Values |
+|---|---|---|
+| `SOAP_OPERATION_NAME` | The exact SOAP operation name as it appears in the WSDL | e.g. `SysConfig.Get`, `Customer.List`, `Device.Get` |
+| `ServerEI` or `ServerUI` | Which WSDL file the operation belongs to | `ServerEI` → `common/ServerEI.wsdl` · `ServerUI` → `common/opeartion.wsdl` |
+
+---
+
+### What Copilot does
+
+When you run the skill, Copilot will automatically:
+
+1. **Read the WSDL** — extracts all input parameters, response fields, and complex types for the named operation
+2. **Check `nable-nc/api-service`** — searches all service modules for an existing REST controller, DMS wrapper, and DTO
+3. **Produce a gap analysis table** — compares every SOAP field against the REST implementation with a ✅ / ⚠️ / ❌ status
+4. **Output a Jira-ready result** based on what it finds:
+
+| Finding | Output |
+|---|---|
+| ✅ REST fully implements SOAP | Jira **comment** with field mapping and any minor differences |
+| ⚠️ REST partially implements SOAP | Jira **comment** (with gaps marked ❌) + Jira **sub-task** for the missing fields |
+| ❌ No REST endpoint exists | Full Jira **story ticket** with Description, REST Endpoint, Request, Response, Error Codes, and Acceptance Criteria |
+
+---
+
+### Output format
+
+#### Case A — Fully implemented → Jira Comment
+Includes: Overview · Field Mapping · Request Parameter Mapping · Behavioral Differences · Missing Fields · Conclusion · Code References
+
+#### Case B — Partially implemented → Jira Comment + Sub-task
+Comment same as Case A. Sub-task includes: Background · Missing Fields to Add · Behavioural Gaps to Fix · Acceptance Criteria · Technical Notes
+
+#### Case C — Not implemented → Jira Story Ticket
+Includes:
+
+| Section | Content |
+|---|---|
+| **Description** | What the SOAP operation does and why REST is needed |
+| **REST Endpoint** | HTTP method + URL + auth |
+| **Request** | Path params · Query params · Request body (POST/PUT only) |
+| **Response** | Success JSON example · typed field mapping table with SOAP → REST mapping |
+| **Error Codes** | HTTP status codes and when each occurs |
+| **Acceptance Criteria** | Testable checklist ready for a developer to pick up |
+
+---
+
+### WSDL source reference
+
+| WSDL | File | Example operations |
+|---|---|---|
+| `ServerEI` | `nable-nc/api-service : common/ServerEI.wsdl` | `VersionInfoGet`, `CustomerList`, `DeviceList`, `DeviceGet` |
+| `ServerUI` | `nable-nc/api-service : common/opeartion.wsdl` | `Customer.List`, `Device.Get`, `SysConfig.Get`, `AuditLog.List` |
+
+---
+
+### Epic
+
+All generated tickets link to Epic **NCCF-1206785** — SOAP API to REST endpoint migration.
