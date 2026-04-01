@@ -172,7 +172,7 @@ h3. Technical Notes
 ──────────────────────────────────────────────────────────
 CASE C  ❌  NOT IMPLEMENTED
 ──────────────────────────────────────────────────────────
-Output a full Jira TICKET:
+Output a full Jira STORY TICKET using exactly this structure:
 
 ---
 *Summary:* Implement REST endpoint for SOAP {SOAP_OPERATION_NAME}
@@ -180,120 +180,67 @@ Output a full Jira TICKET:
 *Epic Link:* NCCF-1206785
 *Component:* api-service / services/{proposed_module}
 *Labels:* soap-to-rest, api-parity, {domain}
-*Priority:* {High | Medium | Low — based on how many downstream integrations use it}
 
-h3. Background / Problem Statement
-The SOAP {WSDL_SOURCE} operation `{SOAP_OPERATION_NAME}` has no equivalent REST endpoint
-in nable-nc/api-service. This blocks API consumers who need to migrate from SOAP to REST
-as part of Epic NCCF-1206785.
+h2. Description
+{2–4 sentences explaining what the SOAP operation does, who uses it, and why a REST
+equivalent is needed. No implementation detail here.}
 
-h3. SOAP Contract Reference
-*WSDL:* {file path}
-*Operation:* {SOAP_OPERATION_NAME}
-*Handler in n-central:* {class}#{method} ({file_link})
+h2. REST Endpoint
 
-h3. Proposed REST Endpoint
+{HTTP_METHOD} /api/v1/{resource-path}
 
-*HTTP Method & URL:*
-{METHOD} /api/v1/{resource-path}
+*Auth:* Bearer JWT (Authorization header)
 
-*Request:*
+h2. Request
+
+*Path Parameters*
+|| Parameter || Type || Required || Description ||
+| {param} | {type} | {Yes/No} | {description} |
+
+*Query Parameters*
+|| Parameter || Type || Required || Description ||
+| {param} | {type} | {Yes/No} | {description} |
+
+*Request Body* (POST/PUT/PATCH only — omit section for GET/DELETE)
 {
-// path params
-{paramName}: {type}  // {description}
+  "{fieldName}": "{type}",   // {description — maps from SOAP input param X}
+}
 
-// query params (for GET/DELETE)
-{paramName}: {type}  // {description, e.g. "maps from SOAP field X"}
+h2. Response
 
-// request body (for POST/PUT/PATCH)
+*Success — HTTP {status_code}*
 {
-"{fieldName}": "{type}",     // maps from SOAP input param {soapParam}
-"{fieldName}": "{type}",     // ...
-}
-}
-
-*Success Response — {HTTP_STATUS}:*
-{
-"{fieldName}": "{type}",       // maps from SOAP output field {soapKey}
-"{fieldName}": "{type}",
-"pageDetails": {               // include if adding pagination
-"pageNumber": "integer",
-"pageSize":   "integer",
-"totalItems": "integer"
-}
+  "data": [
+    {
+      "{fieldName}": "{type}",   // {description}
+    }
+  ],
+  "pageDetails": {
+    "pageNumber": 1,
+    "pageSize":   50,
+    "totalItems": 100
+  }
 }
 
-*Error Responses:*
-|| HTTP Status || Condition || Maps from SOAP fault ||
-| 400 Bad Request | {condition} | {SOAP fault code} |
-| 401 Unauthorized | Invalid / expired token | — |
-| 403 Forbidden | Insufficient permissions | {fault code} |
-| 404 Not Found | {resource} not found | {fault code} |
-| 500 Internal Server Error | Unexpected DMS error | {fault code} |
+*Response Fields*
+|| Field || Type || Nullable || Maps From (SOAP) || Description ||
+| {field} | {type} | {Yes/No} | {ConfigValue.pKey} | {description} |
 
-h3. Field Mapping
-|| SOAP Input Param || REST Field (request) || Type || Required? ||
-| {soapParam} | {restField} | {type} | {Y/N} |
+h2. Error Codes
 
-|| SOAP Output Key || REST Field (response) || Type || Notes ||
-| {soapKey} | {restField} | {type} | {note} |
+|| HTTP Status || When it occurs ||
+| 400 Bad Request | {condition} |
+| 401 Unauthorized | Bearer token is missing, expired, or invalid |
+| 403 Forbidden | {condition} |
+| 404 Not Found | {condition — omit row if not applicable} |
+| 500 Internal Server Error | Unexpected error from DMS / N-central backend |
 
-h3. Implementation Guide
+h2. Acceptance Criteria
 
-1. *Create service module (if new):*
-   {If module doesn't exist: mkdir services/{module}, copy pom structure from services/active-issue}
-
-2. *DMS wrapper class:*
-   Create `services/{module}/src/main/java/…/dms/{OperationName}.java`
-    - Inner `Request` record — maps REST inputs to SOAP key-value Settings array
-    - Inner `Response` record — JAXB/Jackson-annotated to deserialize DMS XML response
-    - Use {DmsEi2Client | DmsUiClient} (EI ops → DmsEi2Client, UI ops → DmsUiClient)
-    - Reference pattern: `services/orgunit/src/main/java/…/dms/CustomerList.java`
-
-3. *Response DTO:*
-   Create `services/{module}/src/main/java/…/dto/{OperationName}Response.java`
-    - Java record with all mapped output fields
-    - Reference pattern: `services/orgunit/src/main/java/…/datamodel/Customer.java`
-
-4. *Service class:*
-   Add method to `services/{module}/src/main/java/…/{Module}Service.java`
-    - Builds DMS request, calls DMS client, deserializes, transforms
-    - Handle all DMS fault codes listed in the Error Responses table above
-    - Reference pattern: `services/orgunit/src/main/java/…/OrganizationUnitService.java`
-
-5. *Controller:*
-   Add @{GetMapping|PostMapping|…} method to controller
-    - Extracts DmsCredential from request context
-    - Calls service method
-    - Returns ResponseEntity<{OperationName}Response>
-
-6. *Transformer:*
-   Add transform method mapping DMS XML fields → DTO
-    - Reference pattern: `services/orgunit/src/main/java/…/OrganizationUnitTransformer.java`
-
-h3. Acceptance Criteria
-* [ ] `{METHOD} /api/v1/{url}` returns HTTP {success_code} with all fields from Field Mapping table populated
-* [ ] Auth: endpoint requires valid API-Access Token (Bearer JWT); returns 401 if missing/invalid
-* [ ] All error cases from the Error Responses table return the correct HTTP status + JSON error body
-  {If paginated:}
-* [ ] Response includes `pageDetails` with `pageNumber`, `pageSize`, `totalItems`
-* [ ] Default page size is applied when pageSize not specified
-  {For each mapped input field:}
-* [ ] Request parameter `{restField}` is correctly forwarded to DMS as SOAP key `{soapKey}`
-  {For each mapped output field:}
-* [ ] Response field `{restField}` is populated from SOAP output key `{soapKey}`
-* [ ] Unit tests cover: happy path, not-found, permission-denied, unexpected DMS error
-* [ ] Integration / contract test added for the new endpoint
-* [ ] OpenAPI / Swagger annotation added to controller method
-* [ ] No `PasswordMD5` or other sensitive SOAP fields are exposed in REST response
-
-h3. Out of Scope
-* Fields intentionally excluded: {list any SOAP fields deliberately not mapped and why}
-* Endpoint is READ-ONLY unless the SOAP op performs a write (CUD operations are separate stories)
-
-h3. References
-* SOAP WSDL: {link}
-* n-central handler: {link}
-* Similar implemented example: {link to closest existing service in api-service}
-* Epic: NCCF-1206785
+* [ ] {METHOD} /api/v1/{url} returns HTTP {status} with all response fields populated
+* [ ] {For each key input param:} `{param}` correctly filters/scopes results
+* [ ] {For each error case:} returns correct HTTP status + structured JSON error body
+* [ ] Response includes `pageDetails` with `pageNumber`, `pageSize`, and `totalItems`
+* [ ] OpenAPI / Swagger annotation added to the controller method
+* [ ] Unit tests cover: happy path, {key error cases}, unexpected DMS error
 ---
