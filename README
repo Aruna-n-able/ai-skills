@@ -1,20 +1,35 @@
-Available Skill
-🔍 soap-parity-check
-What this skill does
+# AI Skills
 
-soap-parity-check analyzes a single SOAP operation and determines whether an equivalent REST endpoint exists in the codebase.
+This repository provides GitHub Copilot skills designed to assist engineering teams with API analysis, documentation, and modernization workflows.
+
+---
+
+# 🔍 Available Skill
+
+## soap-parity-check
+
+---
+
+## What This Skill Does
+
+`soap-parity-check` analyzes a **single SOAP operation** and determines whether an equivalent **REST endpoint** exists in the codebase.
 
 It automatically:
 
-parses WSDL definitions
-compares SOAP fields against REST DTOs and controllers
-produces a gap analysis
-generates Jira-ready Markdown output
+- Parses WSDL definitions
+- Compares SOAP fields against REST DTOs and controllers
+- Produces a detailed gap analysis
+- Generates **Jira-ready Markdown output**
 
-Example Workflow
+All generated content can be pasted directly into Jira without formatting changes.
+
+---
+
+## Example Workflow
 
 A typical engineering workflow using this skill:
 
+```
 SOAP operation identified
         ↓
 Run soap-parity-check
@@ -24,30 +39,87 @@ Copilot generates gap analysis
 Jira ticket or comment created
         ↓
 REST parity work tracked and implemented
+```
 
-All outputs are formatted in Markdown and paste directly into Jira without formatting changes.
+This workflow helps standardize SOAP-to-REST migration and reduces manual schema comparison.
 
-How to Enable the Skill in a Repository
+---
+
+# How to Enable the Skill in a Repository
 
 GitHub Copilot loads skills based on instructions defined in:
 
+```
 .github/copilot-instructions.md
-Step 1 — Create the instructions file
+```
+
+---
+
+## Step 1 — Create the Instructions File
 
 Create this file in your repository if it does not already exist:
 
+```
 .github/copilot-instructions.md
-Step 2 — Add the trigger phrase
+```
 
-Add the following line:
+---
 
+## Step 2 — Add the Trigger Phrase
+
+Add the following line to the file:
+
+```
 Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}
+```
 
-This tells Copilot when to activate the skill.
+This tells Copilot when to activate the skill and load its instructions.
 
-How to Use the Skill
+---
 
-Open GitHub Copilot Chat inside your repository and run:
+# How to Use the Skill
 
+Open **GitHub Copilot Chat** inside your repository and run:
+
+```
 Run soap-parity-check for Customer.List from ServerUI
+```
 
+Copilot will then:
+
+1. Read the relevant WSDL file
+2. Scan the repository for REST implementations
+3. Generate a parity analysis
+4. Output a Jira-ready comment or story ticket
+
+---
+
+# Command Syntax
+
+```
+Run soap-parity-check for {SOAP_OPERATION_NAME} from {ServerEI|ServerUI}
+```
+
+---
+
+## Parameters
+
+| Parameter | Description |
+|---|---|
+| `SOAP_OPERATION_NAME` | Exact SOAP operation name as defined in the WSDL |
+| `ServerEI` | Uses the Enterprise Integration WSDL |
+| `ServerUI` | Uses the User Interface WSDL |
+
+---
+
+# Output
+
+Depending on what the skill finds, Copilot generates one of the following:
+
+| Scenario | Output |
+|---|---|
+| REST fully implemented | Jira comment with field mapping |
+| REST partially implemented | Jira comment with gap analysis |
+| No REST implementation | Complete Jira story ticket |
+
+All outputs are formatted in **Markdown** and designed for direct use in Jira.
