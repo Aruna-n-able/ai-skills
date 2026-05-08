@@ -1,0 +1,2977 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://www.n-able.com/mickey" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns1="http://www.n-able.com/mickey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  targetNamespace="http://www.n-able.com/mickey">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.n-able.com/mickey">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+            <complexType name="DeviceData">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Device data.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="DeviceID" nillable="true" type="xsd:int"/>
+                    <element name="Deleted" nillable="true" type="xsd:boolean"/>
+                    <element name="InstallationDate" nillable="true" type="xsd:dateTime"/>
+                    <element name="IPAddress" nillable="true" type="xsd:string"/>
+                    <element name="DeviceClass" nillable="true" type="xsd:string"/>
+                    <element name="OS_ReportedOS" nillable="true" type="xsd:string"/>
+                    <element name="OS_ServicePackVersion" nillable="true" type="xsd:string"/>
+                    <element name="OS_Version" nillable="true" type="xsd:string"/>
+                    <element name="ComputerName" nillable="true" type="xsd:string"/>
+                    <element name="PhysicalMemoryBytes" nillable="true" type="xsd:long"/>
+                    <element name="ComputerSystemManufacturer" nillable="true" type="xsd:string"/>
+                    <element name="ComputerSystemProductModel" nillable="true" type="xsd:string"/>
+                    <element name="ComputerSystemSerialNumber" nillable="true" type="xsd:string"/>
+                    <element name="CPUSpeedMHz" nillable="true" type="xsd:string"/>
+                    <element name="CPUCount" nillable="true" type="xsd:int"/>
+                    <element name="HardDrives" nillable="true" type="tns1:ArrayOf_tns1_DeviceHardDriveData"/>
+                    <element name="SiteCustomerName" nillable="true" type="xsd:string"/>
+                    <element name="SiteCustomerID" nillable="true" type="xsd:int"/>
+                    <element name="CustomerName" nillable="true" type="xsd:string"/>
+                    <element name="CustomerID" nillable="true" type="xsd:int"/>
+                    <element name="SOCustomerName" nillable="true" type="xsd:string"/>
+                    <element name="SOCustomerID" nillable="true" type="xsd:int"/>
+                    <element name="NableURL" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceData">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceData[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_KeyPair">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents a generic key-value tuple where both {@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Key" nillable="true" type="xsd:string"/>
+                    <element name="Value" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_KeyPair">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_KeyPair[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceIssue">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Device Issue. It wraps an array of key-value tuple where both
+{@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Issue" nillable="true" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceIssue">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceIssue[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceProperty">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Device Property.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="DevicePropertyID" nillable="true" type="xsd:int"/>
+                    <element name="Label" nillable="true" type="xsd:string"/>
+                    <element name="Value" nillable="true" type="xsd:string"/>
+                    <element name="Type" nillable="true" type="xsd:int"/>
+                    <element name="DefaultValue" nillable="true" type="xsd:string"/>
+					<element name="DropdownValues" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceProperty">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceProperty[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceProperties">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Device Properties.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="DeviceID" nillable="true" type="xsd:int"/>
+                    <element name="DeviceName" nillable="true" type="xsd:string"/>
+                    <element name="url" nillable="true" type="xsd:string"/>
+                    <element name="Properties" nillable="true" type="tns1:ArrayOf_tns1_DeviceProperty"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceProperties">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceProperties[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="Customer">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Customer information. It wraps an array of key-value tuple where both
+{@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_Customer">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Customer[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="Device">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Device information. It wraps an array of key-value tuple where both
+{@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_Device">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Device[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceStatus">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Device Status information. It wraps an array of key-value tuple where
+both {@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceStatus">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceStatus[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="JobStatus">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Job Status information. It wraps an array of key-value tuple where
+both {@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_JobStatus">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:JobStatus[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="ConfigValue">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Configuration Value.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="pKey" nillable="true" type="xsd:string"/>
+                    <element name="pValue" nillable="true" type="xsd:string"/>
+                    <element name="Description" nillable="true" type="xsd:string"/>
+                    <element name="Datatype" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_ConfigValue">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ConfigValue[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceHardDriveData">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Device Hard Drive data.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="CapacityBytes" nillable="true" type="xsd:long"/>
+                    <element name="UsedBytes" nillable="true" type="xsd:long"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceHardDriveData">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceHardDriveData[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_Credentials">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Credentials (username/password).
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Username" nillable="true" type="xsd:string"/>
+                    <element name="Password" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="T_Pair">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents a generic key-value tuple where both {@code key} and {@code value} are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Key" nillable="true" type="xsd:string"/>
+                    <element name="Value" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_Pair">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Pair[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_EITaskFailed">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Task State and Status.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="TaskID" nillable="true" type="xsd:int"/>
+                    <element name="ServiceDescription" nillable="true" type="xsd:string"/>
+                    <element name="ServiceState" nillable="true" type="xsd:string"/>
+                    <element name="ServiceStatus" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_EITaskFailed">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_EITaskFailed[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_KeyValue">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents a generic key-value tuple where {@code key} is of type {@link String} and
+{@code value} is of type array of {@link String}s.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Key" nillable="true" type="xsd:string"/>
+                    <element name="Value" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_KeyValue">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_KeyValue[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="DeviceInfo">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Device information. It wraps an array of key-values tuple where
+{@code key} is of type {@link String} and {@code value} is of type array of {@link String}s.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyValue"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_DeviceInfo">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceInfo[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="AccessGroupEI">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Access Group. It wraps an array of key-values tuple where
+{@code key} is of type {@link String} and {@code value} is of type array of {@link String}s.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyValue"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_AccessGroupEI">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:AccessGroupEI[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="UserRole">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the User Role. It wraps an array of key-values tuple where
+{@code key} is of type {@link String} and {@code value} is of type array of {@link String}s.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Info" nillable="true" type="tns1:ArrayOf_tns1_T_KeyValue"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_UserRole">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:UserRole[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="ArrayOf_xsd_string">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="ArrayOf_xsd_int">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_AuditorSettings">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Auditor Settings.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="MenuURL" nillable="true" type="xsd:string"/>
+                    <element name="AdminURL" nillable="true" type="xsd:string"/>
+                    <element name="NcWSURL" nillable="true" type="xsd:string"/>
+                    <element name="DataSourceID" type="xsd:int"/>
+                    <element name="ExportIP" nillable="true" type="xsd:string"/>
+                    <element name="ExportPort" type="xsd:int"/>
+                    <element name="ExportSshPort" type="xsd:int"/>
+                    <element name="ExportODS" nillable="true" type="xsd:string"/>
+                    <element name="ExportUser" nillable="true" type="xsd:string"/>
+                    <element name="ExportPassword" nillable="true" type="xsd:string"/>
+                    <element name="NcompassExportVersion" nillable="true" type="xsd:string"/>
+                    <element name="NcentralIP" nillable="true" type="xsd:string"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="T_User">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the N-central User.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="UserID" nillable="true" type="xsd:int"/>
+                    <element name="CustomerID" nillable="true" type="xsd:int"/>
+                    <element name="Username" nillable="true" type="xsd:string"/>
+                    <element name="PasswordMD5" nillable="true" type="xsd:string"/>
+                    <element name="LastLogin" nillable="true" type="xsd:string"/>
+                    <element name="Title" nillable="true" type="xsd:string"/>
+                    <element name="FirstName" nillable="true" type="xsd:string"/>
+                    <element name="LastName" nillable="true" type="xsd:string"/>
+                    <element name="Email1" nillable="true" type="xsd:string"/>
+                    <element name="Phone1" nillable="true" type="xsd:string"/>
+                    <element name="Extension1" nillable="true" type="xsd:string"/>
+                    <element name="Department" nillable="true" type="xsd:string"/>
+                    <element name="Street1" nillable="true" type="xsd:string"/>
+                    <element name="Street2" nillable="true" type="xsd:string"/>
+                    <element name="City" nillable="true" type="xsd:string"/>
+                    <element name="StateProv" nillable="true" type="xsd:string"/>
+                    <element name="Country" nillable="true" type="xsd:string"/>
+                    <element name="PostalCode" nillable="true" type="xsd:string"/>
+                    <element name="IsEnabled" nillable="true" type="xsd:boolean"/>
+                    <element name="PrimaryAccount" nillable="true" type="xsd:string"/>
+                    <element name="AutoSO_Power" nillable="true" type="xsd:boolean"/>
+                    <element name="AutoSO_User" nillable="true" type="xsd:boolean"/>
+                    <element name="IsLDAP" nillable="true" type="xsd:boolean"/>
+                    <element name="IsLocked" nillable="true" type="xsd:boolean"/>
+                    <element name="IsPasswordExpired" nillable="true" type="xsd:boolean"/>
+                    <element name="NcompassEnabled" nillable="true" type="xsd:boolean"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="RepositoryItem">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Repository Item.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="RepositoryItemUUID" nillable="true" type="xsd:string"/>
+                    <element name="Name" nillable="true" type="xsd:string"/>
+                    <element name="Description" nillable="true" type="xsd:string"/>
+                    <element name="LastUploadDate" nillable="true" type="xsd:dateTime"/>
+                    <element name="PolicyFile" nillable="true" type="xsd:base64Binary"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_RepositoryItem">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:RepositoryItem[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_ReportManagerLicenseOptions">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Report Manager License Options.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="ReportManagerAccess" type="xsd:boolean"/>
+                    <element name="DataRetention" type="xsd:int"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="T_ReportManagerExportTableConfig">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Report Manager Export Table Configuration.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="ServiceItemID" type="xsd:int"/>
+                    <element name="ExportType" type="xsd:int"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_ReportManagerExportTableConfig">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ReportManagerExportTableConfig[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_Limit">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Limit. It contains a tuple where both {@code shortDesc} and {@code value}
+are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="ShortDesc" type="xsd:string"/>
+                    <element name="Value" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_Limit">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Limit[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_Option">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents the Option. It contains a tuple where both {@code shortDesc} and {@code value}
+are of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="ShortDesc" type="xsd:string"/>
+                    <element name="Value" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_Option">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Option[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_Password">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Credentials (account/password).
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Account" type="xsd:string"/>
+                    <element name="Password" type="xsd:string"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArrayOf_tns1_T_Password">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Password[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+
+            <complexType name="T_LicenseDetails">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the License Details.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="GeneratedTime" type="xsd:string"/>
+                    <element name="ServerIdentifier" type="xsd:string"/>
+                    <element name="uri" type="xsd:string"/>
+                    <element name="Version" type="xsd:string"/>
+                    <element name="Limits" type="tns1:ArrayOf_tns1_T_Limit"/>
+                    <element name="Options" type="tns1:ArrayOf_tns1_T_Option"/>
+                    <element name="Passwords" type="tns1:ArrayOf_tns1_T_Password"/>
+                    <element name="ActivatedOn" type="xsd:string"/>
+                    <element name="ExpiresOn" type="xsd:string"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="T_SignedLicenseDetails">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This class represents the Signed License Details.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="Signature" type="xsd:base64Binary"/>
+                    <element name="LicenseDetails" type="tns1:T_LicenseDetails"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="T_ReturnCode">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+This class represents a generic Return Code. It contains a tuple where {@code code} is of type {@code int} and
+{@code message} is of type {@link String}.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+                <sequence>
+                    <element name="code" type="xsd:int"/>
+                    <element name="message" type="xsd:string"/>
+                </sequence>
+            </complexType>
+
+        </schema>
+    </wsdl:types>
+
+    <wsdl:message name="VersionInfoGetRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="VersionInfoGetResponse">
+        <wsdl:part name="ConfigValues" type="tns1:ArrayOf_tns1_ConfigValue"/>
+    </wsdl:message>
+
+    <wsdl:message name="RepositoryItemListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="CustomerID" type="xsd:int"/>
+        <wsdl:part name="IncludeAncestorItems" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemListResponse">
+        <wsdl:part name="RepositoryItemArray" type="tns1:ArrayOf_tns1_RepositoryItem"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemGetRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="RepositoryItemUUID" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemGetForCustomerRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="CustomerID" type="xsd:int"/>
+        <wsdl:part name="RepositoryItemUUID" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemGetResponse">
+        <wsdl:part name="RepositoryItem" type="tns1:RepositoryItem"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemPublishRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="CustomerID" type="xsd:int"/>
+        <wsdl:part name="RepositoryItem" type="tns1:RepositoryItem"/>
+        <wsdl:part name="Overwrite" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:message name="RepositoryItemPublishResponse">
+        <wsdl:part name="LastUploadDate" type="xsd:dateTime"/>
+    </wsdl:message>
+
+    <wsdl:message name="AcknowledgeNotificationRequest">
+        <wsdl:part name="ActiveNotificationTriggerIDArray" type="tns1:ArrayOf_xsd_int"/>
+        <wsdl:part name="CorrelatedProfileIDArray" type="tns1:ArrayOf_xsd_int"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Note" type="xsd:string"/>
+        <wsdl:part name="AddToDeviceNotes" type="xsd:boolean"/>
+        <wsdl:part name="SuppressOnEscalation" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:message name="AcknowledgeNotificationResponse">
+    </wsdl:message>
+    <wsdl:message name="DeviceAssetInfoExportRequest">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceAssetInfoExportResponse">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_DeviceData"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeviceAssetInfoExport2Request">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceAssetInfoExport2Request2">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyValue"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceAssetInfoExport2Response">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_Device"/>
+    </wsdl:message>
+
+    <wsdl:message name="ActiveIssuesListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="ActiveIssuesListResponse">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_DeviceIssue"/>
+    </wsdl:message>
+
+    <wsdl:message name="DevicePropertyModifyRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="DeviceProperties" type="tns1:ArrayOf_tns1_DeviceProperties"/>
+    </wsdl:message>
+    <wsdl:message name="DevicePropertyModifyResponse">
+    </wsdl:message>
+	
+    <wsdl:message name="DevicePropertyListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="DeviceIDs" type="tns1:ArrayOf_xsd_int"/>
+        <wsdl:part name="DeviceNames" type="tns1:ArrayOf_xsd_string"/>
+        <wsdl:part name="FilterIDs" type="tns1:ArrayOf_xsd_int"/>
+        <wsdl:part name="FilterNames" type="tns1:ArrayOf_xsd_string"/>
+        <wsdl:part name="ReverseOrder" type="xsd:boolean"/>
+    </wsdl:message>
+    <wsdl:message name="DevicePropertyListResponse">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_DeviceProperties"/>
+    </wsdl:message>
+    <wsdl:message name="PSACredentialsValidateRequest">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="PSACredentialsValidateResponse">
+        <wsdl:part name="Data" type="xsd:boolean"/>
+    </wsdl:message>   
+
+    <wsdl:message name="CustomerListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="CustomerListResponse">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_Customer"/>
+    </wsdl:message>
+
+    <wsdl:message name="CustomerListChildrenRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="CustomerListChildrenResponse">
+        <wsdl:part name="Data" type="tns1:ArrayOf_tns1_Customer"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeviceGetRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceGetResponse">
+        <wsdl:part name="Devices" type="tns1:ArrayOf_tns1_DeviceInfo"/>
+    </wsdl:message>
+
+    <wsdl:message name="AccessGroupListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="AccessGroupListResponse">
+        <wsdl:part name="AccessGroups" type="tns1:ArrayOf_tns1_AccessGroupEI"/>
+    </wsdl:message>
+    <wsdl:message name="UserRoleListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="UserRoleListResponse">
+        <wsdl:part name="UserRoles" type="tns1:ArrayOf_tns1_UserRole"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeviceGetStatusRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceGetStatusResponse">
+        <wsdl:part name="DeviceStatuses" type="tns1:ArrayOf_tns1_DeviceStatus"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeviceListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="DeviceListResponse">
+        <wsdl:part name="Devices" type="tns1:ArrayOf_tns1_Device"/>
+    </wsdl:message>
+
+    <wsdl:message name="SOAddRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="SOAddResponse">
+        <wsdl:part name="SOID" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="CustomerAddRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="CustomerAddResponse">
+        <wsdl:part name="CustomerID" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="UserAddRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="UserAddResponse">
+        <wsdl:part name="UserID" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="JobStatusListRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="Settings" type="tns1:ArrayOf_tns1_T_KeyPair"/>
+    </wsdl:message>
+    <wsdl:message name="JobStatusListResponse">
+        <wsdl:part name="JobStatuses" type="tns1:ArrayOf_tns1_JobStatus"/>
+    </wsdl:message>
+
+    <wsdl:message name="LastExportResetRequest">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="LastExportResetResponse">
+    </wsdl:message>
+    <wsdl:message name="LastExportHardResetRequest">
+        <wsdl:part name="Version" type="xsd:string"/>
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="LastExportHardResetResponse">
+    </wsdl:message>
+    <wsdl:message name="System.SetAuditorSettingsRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="AuditorEnabled" type="xsd:boolean"/>
+        <wsdl:part name="AuditorSettings" type="tns1:ArrayOf_tns1_T_Pair"/>
+    </wsdl:message>
+    <wsdl:message name="System.SetAuditorSettingsResponse">
+        <wsdl:part name="Msg" type="xsd:string"/>
+        <wsdl:part name="NewCredentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="System.SetAuditorSettingsResponse2">
+        <wsdl:part name="Msg" type="xsd:string"/>
+        <wsdl:part name="SelfMonitoringACEP" type="xsd:string"/>
+        <wsdl:part name="NewCredentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="System.GetAuditorSettingsRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="System.GetAuditorSettingsResponse">
+        <wsdl:part name="AuditorSettings" type="tns1:T_AuditorSettings"/>
+    </wsdl:message>
+    <wsdl:message name="System.VerifyAuditorSettingsRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="System.VerifyAuditorSettingsResponse">
+        <wsdl:part name="ResultCode" type="xsd:int"/>
+        <wsdl:part name="DetailedMessage" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="System.ScheduleDataPushRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="System.ScheduleDataPushResponse">
+        <wsdl:part name="Msg" type="xsd:string"/>
+    </wsdl:message>
+
+    <wsdl:message name="ReportManagerExport.EnableAllRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="ReportManagerExport.EnableAllResponse"/>
+
+    <wsdl:message name="ReportManagerExport.EnableRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="TableConfigList" type="tns1:ArrayOf_tns1_T_ReportManagerExportTableConfig"/>
+    </wsdl:message>
+    <wsdl:message name="ReportManagerExport.EnableResponse"/>
+
+    <wsdl:message name="ReportManagerExport.DisableAllRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+    </wsdl:message>
+    <wsdl:message name="ReportManagerExport.DisableAllResponse"/>
+
+    <wsdl:message name="ReportManagerExport.DisableRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="TableConfigList" type="tns1:ArrayOf_tns1_T_ReportManagerExportTableConfig"/>
+    </wsdl:message>
+    <wsdl:message name="ReportManagerExport.DisableResponse"/>
+
+    <wsdl:message name="ReportManagerExportDisableByTableNameRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="Tables" type="tns1:ArrayOf_xsd_string"/>
+    </wsdl:message>
+
+    <wsdl:message name="ReportManagerLicenseOptions.GetRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="CustomerID" type="xsd:int"/>
+    </wsdl:message>
+    <wsdl:message name="ReportManagerLicenseOptions.GetResponse">
+        <wsdl:part name="Options" type="tns1:T_ReportManagerLicenseOptions"/>
+    </wsdl:message>
+
+    <wsdl:message name="Task.PauseMonitoringRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="TaskIDList" type="tns1:ArrayOf_xsd_int"/>
+    </wsdl:message>
+    <wsdl:message name="Task.PauseMonitoringResponse">
+        <wsdl:part name="Msg" type="xsd:string"/>
+        <wsdl:part name="FailedTasks" type="impl:ArrayOf_tns1_T_EITaskFailed"/>
+    </wsdl:message>
+
+    <wsdl:message name="Task.ResumeMonitoringRequest">
+        <wsdl:part name="Username" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+        <wsdl:part name="TaskIDList" type="tns1:ArrayOf_xsd_int"/>
+    </wsdl:message>
+    <wsdl:message name="Task.ResumeMonitoringResponse">
+        <wsdl:part name="Msg" type="xsd:string"/>
+        <wsdl:part name="FailedTasks" type="impl:ArrayOf_tns1_T_EITaskFailed"/>
+    </wsdl:message>
+
+    <wsdl:message name="System.GetUserRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="SessionID" type="xsd:int"/>
+    </wsdl:message>
+    <wsdl:message name="System.GetUserResponse">
+        <wsdl:part name="User" type="tns1:T_User"/>
+    </wsdl:message>
+    <wsdl:message name="System.SetMonitoringTasksRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="Parameters" type="tns1:ArrayOf_tns1_T_Pair"/>
+    </wsdl:message>
+    <wsdl:message name="System.SetMonitoringTasksResponse">
+        <wsdl:part name="Msg" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="System.GetSessionIDRequest">
+        <wsdl:part name="Credentials" type="tns1:T_Credentials"/>
+        <wsdl:part name="Email" type="xsd:string"/>
+        <wsdl:part name="Password" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="System.GetSessionIDResponse">
+        <wsdl:part name="SessionID" type="xsd:int"/>
+    </wsdl:message>
+
+    <wsdl:message name="LicenseKeyPushRequest">
+        <wsdl:part name="SignedLicenseDetails" type="tns1:T_SignedLicenseDetails"/>
+    </wsdl:message>
+    <wsdl:message name="LicenseKeyPushResponse">
+        <wsdl:part name="ReturnCode" type="tns1:T_ReturnCode"/>
+    </wsdl:message>
+
+    <wsdl:portType name="ServerEI_PortType">
+
+        <wsdl:documentation>
+            This interface represents the N-central Legacy Web Service - Server External Interface version 1.
+        </wsdl:documentation>
+
+        <wsdl:operation name="VersionInfoGet" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Retrieves the system version information.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @return An array of {@link ConfigValue} objects.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="VersionInfoGetRequest" message="impl:VersionInfoGetRequest"/>
+            <wsdl:output name="VersionInfoGetResponse" message="impl:VersionInfoGetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="RepositoryItemList" parameterOrder="Username Password CustomerID IncludeAncestorItems">
+            <wsdl:documentation>
+                Retrieves an array of Repository Items based on the specified parameters.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param customerID the customer ID.
+                @param includeAncestorItems set to {@code true} if the ancestor items should be included, {@code false}
+                otherwise.
+                @return An array of {@link RepositoryItem} objects.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="RepositoryItemListRequest" message="impl:RepositoryItemListRequest"/>
+            <wsdl:output name="RepositoryItemListResponse" message="impl:RepositoryItemListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="RepositoryItemGet" parameterOrder="Username Password RepositoryItemUUID">
+            <wsdl:documentation>
+                Retrieves a Repository Item with the specified repository item UUID.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param repositoryItemUUID the repository item UUID.
+                @return The {@link RepositoryItem} with the specified repository item UUID.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="RepositoryItemGetRequest" message="impl:RepositoryItemGetRequest"/>
+            <wsdl:output name="RepositoryItemGetResponse" message="impl:RepositoryItemGetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="RepositoryItemGetForCustomer"
+                        parameterOrder="Username Password CustomerID RepositoryItemUUID">
+            <wsdl:documentation>
+                Retrieves a Repository Item with the specified repository item UUID and customer ID.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param customerID the customer ID.
+                @param repositoryItemUUID the repository item UUID.
+                @return The {@link RepositoryItem} with the specified repository item UUID and customer ID.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="RepositoryItemGetForCustomerRequest" message="impl:RepositoryItemGetForCustomerRequest"/>
+            <wsdl:output name="RepositoryItemGetResponse" message="impl:RepositoryItemGetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="RepositoryItemPublish"
+                        parameterOrder="Username Password CustomerID RepositoryItem Overwrite">
+            <wsdl:documentation>
+                Publishes the Repository Item for the specified customer ID.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param customerID the customer ID.
+                @param repositoryItem the {@link RepositoryItem} to publish.
+                @param overwrite set to {@code true} to overwrite, {@code false} otherwise.
+                @return The last upload date of the {@link RepositoryItem}.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="RepositoryItemPublishRequest" message="impl:RepositoryItemPublishRequest"/>
+            <wsdl:output name="RepositoryItemPublishResponse" message="impl:RepositoryItemPublishResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="AcknowledgeNotification"
+                        parameterOrder="ActiveNotificationTriggerIDArray CorrelatedProfileIDArray Username Password Note AddToDeviceNotes SuppressOnEscalation">
+            <wsdl:documentation>
+                Allows notifications within N-able N-central to be acknowledged. It provides access to all of the optional
+                functionality available in the N-central UI such as suppressing further notifications on acknowledgment.
+                @param activeNotificationTriggerIDArray (Optional) This is a unique identifier of the notification that
+                can be found in the XML notification. Either this field or {@code correlatedProfileIDArray} must be
+                populated.
+                @param correlatedProfileIDArray (Optional) This is a unique identifier of the correlated notification
+                that can be found in the XML notification. Either this field or {@code activeNotificationTriggerIDArray}
+                must be populated.
+                @param username the username of an N-able N-central UI user.
+                @param password the password of an N-able N-central UI user.
+                @param note (Optional) A note can be added with the acknowledgement.
+                @param addToDeviceNotes (Optional) The above note can be added to the notes for the device.
+                @param suppressOnEscalation (Optional) Suppress further notifications.
+                @throws RemoteException if there is an error retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2003 - PSA integration disabled or unlicensed.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="AcknowledgeNotificationRequest" message="impl:AcknowledgeNotificationRequest"/>
+            <wsdl:output name="AcknowledgeNotificationResponse" message="impl:AcknowledgeNotificationResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport" parameterOrder="Version Username Password">
+            <wsdl:documentation>
+                It is used by third-party applications to connect to the N-able N-central web service (SOAP) interface and
+                obtain a list of device configuration information. The {@code nableURL} field in the structure returned
+                by the API call can be used for single-sign-on deep linking to the &lt;b&gt;Properties&lt;/b&gt; tab of
+                the device details screen. To use this API, you must sign in to the N-able N-central Administrative
+                Console (NAC) and configure the interaction by specifying the customers whose device information will
+                be returned by the API as well as the credentials that will be used in order to access the API.
+                &lt;p&gt;
+                This method will always return information on devices that have been changed since the last call. This
+                is referred to as the "high water mark". Refer to LastExportReset to reset the "high water mark".
+                Additionally, information will be returned on devices that have also been deleted. In the case of
+                deleted devices, only the deviceID and Deleted fields will be populated.
+                @param version Indicates the type of PSA integration setup. The list below are valid inputs
+                &lt;ul&gt;
+                &lt;li&gt;"1.0" indicates that a ConnectWise PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"2.0" indicates that an Autotask PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"3.0" indicates than a Tigerpaw PSA integration is to be used.&lt;/li&gt;
+                &lt;/ul&gt;
+                @param username the user-specified PSA integration username.
+                @param password the corresponding password.
+                @return An array of {@link DeviceData} objects which contain the asset data of a device. The
+                {@link DeviceData} object contains the following information: &lt;br/&gt;&lt;br/&gt;
+                &lt;table&gt;
+                &lt;col width="25%"/&gt;&lt;col width="75%"/&gt;
+                &lt;thead&gt;
+                &lt;tr&gt;&lt;th&gt;Fieldname&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt; &lt;/thead&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;deviceID&lt;/td&gt;&lt;td&gt;The unique N-able N-central ID of the device.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;deleted&lt;/td&gt;&lt;td&gt;Indicates if the device has been flagged for deletion.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;installationDate&lt;/td&gt;&lt;td&gt;Indicates the date that the device became
+                managed by N-able N-central.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;IPAddress&lt;/td&gt;&lt;td&gt;The device's URI.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;deviceClass&lt;/td&gt;&lt;td&gt;The N-able N-central class of the device.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;OS_ReportedOS&lt;/td&gt;&lt;td&gt;The device's reported operating system
+                (CIM_OperatingSystem.reportedos).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;OS_ServicePackVersion&lt;/td&gt;
+                &lt;td&gt;The version of the service pack being used by the device (CIM_OperatingSystem.csdversion).&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;OS_Version&lt;/td&gt;&lt;td&gt;The version of the device's operating system
+                (CIM_OperatingSystem.version).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;computerName&lt;/td&gt;&lt;td&gt;The identifying name of the device
+                (Device.LongName).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;physicalMemoryBytes&lt;/td&gt;
+                &lt;td&gt;The size of the device's physical memory (CIM_ComputerSystem.totalphysicalmemory)&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;computerSystemManufacturer&lt;/td&gt;
+                &lt;td&gt;The name of the manufacturer of the device (CIM_ComputerSystem.manufacturer).&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;computerSystemProductModel&lt;/td&gt;&lt;td&gt;The model name of the device
+                (CIM_ComputerSystem.model).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;computerSystemSerialNumber&lt;/td&gt;&lt;td&gt;The device's CPU speed
+                (CIM_Processor.maxclockspeed).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;CPUSpeedMHz&lt;/td&gt;&lt;td&gt;The device's CPU speed
+                (CIM_Processor.maxclockspeed).&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;CPUCount&lt;/td&gt;&lt;td&gt;The number of processors on the device.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;hardDrives&lt;/td&gt;
+                &lt;td&gt;The size of the device's hard drive (CIM_MediaAccessDevice.capacity where mediatype ~ 'hard
+                disk'). This describes the physical size of the hard drive in bytes (scaled in units of 1,000). By
+                convention, physical disk size is stated in bytes scaled by 1,000 while logical disk size is
+                expressed in bytes scaled by 1,024.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;siteCustomerName&lt;/td&gt;&lt;td&gt;The name of the site with whom the device is
+                associated.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;siteCustomerID&lt;/td&gt;
+                &lt;td&gt;The numeric site customer ID representing the site with whom the device is associated.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customerName&lt;/td&gt;&lt;td&gt;The name of the customer with whom the device is
+                associated.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;customerID&lt;/td&gt;
+                &lt;td&gt;The numeric customer ID representing the customer with whom the device is associated.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;SOCustomerName&lt;/td&gt;&lt;td&gt;The name of the SO customer with whom the device
+                is associated.&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;SOCustomerID&lt;/td&gt;
+                &lt;td&gt;The numeric SO customer ID representing the SO customer with whom the device is associated.&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;nableURL&lt;/td&gt;
+                &lt;td&gt;http://SERVERURL/deepLinkAction.do?method=device&amp;customerID=CUSTOMERID&amp;deviceID=DEVICEID&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                @throws RemoteException if there is an error retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2001 - Required parameter is null - Thrown when null values are entered as inputs.&lt;/li&gt;
+                &lt;li&gt;2001 - Unsupported version - Thrown when a version not specified above is entered as input.&lt;/li&gt;
+                &lt;li&gt;2001 - Thrown when a bad username-password combination is input, or no PSA integration has
+                been set up.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+                @deprecated Use the {@link #deviceAssetInfoExport2(String, String, String)} method or the
+                {@link #deviceAssetInfoExport2(String, String, String, T_KeyValue[])} method instead.
+            </wsdl:documentation>
+            <wsdl:input name="DeviceAssetInfoExportRequest" message="impl:DeviceAssetInfoExportRequest"/>
+            <wsdl:output name="DeviceAssetInfoExportResponse" message="impl:DeviceAssetInfoExportResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport2" parameterOrder="Version Username Password">
+            <wsdl:documentation>
+                Retrieves asset information about all of the devices that are associated with a PSA or an N-able N-central
+                sign-in.
+                &lt;p&gt;
+                Note that this method uses a high-water mark when using PSA credentials. This means that only data that
+                is new since the last retrieval will be retrieved. To reset the high-water mark use the LastExportReset
+                API.
+                &lt;p&gt;
+                This is an updated version of the {@link #deviceAssetInfoExport(String, String, String)} method. It
+                retrieves a larger set of data and stores retrieved data in a key-value pair format.
+
+                @param version Determines whether N-able N-Central or PSA credentials are to be used. In the case of PSA
+                credentials the number indicates the type of PSA integration setup.
+                &lt;ul&gt;
+                &lt;li&gt;"0.0" indicates that N-able N-central credentials are to be used.&lt;/li&gt;
+                &lt;li&gt;"1.0" indicates that a ConnectWise PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"2.0" indicates that an Autotask PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"3.0" indicates than a Tigerpaw PSA integration is to be used.&lt;/li&gt;
+                &lt;/ul&gt;
+                @param username the N-able N-central username or a user-defined username for a PSA integration (defined in
+                the N-able N-central UI).
+                @param password the matching password for the specified username.
+                @return An array of {@link Device} objects, each representing one device. Each {@link Device} object
+                contains an array of {@link T_KeyPair}s which contain a key ({@link String}) and a value ({@link
+                String}). Each {@link T_KeyPair} contains one piece of information about the device. For complete
+                details of the return object see documentation for
+                {@link #deviceAssetInfoExport2(String, String, String, T_KeyValue[])}.
+                @throws RemoteException if there is an error retrieving data from the database.
+                @see #deviceAssetInfoExport2(String, String, String, T_KeyValue[])
+            </wsdl:documentation>
+            <wsdl:input name="DeviceAssetInfoExport2Request" message="impl:DeviceAssetInfoExport2Request"/>
+            <wsdl:output name="DeviceAssetInfoExport2Response" message="impl:DeviceAssetInfoExport2Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport2" parameterOrder="Version Username Password Settings">
+            <wsdl:documentation>
+                Retrieves asset information about all of the devices that are associated with a PSA or an N-able N-central
+                sign-in.
+                &lt;p&gt;
+                Note that this method uses a high-water mark when using PSA credentials. This means that only data that
+                is new since the last retrieval will be retrieved. To reset the high-water mark use the
+                LastExportReset API.
+                &lt;p&gt;
+                This is an updated version of the {@link #deviceAssetInfoExport(String, String, String)} method. It
+                retrieves a larger set of data and stores retrieved data in a key-value pair format.
+                @param version Determines whether N-able N-Central or PSA credentials are to be used. In the case of PSA
+                credentials the number indicates the type of PSA integration setup.
+                &lt;ul&gt;
+                &lt;li&gt;"0.0" indicates that N-able N-central credentials are to be used.&lt;/li&gt;
+                &lt;li&gt;"1.0" indicates that a ConnectWise PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"2.0" indicates that an Autotask PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"3.0" indicates than a Tigerpaw PSA integration is to be used.&lt;/li&gt;
+                &lt;/ul&gt;
+                @param username the N-able N-central username or a user-defined username for a PSA integration (defined in
+                the N-able N-central UI).
+                @param password the matching password for the specified username.
+                @param settings (Optional) An array of {@link T_KeyValue} objects each representing one optional setting
+                that could be used to limit the amount of data returned. Each {@link T_KeyValue} contains a key
+                ({@link String}) and a value ({@link String}[]) i.e the value is an array of {@link String}.
+                &lt;br/&gt;&lt;br/&gt;
+                &lt;table&gt;
+                &lt;caption&gt;Following is the list of keys that can be used in the optionalSettings array&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;
+                &lt;td&gt;&lt;b&gt;Use only ONE of the following options to limit information to certain devices&lt;/b&gt;&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;"TargetByDeviceID" - value for this key is an array of deviceids&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;"TargetByDeviceName" - value for this key is an array of devicenames&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;"TargetByFilterID" - value for this key is an array of filterids&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;"TargetByFilterName" - value for this key is an array filternames&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;&lt;b&gt;Use only ONE of the following options to limit information by including or excluding
+                certain information category&lt;/b&gt;&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;"InformationCategoriesInclusion" - value for this key is an array of information category to
+                include&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;e.g. in {@link T_KeyValue} if (Key) = "InformationCategoriesInclusion" and
+                (Value) = {@link String}[] {"asset.device", "asset.os"} then only information for these two
+                categories will be returned.&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;"InformationCategoriesExclusion" - value for this key is an array of information category to
+                exclude&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;e.g. in {@link T_KeyValue} if key = "InformationCategoriesExclusion" and
+                value = {@link String}[] {"asset.device", "asset.os"} then information for these two categories will
+                be excluded.&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;
+                &lt;table&gt;
+                &lt;caption&gt;List of information category that could be used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;
+                &lt;td&gt;
+                &lt;ul&gt;
+                &lt;li&gt;"asset.device" Device.&lt;/li&gt;
+                &lt;li&gt;"asset.os" OS.&lt;/li&gt;
+                &lt;li&gt;"asset.computersystem" Computer System.&lt;/li&gt;
+                &lt;li&gt;"asset.processor" Processor.&lt;/li&gt;
+                &lt;li&gt;"asset.motherboard" Motherboard.&lt;/li&gt;
+                &lt;li&gt;"asset.raidcontroller" Raid Controller.&lt;/li&gt;
+                &lt;li&gt;"asset.memory" Memory.&lt;/li&gt;
+                &lt;li&gt;"asset.videocontroller" Video Controller.&lt;/li&gt;
+                &lt;li&gt;"asset.logicaldevice" Logical Device.&lt;/li&gt;
+                &lt;li&gt;"asset.physicaldrive" Physical Drive.&lt;/li&gt;
+                &lt;li&gt;"asset.mappeddrive" Mapped Drive.&lt;/li&gt;
+                &lt;li&gt;"asset.mediaaccessdevice" Media Access Device.&lt;/li&gt;
+                &lt;li&gt;"asset.networkadapter" Network Adapter.&lt;/li&gt;
+                &lt;li&gt;"asset.usbdevice" USB Device.&lt;/li&gt;
+                &lt;li&gt;"asset.printer" Printer.&lt;/li&gt;
+                &lt;li&gt;"asset.port" Port.&lt;/li&gt;
+                &lt;li&gt;"asset.service" Service.&lt;/li&gt;
+                &lt;li&gt;"asset.application" Application.&lt;/li&gt;
+                &lt;li&gt;"asset.patch" Patch.&lt;/li&gt;
+                &lt;li&gt;"asset.customer" Customer.&lt;/li&gt;
+                &lt;li&gt;"asset.socustomer" Service Organization.&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;To request information later than a specific date time value&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;"TargetByTimestamp" - a time in the format yyyy-mm-dd hh:mm:ss (e.g. 2012-12-31 23:59:59).
+                Only one value could be specified.&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;&lt;b&gt;To request information as link to a file to download instead of an array of
+                {@link T_KeyPair}s&lt;/b&gt;&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                &lt;td&gt;"ReturnAsLinkToFile" - if the value is true then return {@link Device} object will contain one
+                {@link T_KeyPair} with the key set to "asset.linktofile" and value containing the link.&lt;/td&gt;
+                &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                @return An array of {@link Device} objects, each representing one device. Each {@link Device} object
+                contains an array of {@link T_KeyPair}s which contain a key ({@link String}) and
+                a value ({@link String}). Each {@link T_KeyPair} contains one piece of information about the device.
+                &lt;ul&gt;
+                &lt;li&gt;The following is a list of the keys used.&lt;/li&gt;
+                &lt;li&gt;Headings marked with a "*" have an additional ".#" after each key indicating the specific item
+                for viewing as they may have multiples (count starts at 0).&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;List of the used keys&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Device&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.device.deleted&lt;/td&gt;&lt;td&gt;asset.device.createdon&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.device.deviceclass&lt;/td&gt;&lt;td&gt;asset.device.uri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.device.longname&lt;/td&gt;&lt;td&gt;asset.device.deviceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.device.customerid&lt;/td&gt;&lt;td&gt;asset.device.warrantyexpirydate&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;OS&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.reportedos&lt;/td&gt;&lt;td&gt;asset.os.csdversion&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.version&lt;/td&gt;&lt;td&gt;asset.os.serialnumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.osarchitecture&lt;/td&gt;&lt;td&gt;asset.os.licensekey&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.licensetype&lt;/td&gt;&lt;td&gt;asset.os.supportedos&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.lastbootuptime&lt;/td&gt;&lt;td&gt;asset.os.installdate&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.os.publisher&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Computer System&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.computersystem.manufacturer&lt;/td&gt;&lt;td&gt;asset.computersystem.model&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.computersystem.serialnumber&lt;/td&gt;&lt;td&gt;asset.computersystem.totalphysicalmemory&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.computersystem.populatedmemory_slots&lt;/td&gt;&lt;td&gt;asset.computersystem.totalmemory_slots&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.computersystem.uuid&lt;/td&gt;&lt;td&gt;asset.computersystem.netbiosname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.computersystem.systemtype&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Processor&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.processor.architecture&lt;/td&gt;&lt;td&gt;asset.processor.name&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.processor.description&lt;/td&gt;&lt;td&gt;asset.processor.maxclockspeed&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.processor.cpuid&lt;/td&gt;&lt;td&gt;asset.processor.vendor&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.processor.numberofcpus&lt;/td&gt;&lt;td&gt;asset.processor.numberofcores&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Motherboard&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.motherboard.manufacturer&lt;/td&gt;&lt;td&gt;asset.motherboard.product&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.motherboard.version&lt;/td&gt;&lt;td&gt;asset.motherboard.serialnumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.motherboard.biosversion&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Raid Controller*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.raidcontroller.controllername&lt;/td&gt;&lt;td&gt;asset.raidcontroller.serialnumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.raidcontroller.enabledstate&lt;/td&gt;&lt;td&gt;asset.raidcontroller.dataredundancy&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.raidcontroller.numberofblocks&lt;/td&gt;&lt;td&gt;asset.raidcontroller.controllerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Memory*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.memory.location&lt;/td&gt;&lt;td&gt;asset.memory.partnumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.memory.serialnumber&lt;/td&gt;&lt;td&gt;asset.memory.type&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.memory.manufacturer&lt;/td&gt;&lt;td&gt;asset.memory.speed&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.memory.capacity&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Video Controller*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.videocontroller.name&lt;/td&gt;&lt;td&gt;asset.videocontroller.description&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.videocontroller.adapterram&lt;/td&gt;&lt;td&gt;asset.videocontroller.videocontrollerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Logical Device*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.logicaldevice.maxcapacity&lt;/td&gt;&lt;td&gt;asset.logicaldevice.volumename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Physical Drive*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.physicaldrive.serialnumber&lt;/td&gt;&lt;td&gt;asset.physicaldrive.modelnumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.physicaldrive.capacity&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Mapped Drive*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.mappeddrive.drivename&lt;/td&gt;&lt;td&gt;asset.mappeddrive.remotepath&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Media Access Device*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.mediaaccessdevice.uniqueid&lt;/td&gt;&lt;td&gt;asset.mediaaccessdevice.mediatype&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Network Adapter*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.networkadapter.description&lt;/td&gt;&lt;td&gt;asset.networkadapter.ipaddress&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.networkadapter.macaddress&lt;/td&gt;&lt;td&gt;asset.networkadapter.gateway&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.networkadapter.dnsserver&lt;/td&gt;&lt;td&gt;asset.networkadapter.dhcpserver&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;USB Device*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.usbdevice.caption&lt;/td&gt;&lt;td&gt;asset.usbdevice.manufacturer&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.usbdevice.status&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Printer*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.printer.port&lt;/td&gt;&lt;td&gt;asset.printer.name&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.printer.systemdefault&lt;/td&gt;&lt;td&gt;asset.printer.path&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Port*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.port.port&lt;/td&gt;&lt;td&gt;asset.port.servicename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Service*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.service.executablename&lt;/td&gt;&lt;td&gt;asset.service.caption&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.service.useraccount&lt;/td&gt;&lt;td&gt;asset.service.servicename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.service.startuptype&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Folder for Share*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.folderforshare.sharename&lt;/td&gt;&lt;td&gt;asset.folderforshare.path&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Application*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.application.displayname&lt;/td&gt;&lt;td&gt;asset.application.publisher&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.application.installationdate&lt;/td&gt;&lt;td&gt;asset.application.version&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.application.licensekey&lt;/td&gt;&lt;td&gt;asset.application.licensetype&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Patch*&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.patch.title&lt;/td&gt;&lt;td&gt;asset.patch.installationresult&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.patch.installeddate&lt;/td&gt;&lt;td&gt;asset.patch.category&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Site&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.site.customerid&lt;/td&gt;&lt;td&gt;asset.site.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Customer&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.customer.customerid&lt;/td&gt;&lt;td&gt;asset.customer.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;b&gt;Service Organization&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;asset.socustomer.customerid&lt;/td&gt;&lt;td&gt;asset.socustomer.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                &lt;p&gt;
+                Alternatively, if in the optional settings (Key) "ReturnAsLinkToFile" with (Value) "true" has been
+                specified then both the {@link Device} object array and the {@link T_KeyPair} array within it will be
+                of size 1. This {@link T_KeyPair} will contain the (Key) "asset.linktofile" and the (Value) will be a
+                fully-qualified link to the gzipped XML file containing the asset information.
+                &lt;p&gt;
+                Below you can see a sample data for two devices in the XML file format.
+                &lt;pre&gt;{@code
+                &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                &lt;DeviceAssetInfoExport&gt;
+                &lt;asset.device&gt;
+                &lt;asset.device.deviceid&gt;672993042&lt;/asset.device.deviceid&gt;
+                &lt;asset.device.deleted&gt;false&lt;/asset.device.deleted&gt;
+                &lt;asset.device.createdon&gt;2013-10-22 08:49:25.614 -0400&lt;/asset.device.createdon&gt;
+                &lt;asset.device.deviceclass&gt;Windows Workstation&lt;/asset.device.deviceclass&gt;
+                &lt;asset.device.uri&gt;devicea.pc.lab2.local&lt;/asset.device.uri&gt;
+                &lt;asset.device.longname&gt;Device A&lt;/asset.device.longname&gt;
+                &lt;asset.device.customerid&gt;100&lt;/asset.device.customerid&gt;
+                &lt;asset.device.warrantyexpirydate/&gt;
+                &lt;/asset.device&gt;
+                &lt;asset.os&gt;
+                &lt;asset.os.reportedos&gt;Microsoft Windows 7 Ultimate&lt;/asset.os.reportedos&gt;
+                &lt;asset.os.version&gt;6.1.7600&lt;/asset.os.version&gt;
+                &lt;asset.os.osarchitecture&gt;32-bit&lt;/asset.os.osarchitecture&gt;
+                &lt;asset.os.licensetype&gt;Retail&lt;/asset.os.licensetype&gt;
+                &lt;asset.os.csdversion&gt;null&lt;/asset.os.csdversion&gt;
+                &lt;asset.os.supportedos&gt;Microsoft Windows 7 Ultimate&lt;/asset.os.supportedos&gt;
+                &lt;asset.os.lastbootuptime&gt;2013-10-22 08:16:09.500&lt;/asset.os.lastbootuptime&gt;
+                &lt;asset.os.installdate&gt;2011-06-16 12:59:22.000&lt;/asset.os.installdate&gt;
+                &lt;asset.os.publisher&gt;Microsoft Corporation&lt;/asset.os.publisher&gt;
+                &lt;/asset.os&gt;
+                &lt;asset.customer&gt;
+                &lt;asset.customer.customerid&gt;100&lt;/asset.customer.customerid&gt;
+                &lt;asset.customer.customername&gt;Customer&lt;/asset.customer.customername&gt;
+                &lt;/asset.customer&gt;
+                &lt;asset.device&gt;
+                &lt;asset.device.deviceid&gt;1045610544&lt;/asset.device.deviceid&gt;
+                &lt;asset.device.deleted&gt;false&lt;/asset.device.deleted&gt;
+                &lt;asset.device.createdon&gt;2013-10-22 11:13:04.371 -0400&lt;/asset.device.createdon&gt;
+                &lt;asset.device.deviceclass&gt;Windows Laptop&lt;/asset.device.deviceclass&gt;
+                &lt;asset.device.uri&gt;deviceb.lab2.local&lt;/asset.device.uri&gt;
+                &lt;asset.device.longname&gt;Device B&lt;/asset.device.longname&gt;
+                &lt;asset.device.customerid&gt;100&lt;/asset.device.customerid&gt;
+                &lt;asset.device.warrantyexpirydate/&gt;
+                &lt;/asset.device&gt;
+                &lt;asset.customer&gt;
+                &lt;asset.customer.customerid&gt;100&lt;/asset.customer.customerid&gt;
+                &lt;asset.customer.customername&gt;Customer&lt;/asset.customer.customername&gt;
+                &lt;/asset.customer&gt;
+                &lt;/DeviceAssetInfoExport&gt;
+                }&lt;/pre&gt;
+                @throws RemoteException if there is an error retrieving data from the database.
+                @see #deviceAssetInfoExport2(String, String, String)
+            </wsdl:documentation>
+            <wsdl:input name="DeviceAssetInfoExport2Request2" message="impl:DeviceAssetInfoExport2Request2"/>
+            <wsdl:output name="DeviceAssetInfoExport2Response" message="impl:DeviceAssetInfoExport2Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ActiveIssuesList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of all active issues and related information associated with the specified Site,
+                Customer, SO, or the entire system.
+                @param username A valid N-able N-central username
+                @param password The password corresponding to the N-able N-central username
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) customerid - (Value) The ID of the Site, Customer, or SO for which to
+                retrieve active issues for. Use 1 to retrieve issues for all SOs and customers/sites.&lt;/li&gt;
+                &lt;li&gt;(Key) searchBy - (Value) A value to search the so, site, device, deviceClass, service,
+                transitionTime, notification, features, deviceID, and ip address.&lt;/li&gt;
+                &lt;li&gt;(Key) orderby - (Value) The column of the Active Issues table to order the results by. Valid
+                inputs are: customername, devicename, servicename, status, transitiontime,
+                numberofacknoledgednotification, serviceorganization, deviceclass, licensemode, and endpointsecurity.
+                Default is customername.&lt;/li&gt;
+                &lt;li&gt;(Key) reverseorder - (Value) Determines whether the issues are returned in reverse order or
+                not. Must be true or false. Default is false.&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;br/&gt;
+                Filters can also be applied in the settings variable by following the table below. Multiple filters can
+                be applied by adding more {@link T_KeyPair}s to the settings variable.
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Filter Type (Key)&lt;/th&gt;&lt;th&gt;Filter (Value)&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Notification_Acknowledgement_Filter&lt;/td&gt;&lt;td&gt;"Acknowledged" or
+                "Unacknowledged"&lt;/td&gt;
+                &lt;td&gt;Filters by the notification status of the active issue&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;no data&lt;/td&gt;&lt;td&gt;Filters by
+                "No Data" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;stale&lt;/td&gt;&lt;td&gt;Filters by
+                "Stale" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;normal&lt;/td&gt;&lt;td&gt;Filters by
+                "Normal" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;warning&lt;/td&gt;&lt;td&gt;Filters by
+                "Warning" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;failed&lt;/td&gt;&lt;td&gt;Filters by
+                "Failed" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;misconfigured&lt;/td&gt;&lt;td&gt;Filters
+                by "Misconfigured" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;NOC_View_Status_Filter&lt;/td&gt;&lt;td&gt;disconnected&lt;/td&gt;&lt;td&gt;Filters
+                by "Disconnected" Status&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @return An array of {@link DeviceIssue} objects, each representing one issue. Each {@link DeviceIssue}
+                object contains an array of {@link T_KeyPair} which contain a key ({@link String}) and
+                a value ({@link String}). Each {@link T_KeyPair} contains one piece of information about the issue.
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.sitename&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.customername&lt;/td&gt;&lt;td&gt;activeissue.customerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.socustomername&lt;/td&gt;&lt;td&gt;activeissue.socustomerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.deviceid&lt;/td&gt;&lt;td&gt;activeissue.devicename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.deviceclass&lt;/td&gt;&lt;td&gt;activeissue.licensemode&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.isremotecontrollable&lt;/td&gt;&lt;td&gt;activeissue.notifstate&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.servicename&lt;/td&gt;&lt;td&gt;activeissue.serviceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.taskid&lt;/td&gt;&lt;td&gt;activeissue.taskident&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.transitiontime&lt;/td&gt;&lt;td&gt;activeissue.ispartofnotification&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.numberofactivenotification&lt;/td&gt;&lt;td&gt;activeissue.numberofacknowledgednotification&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.serviceitemid&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.isremotecontrolconnected&lt;/td&gt;&lt;td&gt;activeissue.psaintegrationexists&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;activeissue.psaticketdetails&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="ActiveIssuesListRequest" message="impl:ActiveIssuesListRequest"/>
+            <wsdl:output name="ActiveIssuesListResponse" message="impl:ActiveIssuesListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DevicePropertyList"
+                        parameterOrder="Username Password DeviceIDs DeviceNames FilterIDs FilterNames ReverseOrder">
+            <wsdl:documentation>
+                Retrieves a list of the custom device properties for a list of devices.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param deviceIDs the array of device IDs to filter the returned properties.
+                @param deviceNames the array of device names to filter the returned properties.
+                @param filterIDs the array of filter IDs to filter the returned properties.
+                @param filterNames the array of filter Names to filter the returned properties.
+                @param reverseOrder {@code false} for alphabetical order, or {@code true} for reverse alphabetical
+                order.
+                @return An array of {@link DeviceProperties} objects, containing the device's device name, device ID,
+                URL, and an array of {@link DeviceProperty} objects containing device property label, value, device
+                property ID, default value, and type.
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="DevicePropertyListRequest" message="impl:DevicePropertyListRequest"/>
+            <wsdl:output name="DevicePropertyListResponse" message="impl:DevicePropertyListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DevicePropertyModify" parameterOrder="Username Password DeviceProperties">
+            <wsdl:documentation>
+                Modifies the custom device properties.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param deviceProperties the device properties that you wish to populate. Only {@code deviceID} and
+                {@code properties} are required in the DeviceProperties. In the {@code properties} only {@code devicePropertyID}
+                 and {@code value} are used.
+                @throws RemoteException if there are issues retrieving data from the database.
+            </wsdl:documentation>
+            <wsdl:input name="DevicePropertyModifyRequest" message="impl:DevicePropertyModifyRequest"/>
+            <wsdl:output name="DevicePropertyModifyResponse" message="impl:DevicePropertyModifyResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="PSACredentialsValidate" parameterOrder="Version Username Password">
+            <wsdl:documentation>
+                Verifies whether the username and password are valid for a PSA interaction configuration.
+                @param version Determines which type of PSA settings are being used Number which determines which type
+                of PSA settings are being used
+                &lt;ul&gt;
+                &lt;li&gt;"1.0" indicates that a ConnectWise PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"2.0" indicates that an Autotask PSA integration is to be used.&lt;/li&gt;
+                &lt;li&gt;"3.0" indicates than a Tigerpaw PSA integration is to be used.&lt;/li&gt;
+                &lt;/ul&gt;
+                @param username the user-defined username for custom PSA settings.
+                @param password the user-defined password for custom PSA settings.
+                @return A boolean value stating whether or not the provided credentials are valid.
+                @throws RemoteException if data cannot be retrieved properly from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;&lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;&lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="PSACredentialsValidateRequest" message="impl:PSACredentialsValidateRequest"/>
+            <wsdl:output name="PSACredentialsValidateResponse" message="impl:PSACredentialsValidateResponse"/>
+        </wsdl:operation>
+
+
+        <wsdl:operation name="CustomerList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of customers that belong to the service organization associated to the username given
+                in the method parameters.
+                @param username the N-able N-central username.
+                @param password the corresponding N-able N-central password.
+                @param settings A list of non default settings stored in an array of {@link T_KeyPair} objects. Below is
+                a list of the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;
+                &lt;li&gt;(Key) listSOs - (Value) "true" or "false". If true only SOs with be shown, if false only
+                customers and sites will be shown. Default value is false.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link Customer} objects, each representing one customer or site.
+                Each {@link Customer} object contains an array of {@link T_KeyPair} which contain
+                a key ({@link String}) and a value({@link String}).
+                Each {@link T_KeyPair} contains one piece of information about the customer.
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;customer.customerid&lt;/td&gt;&lt;td&gt;customer.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.street1&lt;/td&gt;&lt;td&gt;customer.street2&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.city&lt;/td&gt;&lt;td&gt;customer.stateprov&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.postalcode&lt;/td&gt;&lt;td&gt;customer.county&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.phone&lt;/td&gt;&lt;td&gt;customer.contactfirstname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactlastname&lt;/td&gt;&lt;td&gt;customer.contacttitle&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactdepartment&lt;/td&gt;&lt;td&gt;customer.contactphonenumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactext&lt;/td&gt;&lt;td&gt;customer.contactemail&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.issystem&lt;/td&gt;&lt;td&gt;customer.isserviceorg&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.parentid&lt;/td&gt;&lt;td&gt;customer.parentcustomername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.externalid&lt;/td&gt;&lt;td&gt;customer.programlevelid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.maintenancewindowstart&lt;/td&gt;&lt;td&gt;customer.maintenancewindowduration&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="CustomerListRequest" message="impl:CustomerListRequest"/>
+            <wsdl:output name="CustomerListResponse" message="impl:CustomerListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="CustomerListChildren" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of Customers that are associated with the selected Customer.
+                @param username the N-able N-central username.
+                @param password the corresponding N-able N-central password.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) customerID - (Value) The customerID of the customer/site to find the
+                "children" of.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link Customer} objects, each representing one customer or site.
+                Each {@link Customer} object contains an array of {@link T_KeyPair} which contain
+                a key ({@link String}) and a value ({@link String}).
+                Each {@link T_KeyPair} contains one piece of information about the customer.
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;customer.customerid&lt;/td&gt;&lt;td&gt;customer.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.street1&lt;/td&gt;&lt;td&gt;customer.street2&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.city&lt;/td&gt;&lt;td&gt;customer.stateprov&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.postalcode&lt;/td&gt;&lt;td&gt;customer.county&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.phone&lt;/td&gt;&lt;td&gt;customer.contactfirstname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactlastname&lt;/td&gt;&lt;td&gt;customer.contacttitle&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactdepartment&lt;/td&gt;&lt;td&gt;customer.contactphonenumber&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.contactext&lt;/td&gt;&lt;td&gt;customer.contactemail&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.issystem&lt;/td&gt;&lt;td&gt;customer.isserviceorg&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.parentid&lt;/td&gt;&lt;td&gt;customer.parentcustomername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.externalid&lt;/td&gt;&lt;td&gt;customer.programlevelid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;customer.maintenancewindowstart&lt;/td&gt;&lt;td&gt;customer.maintenancewindowduration&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="CustomerListChildrenRequest" message="impl:CustomerListChildrenRequest"/>
+            <wsdl:output name="CustomerListChildrenResponse" message="impl:CustomerListChildrenResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceGet" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of devices associated with a specific Customer or retrieves the data for a
+                user-specified list of devices.
+                @param username the N-able N-central username.
+                @param password the corresponding N-able N-central password.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. You must specify at
+                least one key/value pair, and may specify multiple if you are fetching multiple devices. Below is a
+                list of the acceptable key/value pairs.
+                &lt;ul&gt;
+                &lt;li&gt;(Key) deviceID - (Value) A deviceID for which to retrieve data for. If more than one device is
+                desired repeat the key with a different deviceID.&lt;/li&gt;
+                &lt;li&gt;(Key) applianceID - (Value) An appliance ID associated with the device. If more than one
+                device is desired repeat the key with a different applianceID.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link DeviceInfo} objects, each representing one device. Each {@link DeviceInfo}
+                object contains an array of {@link T_KeyValue} which contain a key ({@link String}) and
+                a value ({@link String}[]). If only one piece of information is required for a key it will be found
+                at index "0".
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;device.deviceid&lt;/td&gt;&lt;td&gt;device.customerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.customername&lt;/td&gt;&lt;td&gt;device.soname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.uri&lt;/td&gt;&lt;td&gt;device.remotecontroluri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.sourceuri&lt;/td&gt;&lt;td&gt;device.dynamicuri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.description&lt;/td&gt;&lt;td&gt;device.osid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.supportedos&lt;/td&gt;&lt;td&gt;device.longname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.deviceclass&lt;/td&gt;&lt;td&gt;device.licensemode&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.licensemode&lt;/td&gt;&lt;td&gt;device.createdon&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.isdisconnectable&lt;/td&gt;&lt;td&gt;device.ismanagedasset&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.isdiscoveredasset&lt;/td&gt;&lt;td&gt;device.snmpenabled&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.veritasenabled&lt;/td&gt;&lt;td&gt;device.edfenabled&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.remotemanagementenabled&lt;/td&gt;&lt;td&gt;device.remotemanagementpreferredapplianceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.remotemanagementinstalled&lt;/td&gt;&lt;td&gt;device.remotemanagementversion&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.warrantyexpirydate&lt;/td&gt;&lt;td&gt;device.leaseexpirydate&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.purchaseDate&lt;/td&gt;&lt;td&gt;device.cost&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.location&lt;/td&gt;&lt;td&gt;device.assettag&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.expectedreplacementdate&lt;/td&gt;&lt;td&gt;device.isprobe&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.isconnected&lt;/td&gt;&lt;td&gt;device.isconnecting&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.discoveredname&lt;/td&gt;&lt;td&gt;device.macs&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.discovereduris&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.remotemanagementinstalldate&lt;/td&gt;&lt;td&gt;device.deviceclasslabel&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.supportedoslabel&lt;/td&gt;&lt;td&gt;device.defaultaddresstype&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.discoveredfqdns&lt;/td&gt;&lt;td&gt;device.xabackupenabled&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.virtualizationenabled&lt;/td&gt;&lt;td&gt;device.selfdiscoveryid&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="DeviceGetRequest" message="impl:DeviceGetRequest"/>
+            <wsdl:output name="DeviceGetResponse" message="impl:DeviceGetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="AccessGroupList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of the access groups based on the customerID attribute.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) customerID - (Value) A valid customer or site ID.&lt;/li&gt;
+                &lt;li&gt;(Key) offset - (Value) Number determining first group that should be displayed. Default is 0
+                (first one).
+                &lt;/li&gt;
+                &lt;li&gt;(Key) limit - (Value) Number determining the number of results returned. Default is 0 (no
+                limit).&lt;/li&gt;
+                &lt;li&gt;(Key) orderBy - (Value) determining sorting order the results are returned. Default is
+                groupname.&lt;/li&gt;
+                &lt;li&gt;(Key) reverseOrder - (Value) "true" or "false" determining if sorting order needs to be
+                reversed. Default is false.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link AccessGroupEI} objects, each representing one access group.
+                Each {@link AccessGroupEI} object contains an array of {@link T_KeyValue} which contain
+                a key ({@link String}) and a value ({@link String}[]). If only one piece of information is required
+                for a key it will be found at index "0".
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;accessgroup.groupid&lt;/td&gt;&lt;td&gt;accessgroup.customerid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;accessgroup.groupname&lt;/td&gt;&lt;td&gt;accessgroup.description&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;accessgroup.grouptype&lt;/td&gt;&lt;td&gt;accessgroup.readonly&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;accessgroup.usernames&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="AccessGroupListRequest" message="impl:AccessGroupListRequest"/>
+            <wsdl:output name="AccessGroupListResponse" message="impl:AccessGroupListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="UserRoleList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of the user roles based on the customerID attribute.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) customerID - (Value) A valid customer or site ID.&lt;/li&gt;
+                &lt;li&gt;(Key) offset - (Value) Number determining first role that should be displayed. Default is 0
+                (first one).&lt;/li&gt;
+                &lt;li&gt;(Key) limit - (Value) Number determining the number of results returned. Default is 0 (no
+                limit).&lt;/li&gt;
+                &lt;li&gt;(Key) orderBy - (Value) determining sorting order the results are returned. Default is
+                rolename.&lt;/li&gt;
+                &lt;li&gt;(Key) reverseOrder - (Value) "true" or "false" determining if sorting order needs to be
+                reversed. Default is false.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link UserRole} objects, each representing one User Role. Each {@link UserRole}
+                object contains an array of {@link T_KeyValue} which contain a key ({@link String}) and
+                a value ({@link String}[]). If only one piece of information is required for a key it will be found
+                at index "0".
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt; The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;userrole.roleid&lt;/td&gt;&lt;td&gt;userrole.rolename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;userrole.description&lt;/td&gt;&lt;td&gt;userrole.readonly&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;userrole.usernames&lt;/td&gt;&lt;td&gt;userrole.permissions&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="UserRoleListRequest" message="impl:UserRoleListRequest"/>
+            <wsdl:output name="UserRoleListResponse" message="impl:UserRoleListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceGetStatus" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves the status information of the components of a device that is displayed in the Status tab of
+                the device in the N-central UI.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;&lt;li&gt;Mandatory - (Key) deviceID - (Value) A valid deviceID.&lt;/li&gt;&lt;/ul&gt;
+                @return A {@link DeviceStatus} array, representing the statuses of the components of the device. Each
+                {@link DeviceStatus} object contains an array of {@link T_KeyPair} representing one component of the
+                device which contains a key ({@link String}) and a value ({@link String}). If only one piece of
+                information is required for a key it will be found at index "0". Each {@link T_KeyPair} contains one
+                piece of information about the customer.
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.taskid&lt;/td&gt;&lt;td&gt;devicestatus.applianceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.serviceid&lt;/td&gt;&lt;td&gt;devicestatus.deviceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.timetostale&lt;/td&gt;&lt;td&gt;devicestatus.tasknote&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.taskident&lt;/td&gt;&lt;td&gt;devicestatus.statestatus&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.lastupdate&lt;/td&gt;&lt;td&gt;devicestatus.lastdataid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.createdon&lt;/td&gt;&lt;td&gt;devicestatus.appliancename&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.devicename&lt;/td&gt;&lt;td&gt;devicestatus.deviceuri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.modulename&lt;/td&gt;&lt;td&gt;devicestatus.serviceitemid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.lastscantime&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;devicestatus.ismanagedtask&lt;/td&gt;&lt;td&gt;devicestatus.transitiontime&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="DeviceGetStatusRequest" message="impl:DeviceGetStatusRequest"/>
+            <wsdl:output name="DeviceGetStatusResponse" message="impl:DeviceGetStatusResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves a list of the devices based on the customerID attribute.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) customerID - (Value) A valid customer or site ID.&lt;/li&gt;
+                &lt;li&gt;(Key) devices - (Value) "true" or "false" determining whether devices should be displayed.
+                Default is true.&lt;/li&gt;
+                &lt;li&gt;(Key) probes - (Value) "true" or "false" determining whether probes should be displayed.
+                Default is false.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return An array of {@link Device} objects, each representing one device. Each {@link Device} object
+                contains an array of {@link T_KeyPair} which contain a key ({@link String}) and a value ({@link
+                String}). If only one piece of information is required for a key it will be found at index "0".
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;device.deviceid&lt;/td&gt;&lt;td&gt;device.uri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.remotecontroluri&lt;/td&gt;&lt;td&gt;device.sourceuri&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.longname&lt;/td&gt;&lt;td&gt;device.deviceclass&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.description&lt;/td&gt;&lt;td&gt;device.isprobe&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.agentversion&lt;/td&gt;&lt;td&gt;device.interfaceversion&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.networkversion&lt;/td&gt;&lt;td&gt;device.osid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.supportedos&lt;/td&gt;&lt;td&gt;device.discoveredname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.statestatus&lt;/td&gt;&lt;td&gt;device.deviceclasslabel&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.supportedoslabel&lt;/td&gt;&lt;td&gt;device.lastloggedinuser&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.stillloggedin&lt;/td&gt;&lt;td&gt;device.licensemode&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.soname&lt;/td&gt;&lt;td&gt;device.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;device.sitename&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="DeviceListRequest" message="impl:DeviceListRequest"/>
+            <wsdl:output name="DeviceListResponse" message="impl:DeviceListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="SOAdd" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Adds a new Service Organization to N-able N-central (Can only be done if logged in as product
+                administrator).
+                @param username the N-able N-central username.
+                @param password the corresponding N-able N-central password.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list used
+                for Service Organization creation.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory (Key) soname - (Value)Desired name for the new Service Organization.&lt;/li&gt;
+                &lt;li&gt;Mandatory (Key) firstname - (Value) Service Organization contact's first name.&lt;/li&gt;
+                &lt;li&gt;Mandatory (Key) lastname - (Value) Service Organization contact's last name.&lt;/li&gt;
+                &lt;li&gt;(Key) zip/postalcode - (Value) Service Organization's zip/postal code.&lt;/li&gt;
+                &lt;li&gt;(Key) street1 - (Value) Address line 1 for the Service Organization.&lt;/li&gt;
+                &lt;li&gt;(Key) street2 - (Value) Address line 2 for the Service Organization.&lt;/li&gt;
+                &lt;li&gt;(Key) city - (Value) Service Organization's city.&lt;/li&gt;
+                &lt;li&gt;(Key) state/province - (Value) Service Organization's state/province.&lt;/li&gt;
+                &lt;li&gt;(Key) country - (Value) Service Organization's country. Two character country code, see
+                &lt;a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
+                target="_top"&gt;http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2&lt;/a&gt; for a list of country codes.&lt;/li&gt;
+                &lt;li&gt;(Key) telephone - (Value) Phone number of the Service Organization.&lt;/li&gt;
+                &lt;li&gt;(Key) externalid - (Value) An external reference number.&lt;/li&gt;
+                &lt;li&gt;(Key) title - (Value) Service Organization contact's title.&lt;/li&gt;
+                &lt;li&gt;(Key) department - (Value) Service Organization contact's department.&lt;/li&gt;
+                &lt;li&gt;(Key) contact_telephone - (Value) Service Organization contact's telephone number.&lt;/li&gt;
+                &lt;li&gt;(Key) ext - (Value) Service Organization contact's telephone extension.&lt;/li&gt;
+                &lt;li&gt;(Key) email - (Value) Service Organization contact's email. Maximum of 100 characters.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return The ID number of the new Service Organization.
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;3026 - Customer name length has exceeded 120 characters".&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;li&gt;9910 - Service Organization already exists.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="SOAddRequest" message="impl:SOAddRequest"/>
+            <wsdl:output name="SOAddResponse" message="impl:SOAddResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="CustomerAdd" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Adds a new Customer or Site to the N-able N-central.
+                @param username the N-able N-central username.
+                @param password the Corresponding N-able N-central password.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable keys and values.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory (Key) customername - (Value) Desired name for the new customer or site. Maximum of
+                120 characters.
+                &lt;/li&gt;
+                &lt;li&gt;Mandatory (Key) parentid - (Value) the (customer) id of the parent service organization or
+                parent customer for the new customer/site.&lt;/li&gt;
+                &lt;li&gt;(Key) zip/postalcode - (Value) Customer's zip/ postal code.&lt;/li&gt;
+                &lt;li&gt;(Key) street1 - (Value) Address line 1 for the customer. Maximum of 100 characters.&lt;/li&gt;
+                &lt;li&gt;(Key) street2 - (Value) Address line 2 for the customer. Maximum of 100 characters.&lt;/li&gt;
+                &lt;li&gt;(Key) city - (Value) Customer's city.&lt;/li&gt;
+                &lt;li&gt;(Key) state/province - (Value) Customer's state/ province.&lt;/li&gt;
+                &lt;li&gt;(Key) telephone - (Value) Phone number of the customer.&lt;/li&gt;
+                &lt;li&gt;(Key) country - (Value) Customer's country. Two character country code, see
+                &lt;a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
+                target="_top"&gt;http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2&lt;/a&gt; for a list of country codes.&lt;/li&gt;
+                &lt;li&gt;(Key) externalid - (Value) An external reference id.&lt;/li&gt;
+                &lt;li&gt;(Key) firstname - (Value) Customer contact's first name.&lt;/li&gt;
+                &lt;li&gt;(Key) lastname - (Value) Customer contact's last name.&lt;/li&gt;
+                &lt;li&gt;(Key) title - (Value) Customer contact's title.&lt;/li&gt;
+                &lt;li&gt;(Key) department - (Value) Customer contact's department.&lt;/li&gt;
+                &lt;li&gt;(Key) contact_telephone - (Value) Customer contact's telephone number.&lt;/li&gt;
+                &lt;li&gt;(Key) ext - (Value) Customer contact's telephone extension.&lt;/li&gt;
+                &lt;li&gt;(Key) email - (Value) Customer contact's email. Maximum of 100 characters.&lt;/li&gt;
+                &lt;li&gt;(Key) licensetype - (Value) The default license type of new devices for the customer. Must be
+                "Professional" or "Essential". Default is "Essential".&lt;/li&gt;
+                &lt;/ul&gt;
+                @return The ID number of the new customer/site.
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;3022 - Customer/Site already exists.&lt;/li&gt;
+                &lt;li&gt;3026 - Customer name length has exceeded 120 characters.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="CustomerAddRequest" message="impl:CustomerAddRequest"/>
+            <wsdl:output name="CustomerAddResponse" message="impl:CustomerAddResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="UserAdd" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Adds a new User to N-able N-central.
+                @param username the N-able N-central username.
+                @param password the corresponding N-able N-central password.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list used
+                for user creation.
+                &lt;ul&gt;
+                &lt;li&gt;Mandatory - (Key) email - (Value) Login email for the new user. Maximum of 100 characters.&lt;/li&gt;
+                &lt;li&gt;Mandatory - (Key) password - (Value) Password for the new user. Must meet configured password
+                complexity level.&lt;/li&gt;
+                &lt;li&gt;Mandatory - (Key) customerID - (Value) The customerID of the site/customer/SO that the user is
+                associated with.&lt;/li&gt;
+                &lt;li&gt;Mandatory - (Key) firstname - (Value) User's first name.&lt;/li&gt;
+                &lt;li&gt;Mandatory - (Key) lastname - (Value) User's last name.&lt;/li&gt;
+                &lt;li&gt;(Key) username - (Value) The username the user will use to log into N-able N-central. If it is
+                blank, the email field will be used to populate this field.&lt;/li&gt;
+                &lt;li&gt;(Key) country - (Value) User's country. Two character country code, see
+                &lt;a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
+                target="_top"&gt;http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2&lt;/a&gt; for a list of country codes.&lt;/li&gt;
+                &lt;li&gt;(Key) zip/postalcode - (Value) User's zip/ postal code.&lt;/li&gt;
+                &lt;li&gt;(Key) street1 - (Value) User's Address line 1. Maximum of 100 characters.&lt;/li&gt;
+                &lt;li&gt;(Key) street2 - (Value) User's address line 2.&lt;/li&gt;
+                &lt;li&gt;(Key) city - (Value) User's city.&lt;/li&gt;
+                &lt;li&gt;(Key) state/province - (Value) User's state/ province.&lt;/li&gt;
+                &lt;li&gt;(Key) telephone - (Value) User's telephone number.&lt;/li&gt;
+                &lt;li&gt;(Key) ext - (Value) User's telephone extension.&lt;/li&gt;
+                &lt;li&gt;(Key) department - (Value) User's department.&lt;/li&gt;
+                &lt;li&gt;(Key) notificationemail - (Value) Email address for notifications to be sent to if different
+                than the login email.&lt;/li&gt;
+                &lt;li&gt;(Key) status - (Value) Determines whether the user account is enabled or disabled. Must be
+                "enabled" or "disabled". Default is enabled.&lt;/li&gt;
+                &lt;li&gt;(Key) userroleID - (Value) The UserRoleID of the role the user is associated with.&lt;/li&gt;
+                &lt;li&gt;(Key) accessgroupID - (Value) The AccessGroupID of the group the user is associated with.&lt;/li&gt;
+                &lt;/ul&gt;
+                @return The ID number of the new user.
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are provided.&lt;/li&gt;
+                &lt;li&gt;3010 - Maximum number of users reached.&lt;/li&gt;
+                &lt;li&gt;3012 - Specified email address is already assigned to another user.&lt;/li&gt;
+                &lt;li&gt;3014 - Creation of a user for the root customer (CustomerID 1) is not permitted.&lt;/li&gt;
+                &lt;li&gt;3014 - When adding a user, must not be an LDAP user.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="UserAddRequest" message="impl:UserAddRequest"/>
+            <wsdl:output name="UserAddResponse" message="impl:UserAddResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="JobStatusList" parameterOrder="Username Password Settings">
+            <wsdl:documentation>
+                Retrieves the data about job statuses based on the customerID attribute.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param settings A list of settings stored in an array of {@link T_KeyPair} objects. Below is a list of
+                the acceptable Keys and Values. If not used leave {@code null}.
+                &lt;ul&gt;&lt;li&gt;Mandatory - (Key) customerID - (Value) A valid customer or site ID.&lt;/li&gt;&lt;/ul&gt;
+                @return An array of {@link JobStatus} objects, each representing one device. Each {@link JobStatus}
+                object contains an array of {@link T_KeyPair} objects which contain a key ({@link String}) and
+                a value ({@link String}).
+                &lt;p&gt;
+                &lt;table&gt;
+                &lt;caption&gt;The following is a list of the keys used&lt;/caption&gt;
+                &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.socustomername&lt;/td&gt;&lt;td&gt;jobstatus.customername&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.sitename&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.customerid&lt;/td&gt;&lt;td&gt;jobstatus.jobname&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.jobid&lt;/td&gt;&lt;td&gt;jobstatus.deviceid&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.jobtype&lt;/td&gt;&lt;td&gt;jobstatus.scheduledtime&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.lastcompletiontime&lt;/td&gt;&lt;td&gt;jobstatus.status&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;jobstatus.jobtypeid&lt;/td&gt;&lt;td&gt;jobstatus.jobtarget&lt;/td&gt;&lt;/tr&gt;
+                &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;/p&gt;
+                @throws RemoteException if there are issues retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;1012 - Thrown when mandatory settings are not present in "settings".&lt;/li&gt;
+                &lt;li&gt;2100 - Thrown when invalid N-able N-central credentials are input.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+            </wsdl:documentation>
+            <wsdl:input name="JobStatusListRequest" message="impl:JobStatusListRequest"/>
+            <wsdl:output name="JobStatusListResponse" message="impl:JobStatusListResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="LastExportReset" parameterOrder="Version Username Password">
+            <wsdl:documentation>
+                The {@link #deviceAssetInfoExport(String, String, String)} method works incrementally. The first time it
+                is called, it exports all applicable devices and then stores a "high-water mark" timestamp for when the
+                call was made. The next time it is called, it only exports the incremental changes made since the
+                last call: devices that have been modified, added, or deleted during that time span. Each time the
+                API is called, another "high-water mark" timestamp is stored, and all are retained. When this method
+                is called, it deletes the most recent "high-water mark" timestamp.
+                &lt;p&gt;
+                &lt;b&gt;Note:&lt;/b&gt; This does not repeat the last result set as it will move the "water mark" back
+                to the one configured before the previous one and will return the result set from that one to the
+                present.
+                &lt;/p&gt;
+                &lt;p&gt;
+                &lt;img src='/dms/highwatermark.png'&gt;&lt;br/&gt;&lt;br/&gt;
+                To use the illustration above as an example,
+                if the {@link #deviceAssetInfoExport(String, String, String)} method is called at time T3, the result
+                set R3 would only contain information that had not been previously returned at time T2 (the "high
+                water mark" at the previous time that the call was made). If at time T3, this method was called, it
+                would move the "high water mark" back to T1 and the result set would be the sum of R2 and R3 the next
+                time that the {@link #deviceAssetInfoExport(String, String, String)} method is called.
+                &lt;/p&gt;
+                @param version Not used. Any non-null input is valid.
+                @param username The user-defined username for custom PSA settings.
+                @param password The user-defined password for custom PSA settings.
+                @throws RemoteException if there is an error retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2001 - Required parameter is null - Thrown when null values are entered as inputs.&lt;/li&gt;
+                &lt;li&gt;2001 - Thrown when a bad username-password combination is input, or no PSA integration has
+                been set up.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+                @see #lastExportHardReset(String, String, String)
+            </wsdl:documentation>
+            <wsdl:input name="LastExportResetRequest" message="impl:LastExportResetRequest"/>
+            <wsdl:output name="LastExportResetResponse" message="impl:LastExportResetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="LastExportHardReset" parameterOrder="Version Username Password">
+            <wsdl:documentation>
+                Resets the "high-water mark" referenced in the {@link #deviceAssetInfoExport(String, String, String)}
+                and {@link #deviceAssetInfoExport2(String, String, String)} APIs to its initial setting.
+                @param version Not used. Any non-null input is valid.
+                @param username The user-defined username for custom PSA settings.
+                @param password The user-defined password for custom PSA settings.
+                @throws RemoteException if there is an error retrieving data from the database.
+                &lt;p&gt;
+                org.apache.axis.AxisFault
+                &lt;ul&gt;
+                &lt;li&gt;2001 - Required parameter is null - Thrown when null values are entered as inputs.&lt;/li&gt;
+                &lt;li&gt;2001 - Thrown when a bad username-password combination is input, or no PSA integration has
+                been set up.&lt;/li&gt;
+                &lt;li&gt;5000 - An unexpected exception occurred.&lt;/li&gt;
+                &lt;/ul&gt;
+                @see #lastExportResetCall(String, String, String)
+            </wsdl:documentation>
+            <wsdl:input name="LastExportHardResetRequest" message="impl:LastExportHardResetRequest"/>
+            <wsdl:output name="LastExportHardResetResponse" message="impl:LastExportHardResetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.SetAuditorSettings" parameterOrder="Credentials AuditorEnabled AuditorSettings ">
+            <wsdl:documentation>
+                It should be used by the next version of N-compass released (after N-compass 3.0). It will allow us
+                to deprecate the API that returns the ACEP.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param auditorEnabled set to {@code true} if the auditor should be enabled, {@code false} otherwise.
+                @param auditorSettings A list of settings stored in an array of {@link T_Pair} objects.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.SetAuditorSettingsRequest" message="impl:System.SetAuditorSettingsRequest"/>
+            <wsdl:output name="System.SetAuditorSettingsResponse" message="impl:System.SetAuditorSettingsResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.SetAuditorSettings3" parameterOrder="Credentials AuditorEnabled AuditorSettings ">
+            <wsdl:documentation>
+                It is used by N-compass 3.0. It returns the ACEP (now empty) which isn't used. This API will be
+                obsolete after the last N-compass version to use it is no longer supported.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param auditorEnabled set to {@code true} if the auditor should be enabled, {@code false} otherwise.
+                @param auditorSettings A list of settings stored in an array of {@link T_Pair} objects.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.SetAuditorSettingsRequest" message="impl:System.SetAuditorSettingsRequest"/>
+            <wsdl:output name="System.SetAuditorSettingsResponse2" message="impl:System.SetAuditorSettingsResponse2"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.GetAuditorSettings" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Retrieves the Auditor Settings.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @return The {@link T_AuditorSettings}.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.GetAuditorSettingsRequest" message="impl:System.GetAuditorSettingsRequest"/>
+            <wsdl:output name="System.GetAuditorSettingsResponse" message="impl:System.GetAuditorSettingsResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.VerifyAuditorSettings" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Verifies the Auditor Settings.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.VerifyAuditorSettingsRequest" message="impl:System.VerifyAuditorSettingsRequest"/>
+            <wsdl:output name="System.VerifyAuditorSettingsResponse"
+                         message="impl:System.VerifyAuditorSettingsResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.ScheduleDataPush" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Schedules a data push related to Auditor Settings.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @return The result message.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.ScheduleDataPushRequest" message="impl:System.ScheduleDataPushRequest"/>
+            <wsdl:output name="System.ScheduleDataPushResponse" message="impl:System.ScheduleDataPushResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExport.Enable" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Enables the Report Manager Export for all table configurations.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerExport.EnableAllRequest"
+                        message="impl:ReportManagerExport.EnableAllRequest"/>
+            <wsdl:output name="ReportManagerExport.EnableAllResponse"
+                         message="impl:ReportManagerExport.EnableAllResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExport.Enable" parameterOrder="Credentials TableConfigList">
+            <wsdl:documentation>
+                Enables the Report Manager Export for the specified table configurations.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param tableConfigList the array of {@link T_ReportManagerExportTableConfig} - table configurations
+                to be enabled.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerExport.EnableRequest" message="impl:ReportManagerExport.EnableRequest"/>
+            <wsdl:output name="ReportManagerExport.EnableResponse" message="impl:ReportManagerExport.EnableResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExport.Disable" parameterOrder="Credentials">
+            <wsdl:documentation>
+                Disables the Report Manager Export for all table configurations.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerExport.DisableAllRequest"
+                        message="impl:ReportManagerExport.DisableAllRequest"/>
+            <wsdl:output name="ReportManagerExport.DisableAllResponse"
+                         message="impl:ReportManagerExport.DisableAllResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExport.Disable" parameterOrder="Credentials TableConfigList">
+            <wsdl:documentation>
+                Disables the Report Manager Export for the specified table configurations.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param tableConfigList the array of {@link T_ReportManagerExportTableConfig} - table configurations
+                to be disabled.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerExport.DisableRequest" message="impl:ReportManagerExport.DisableRequest"/>
+            <wsdl:output name="ReportManagerExport.DisableResponse" message="impl:ReportManagerExport.DisableResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerLicenseOptions.Get" parameterOrder="Credentials CustomerID">
+            <wsdl:documentation>
+                Retrieves the Report Manager License Options for the specified customer ID.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param customerID the customer ID.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerLicenseOptions.GetRequest"
+                        message="impl:ReportManagerLicenseOptions.GetRequest"/>
+            <wsdl:output name="ReportManagerLicenseOptions.GetResponse"
+                         message="impl:ReportManagerLicenseOptions.GetResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExportDisableByTableName" parameterOrder="Credentials Tables">
+            <wsdl:documentation>
+                Disables the Report Manager Export for the specified table names.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param tables the array of {@link String} values - table names.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="ReportManagerExportDisableByTableNameRequest"
+                        message="impl:ReportManagerExportDisableByTableNameRequest"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="Task.PauseMonitoring" parameterOrder="Username Password TaskIDList">
+            <wsdl:documentation>
+                Pauses tasks with the specified task IDs.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param taskIDList the array of task IDs to pause.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input message="impl:Task.PauseMonitoringRequest" name="Task.PauseMonitoringRequest"/>
+            <wsdl:output message="impl:Task.PauseMonitoringResponse" name="Task.PauseMonitoringResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="Task.ResumeMonitoring" parameterOrder="Username Password TaskIDList">
+            <wsdl:documentation>
+                Resumes paused tasks with the specified task IDs.
+                @param username the valid N-able N-central username.
+                @param password the password corresponding to the N-able N-central username.
+                @param taskIDList the array of task IDs to pause.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input message="impl:Task.ResumeMonitoringRequest" name="Task.ResumeMonitoringRequest"/>
+            <wsdl:output message="impl:Task.ResumeMonitoringResponse" name="Task.ResumeMonitoringResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.GetUser" parameterOrder="Credentials SessionID">
+            <wsdl:documentation>
+                Retrieves an N-able N-central User associated with the session with the specified session ID.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param sessionID the existing valid session ID.
+                @return The {@link T_User} object with the existing user details, or {@code null}.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.GetUserRequest" message="impl:System.GetUserRequest"/>
+            <wsdl:output name="System.GetUserResponse" message="impl:System.GetUserResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.SetMonitoringTasks" parameterOrder="Credentials Parameters">
+            <wsdl:documentation>
+                A useless method.
+                @param credentials the {@link T_Credentials} object that is ignored.
+                @param parameters the array of {@link T_Pair} objects that is ignored.
+                @return The string "OK".
+                @throws RemoteException if an error occurs.
+                @deprecated This method does nothing useful.
+            </wsdl:documentation>
+            <wsdl:input name="System.SetMonitoringTasksRequest" message="impl:System.SetMonitoringTasksRequest"/>
+            <wsdl:output name="System.SetMonitoringTasksResponse" message="impl:System.SetMonitoringTasksResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="System.GetSessionID" parameterOrder="Credentials Email Password">
+            <wsdl:documentation>
+                Tries to login an N-able N-central User with the specified email (username) and password.
+                @param credentials the {@link T_Credentials} with the N-able N-central username and the corresponding N-able
+                N-central password.
+                @param email the N-able N-central user email (username).
+                @param password the corresponding N-able N-central password.
+                @return The session ID for the existing and successfully logged in N-able N-central User.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="System.GetSessionIDRequest" message="impl:System.GetSessionIDRequest"/>
+            <wsdl:output name="System.GetSessionIDResponse" message="impl:System.GetSessionIDResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="LicenseKeyPush" parameterOrder="SignedLicenseDetails">
+            <wsdl:documentation>
+                Tries to push the license key.
+                @param signedLicenseDetails the {@link T_SignedLicenseDetails} object.
+                @return The {@link T_ReturnCode} object with the result code and message.
+                @throws RemoteException if an error occurs.
+            </wsdl:documentation>
+            <wsdl:input name="LicenseKeyPushRequest" message="impl:LicenseKeyPushRequest"/>
+            <wsdl:output name="LicenseKeyPushResponse" message="impl:LicenseKeyPushResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="ServerEISoapBinding" type="impl:ServerEI_PortType">
+        <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <wsdl:operation name="VersionInfoGet">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="VersionInfoGetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="VersionInfoGetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="RepositoryItemList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="RepositoryItemListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="RepositoryItemListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RepositoryItemGet">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="RepositoryItemGetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="RepositoryItemGetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RepositoryItemGetForCustomer">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="RepositoryItemGetForCustomerRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="RepositoryItemGetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RepositoryItemPublish">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="RepositoryItemPublishRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="RepositoryItemPublishResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="AcknowledgeNotification">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="AcknowledgeNotificationRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="AcknowledgeNotificationResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceAssetInfoExportRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceAssetInfoExportResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport2">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceAssetInfoExport2Request">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceAssetInfoExport2Response">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceAssetInfoExport2">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceAssetInfoExport2Request2">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceAssetInfoExport2Response">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="PSACredentialsValidate">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="PSACredentialsValidateRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="PSACredentialsValidateResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="ActiveIssuesList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ActiveIssuesListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ActiveIssuesListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DevicePropertyList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DevicePropertyListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DevicePropertyListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DevicePropertyModify">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DevicePropertyModifyRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DevicePropertyModifyResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+       
+        <wsdl:operation name="CustomerList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="CustomerListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="CustomerListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="CustomerListChildren">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="CustomerListChildrenRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="CustomerListChildrenResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceGet">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceGetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceGetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceGetStatus">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceGetStatusRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceGetStatusResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="DeviceList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="DeviceListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="DeviceListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="SOAdd">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="SOAddRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="SOAddResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CustomerAdd">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="CustomerAddRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="CustomerAddResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UserAdd">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="UserAddRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="UserAddResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="JobStatusList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="JobStatusListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="JobStatusListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="LastExportReset">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="LastExportResetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="LastExportResetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="LastExportHardReset">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="LastExportHardResetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="LastExportHardResetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.SetAuditorSettings">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.SetAuditorSettingsRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.SetAuditorSettingsResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.SetAuditorSettings3">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.SetAuditorSettingsRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.SetAuditorSettingsResponse2">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.GetAuditorSettings">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.GetAuditorSettingsRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.GetAuditorSettingsResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.VerifyAuditorSettings">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.VerifyAuditorSettingsRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.VerifyAuditorSettingsResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.ScheduleDataPush">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.ScheduleDataPushRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.ScheduleDataPushResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExport.Enable">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerExport.EnableAllRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ReportManagerExport.EnableAllResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReportManagerExport.Enable">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerExport.EnableRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ReportManagerExport.EnableResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReportManagerExport.Disable">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerExport.DisableAllRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ReportManagerExport.DisableAllResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReportManagerExport.Disable">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerExport.DisableRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ReportManagerExport.DisableResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerExportDisableByTableName">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerExportDisableByTableNameRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+        </wsdl:operation>
+
+        <wsdl:operation name="ReportManagerLicenseOptions.Get">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="ReportManagerLicenseOptions.GetRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="ReportManagerLicenseOptions.GetResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="Task.PauseMonitoring">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="Task.PauseMonitoringRequest">
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output name="Task.PauseMonitoringResponse">
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="Task.ResumeMonitoring">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="Task.ResumeMonitoringRequest">
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey" use="encoded"/>
+            </wsdl:input>
+            <wsdl:output name="Task.ResumeMonitoringResponse">
+                <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey" use="encoded"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+
+        <wsdl:operation name="System.GetUser">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.GetUserRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.GetUserResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.SetMonitoringTasks">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.SetMonitoringTasksRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.SetMonitoringTasksResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="System.GetSessionID">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="System.GetSessionIDRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="System.GetSessionIDResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="LicenseKeyPush">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="LicenseKeyPushRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="LicenseKeyPushResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="AccessGroupList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="AccessGroupListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="AccessGroupListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UserRoleList">
+            <wsdlsoap:operation soapAction=""/>
+            <wsdl:input name="UserRoleListRequest">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:input>
+            <wsdl:output name="UserRoleListResponse">
+                <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                               namespace="http://www.n-able.com/mickey"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+    </wsdl:binding>
+
+    <wsdl:service name="ServerEIService">
+        <wsdl:documentation>
+            N-central Legacy Web Service.
+        </wsdl:documentation>
+        <wsdl:port name="ServerEI" binding="impl:ServerEISoapBinding">
+            <wsdlsoap:address location="http://localhost/dms/services/ServerEI"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
