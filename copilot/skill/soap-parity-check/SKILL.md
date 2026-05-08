@@ -16,9 +16,9 @@ EPIC            : NCCF-1206785
 ══════════════════════════════════════════════════════════
 STEP 1 — SOAP Contract (from WSDL)
 ══════════════════════════════════════════════════════════
-Open:
-• ServerEI  → nable-nc/api-service : common/ServerEI.wsdl
-• ServerUI  → nable-nc/api-service : common/opeartion.wsdl
+Open (from this repo's `wsdl/` folder — https://github.com/Aruna-n-able/ai-skills/tree/main/wsdl):
+• ServerEI  → Aruna-n-able/ai-skills : wsdl/ServerEI.wsdl
+• ServerUI  → Aruna-n-able/ai-skills : wsdl/ServerUI.wsdl
 
 Extract:
 a) All <wsdl:part> input parameters (name + xsd type + required?)
