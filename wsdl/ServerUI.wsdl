@@ -1794,6 +1794,14 @@
                     <element name="Category" nillable="true" type="xsd:string"/>
                     <element name="Field" nillable="true" type="xsd:string"/>
                     <element name="DataType" nillable="true" type="xsd:string"/>
+                    <!-- Whether this field supports compound sub-conditions.
+                         When true, the UI shows a + button to add AND conditions on
+                         related fields from the same database table. -->
+                    <element name="GenericSearch" type="xsd:boolean"/>
+                    <!-- Source database table name (e.g. "cim_application", "device").
+                         Used to group related fields in the sub-condition dropdown so
+                         only fields from the same table can be combined. -->
+                    <element name="TableName" nillable="true" type="xsd:string"/>
                 </sequence>
             </complexType>
             <complexType name="ArrayOf_tns1_T_FilterItem">
@@ -5808,6 +5816,7 @@
                              type="impl:ArrayOf_tns1_T_ManagementTaskConfigValue"/>
                     <element name="AdditionalProperties" nillable="true" type="impl:ArrayOf_tns1_T_ConfigMultiValue"/>
                     <element name="RunAssetScan" nillable="true" type="xsd:boolean"/>
+                    <element name="AssetScanIntervalMinutes" nillable="true" type="xsd:int"/>
                 </sequence>
             </complexType>
             <complexType name="ArrayOf_tns1_T_RemoteExecTask">
@@ -11922,6 +11931,7 @@
         <wsdl:part name="SessionID" type="xsd:int"/>
         <wsdl:part name="FilterIDs" type="tns1:ArrayOf_xsd_int"/>
         <wsdl:part name="CustomerIDs" type="tns1:ArrayOf_xsd_int"/>
+        <wsdl:part name="TextFiltersJson" type="xsd:string"/>
     </wsdl:message>
     <wsdl:message name="Filter.ExecuteResponse">
         <wsdl:part name="Devices" type="impl:ArrayOf_tns1_T_ScanTarget"/>
@@ -17689,7 +17699,7 @@
             <wsdl:output message="impl:Filter.PreviewResponse" name="Filter.PreviewResponse"/>
         </wsdl:operation>
 
-        <wsdl:operation name="Filter.Execute" parameterOrder="SessionID FilterIDs CustomerIDs">
+        <wsdl:operation name="Filter.Execute" parameterOrder="SessionID FilterIDs CustomerIDs TextFiltersJson">
             <wsdl:input message="impl:Filter.ExecuteRequest" name="Filter.ExecuteRequest"/>
             <wsdl:output message="impl:Filter.ExecuteResponse" name="Filter.ExecuteResponse"/>
         </wsdl:operation>

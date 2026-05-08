@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.n-able.com/mickey"
+				  xmlns="http://schemas.xmlsoap.org/wsdl/"
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+>
+</wsdl:definitions>
+
+
+

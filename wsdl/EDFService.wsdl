@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://www.n-able.com/schemas/EDF/1.0" xmlns:impl="http://www.n-able.com/schemas/EDF/1.0"
+                  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://DefaultNamespace" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/">
+ <wsdl:types>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://DefaultNamespace">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="T_EDFValues">
+    <sequence>
+     <element name="scanDetail" nillable="true" type="xsd:string"/>
+     <element name="value" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="T_EDFData">
+    <sequence>
+     <element name="delayToSend" type="xsd:int"/>
+     <element name="errorMessage" nillable="true" type="xsd:string"/>
+     <element name="jobID" nillable="true" type="xsd:string"/>
+     <element name="values" nillable="true" type="impl:ArrayOf_tns1_T_EDFValues"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.n-able.com/schemas/EDF/1.0">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_T_EDFValues">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_EDFValues[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_T_EDFData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_EDFData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="edfSubmitRequest">
+      <wsdl:part name="edfID" type="xsd:string"/>
+      <wsdl:part name="data" type="impl:ArrayOf_tns1_T_EDFData"/>
+   </wsdl:message>
+
+   <wsdl:message name="edfSubmitResponse">
+   </wsdl:message>
+
+   <wsdl:portType name="EDFService">
+      <wsdl:operation name="edfSubmit" parameterOrder="edfID data">
+         <wsdl:input name="edfSubmitRequest" message="impl:edfSubmitRequest"/>
+         <wsdl:output name="edfSubmitResponse" message="impl:edfSubmitResponse"/>
+      </wsdl:operation>
+   </wsdl:portType>
+
+   <wsdl:binding name="EDFServiceSoapBinding" type="impl:EDFService">
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsdl:operation name="edfSubmit">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="edfSubmitRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/schemas/EDF/1.0"/>
+         </wsdl:input>
+
+         <wsdl:output name="edfSubmitResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/schemas/EDF/1.0"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+
+   <wsdl:service name="EDFServiceService">
+      <wsdl:port name="EDFService" binding="impl:EDFServiceSoapBinding">
+         <wsdlsoap:address location="http://localhost:8080/dms/services/EDFService"/>
+      </wsdl:port>
+   </wsdl:service>
+
+</wsdl:definitions>

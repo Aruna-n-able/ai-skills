@@ -1,0 +1,18 @@
+<jaxws:bindings wsdlLocation="ServerUI2.wsdl"
+	xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<!-- wsdl:portType customization -->
+	<jaxws:bindings
+		node="wsdl:definitions/wsdl:portType[@name='ServerUI2_PortType']">
+		<!-- change the generated SEI class -->
+		<jaxws:class name="ServerUI2_PortType" />
+	</jaxws:bindings>
+	
+  <jaxws:bindings  node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='http://ui2.nobj.nable.com/']">
+      <jxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <jxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+                      parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+                      printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+      </jxb:globalBindings>
+  </jaxws:bindings>	
+</jaxws:bindings>

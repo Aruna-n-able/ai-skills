@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:impl="http://www.n-able.com/mickey" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+				  xmlns:tns1="http://www.n-able.com/mickey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+				  targetNamespace="http://www.n-able.com/mickey">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.n-able.com/mickey">
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+      <complexType name="ArrayOf_xsd_int">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_xsd_string">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>      
+      
+      	<complexType name="DeviceResponses">
+		<sequence>
+			<element name="UDID" nillable="true" type="xsd:string"/>
+			<element name="CommandUUID" nillable="true" type="xsd:string"/>
+			<element name="Status" nillable="true" type="xsd:string"/>
+			<element name="responseData" nillable="true" type="impl:ArrayOf_tns1_ResponseData"/>
+		 </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_DeviceResponses">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:DeviceResponses[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+      
+	<complexType name="ResponseData">
+	  <sequence>
+	    <element name="responseType" nillable="true" type="xsd:string"/>
+            <element name="fieldNames" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+	    <element name="records" nillable="true" type="impl:ArrayOf_tns1_ResponseRecord"/>
+	  </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_ResponseData">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ResponseData[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="ResponseRecord">
+	  <sequence>
+	    <element name="recordValueFields" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+	  </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_ResponseRecord">
+	  <complexContent>
+		<restriction base="soapenc:Array">
+			<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ResponseRecord[]"/>
+		</restriction>
+	  </complexContent>
+	</complexType>
+
+	<complexType name="T_KeyValueType">
+		<sequence>
+			<element name="Key" nillable="true" type="xsd:string"/>
+			<element name="Value" nillable="true" type="xsd:string"/>
+			<element name="Type" nillable="true" type="xsd:string"/>					
+		</sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_KeyValueType">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_KeyValueType[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+	<complexType name="T_MDM_Command">
+		<sequence>
+			<element name="CommandUUID" nillable="true" type="xsd:string"/>
+			<element name="DispatchCount" nillable="true" type="xsd:int"/>
+			<element name="CommandPostponed" nillable="true" type="xsd:boolean"/>
+			<element name="Dict" nillable="true" type="impl:ArrayOf_tns1_T_KeyValueType"/>
+		</sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_MDM_Command">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_MDM_Command[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	
+    </schema>
+  </wsdl:types>
+
+  <wsdl:message name="InvitationValidationRequest">
+    <wsdl:part name="ValidationToken" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="InvitationValidationResponse">
+  </wsdl:message>
+
+  <wsdl:message name="OTAServiceRequest">
+    <wsdl:part name="ValidationToken" type="xsd:string"/>
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="OSID" type="xsd:string"/>
+    <wsdl:part name="DeviceName" type="xsd:string"/>
+    <wsdl:part name="IMEI" type="xsd:string"/>
+    <wsdl:part name="Serial" type="xsd:string"/>
+    <wsdl:part name="Version" type="xsd:string"/>
+    <wsdl:part name="Product" type="xsd:string"/>
+    <wsdl:part name="LocationUDID" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="OTAServiceResponse">
+    <wsdl:part name="Topic" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="AuthenticateRequest">
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="Topic" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="AuthenticateResponse">
+  </wsdl:message>
+
+  <wsdl:message name="TokenUpdateRequest">
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="Topic" type="xsd:string"/>
+    <wsdl:part name="PushMagic" type="xsd:string"/>
+    <wsdl:part name="Token" type="xsd:string"/>
+    <wsdl:part name="UnlockToken" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="TokenUpdateResponse">
+  </wsdl:message>
+  
+  <wsdl:message name="TokenUpdateRequest2">
+    <wsdl:part name="InvitationID" type="xsd:string"/>
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="LocationUDID" type="xsd:string"/>
+    <wsdl:part name="Topic" type="xsd:string"/>
+    <wsdl:part name="WiFiMac" type="xsd:string"/>
+    <wsdl:part name="Token" type="xsd:string"/>
+    <wsdl:part name="isProduction" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="TokenUpdateResponse2">
+    <wsdl:part name="returnedUDID" type="xsd:string"/>
+    <wsdl:part name="timeInterval" type="xsd:int"/>
+    <wsdl:part name="debugMode" type="xsd:boolean"/>
+  </wsdl:message>
+  
+  <wsdl:message name="CheckoutRequest">
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="Topic" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="CheckoutResponse">
+  </wsdl:message>
+  
+  <wsdl:message name="ConnectRequest">
+    <wsdl:part name="ResponseData" type="tns1:ArrayOf_tns1_DeviceResponses"/>
+  </wsdl:message>
+  <wsdl:message name="ConnectResponse">
+  </wsdl:message>
+  
+  <wsdl:message name="ActionCommandGetRequest">
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="Topic" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="ActionCommandGetResponse">
+    <wsdl:part name="Actions" type="tns1:ArrayOf_tns1_T_MDM_Command"/>
+  </wsdl:message>
+  
+  <wsdl:message name="ActionCommandResultRequest">
+    <wsdl:part name="UDID" type="xsd:string"/>
+    <wsdl:part name="ActionUUID" type="xsd:string"/>
+    <wsdl:part name="ActionStatus" type="xsd:string"/>
+    <wsdl:part name="ErrorMessageEn" type="xsd:string"/>
+    <wsdl:part name="ErrorMessageLoc" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="ActionCommandResultResponse">
+  </wsdl:message>
+ 
+  <wsdl:portType name="ServerMDM_PortType">
+
+    <wsdl:operation name="InvitationValidation" parameterOrder="ValidationToken">
+      <wsdl:input name="InvitationValidationRequest" message="impl:InvitationValidationRequest"/>
+      <wsdl:output name="InvitationValidationResponse" message="impl:InvitationValidationResponse"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="OTAService" parameterOrder="ValidationToken UDID OSID DeviceName IMEI Serial Version Product LocationUDID">
+      <wsdl:input name="OTAServiceRequest" message="impl:OTAServiceRequest"/>
+      <wsdl:output name="OTAServiceResponse" message="impl:OTAServiceResponse"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="Authenticate" parameterOrder="UDID Topic">
+      <wsdl:input name="AuthenticateRequest" message="impl:AuthenticateRequest"/>
+      <wsdl:output name="AuthenticateResponse" message="impl:AuthenticateResponse"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="TokenUpdate" parameterOrder="UDID Topic PushMagic Token UnlockToken">
+      <wsdl:input name="TokenUpdateRequest" message="impl:TokenUpdateRequest"/>
+      <wsdl:output name="TokenUpdateResponse" message="impl:TokenUpdateResponse"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="TokenUpdate" parameterOrder="InvitationID UDID LocationUDID Topic WiFiMac Token isProduction">
+      <wsdl:input name="TokenUpdateRequest2" message="impl:TokenUpdateRequest2"/>
+      <wsdl:output name="TokenUpdateResponse2" message="impl:TokenUpdateResponse2"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="Checkout" parameterOrder="UDID Topic">
+      <wsdl:input name="CheckoutRequest" message="impl:CheckoutRequest"/>
+      <wsdl:output name="CheckoutResponse" message="impl:CheckoutResponse"/>
+    </wsdl:operation>
+ 
+    <wsdl:operation name="Connect" parameterOrder="ResponseData">
+      <wsdl:input name="ConnectRequest" message="impl:ConnectRequest"/>
+      <wsdl:output name="ConnectResponse" message="impl:ConnectResponse"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="ActionCommandGet" parameterOrder="UDID Topic">
+      <wsdl:input name="ActionCommandGetRequest" message="impl:ActionCommandGetRequest"/>
+      <wsdl:output name="ActionCommandGetResponse" message="impl:ActionCommandGetResponse"/>
+    </wsdl:operation>
+    
+    <wsdl:operation name="ActionCommandResult" parameterOrder="UDID ActionUUID ActionStatus ErrorMessageEn ErrorMessageLoc">
+      <wsdl:input name="ActionCommandResultRequest" message="impl:ActionCommandResultRequest"/>
+      <wsdl:output name="ActionCommandResultResponse" message="impl:ActionCommandResultResponse"/>
+    </wsdl:operation>
+
+  </wsdl:portType>
+  
+  <wsdl:binding name="ServerMDMSoapBinding" type="impl:ServerMDM_PortType">
+    <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+     <wsdl:operation name="InvitationValidation">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="InvitationValidationRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="InvitationValidationResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+     <wsdl:operation name="OTAService">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="OTAServiceRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="OTAServiceResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+     <wsdl:operation name="Authenticate">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AuthenticateRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="AuthenticateResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="TokenUpdate">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="TokenUpdateRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="TokenUpdateResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="TokenUpdate">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="TokenUpdateRequest2">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="TokenUpdateResponse2">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Checkout">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="CheckoutRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="CheckoutResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Connect">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ConnectRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="ConnectResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="ActionCommandGet">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ActionCommandGetRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="ActionCommandGetResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+    
+     <wsdl:operation name="ActionCommandResult">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ActionCommandResultRequest">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:input>
+      <wsdl:output name="ActionCommandResultResponse">
+        <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+      </wsdl:output>
+    </wsdl:operation>
+  
+  </wsdl:binding>
+  
+  <wsdl:service name="ServerMDMService">
+    <wsdl:port name="ServerMDM" binding="impl:ServerMDMSoapBinding">
+      <wsdlsoap:address location="http://localhost/dms/services/ServerMDM"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

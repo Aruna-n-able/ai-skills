@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:tns="http://www.scorpionsoft.com/authanvil/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.scorpionsoft.com/authanvil/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.scorpionsoft.com/authanvil/">
+      <s:element name="AuthenticateWithCachedCredentials">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userName" nillable="true" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="passcode" nillable="true" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="siteID" type="s:int" />
+
+            <s:element minOccurs="1" maxOccurs="1" name="hashSalt" nillable="true" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="offLineLogListItems" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="otpList" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AuthenticateWithCachedCredentialsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthenticateWithCachedCredentialsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="otpList" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+
+      </s:element>
+      <s:element name="Authenticate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Username" nillable="true" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Passcode" nillable="true" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tokentype" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="SiteID" type="s:int" />
+          </s:sequence>
+
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthenticateResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+
+      <s:element name="Version">
+        <s:complexType />
+      </s:element>
+      <s:element name="VersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+
+      </s:element>
+      <s:element name="AuthenticateMSCHAP2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Username" nillable="true" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PeerChallenge" nillable="true" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChapChallenge" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ChapResponse" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tokentype" type="s:int" />
+
+            <s:element minOccurs="1" maxOccurs="1" name="SiteID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MSCHAP2Result">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Result" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Authenticator" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="MPPESendKey" type="s:base64Binary" />
+
+          <s:element minOccurs="0" maxOccurs="1" name="MPPEReceiveKey" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AuthenticateMSCHAP2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthenticateMSCHAP2Result" type="tns:MSCHAP2Result" />
+          </s:sequence>
+        </s:complexType>
+
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticateWithCachedCredentialsSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateWithCachedCredentials" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateWithCachedCredentialsSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateWithCachedCredentialsResponse" />
+  </wsdl:message>
+
+  <wsdl:message name="AuthenticateSoapIn">
+    <wsdl:part name="parameters" element="tns:Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="VersionSoapIn">
+    <wsdl:part name="parameters" element="tns:Version" />
+  </wsdl:message>
+
+  <wsdl:message name="VersionSoapOut">
+    <wsdl:part name="parameters" element="tns:VersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateMSCHAP2SoapIn">
+    <wsdl:part name="parameters" element="tns:AuthenticateMSCHAP2" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticateMSCHAP2SoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticateMSCHAP2Response" />
+  </wsdl:message>
+
+  <wsdl:portType name="TokenValidatorSoap">
+    <wsdl:operation name="AuthenticateWithCachedCredentials">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method authenticates a user against their passcode [PIN+OTP] and reports offline authentications in the AuthAnvil Strong Authentication Server, returning a salted hash cache list for offline authentication</wsdl:documentation>
+      <wsdl:input message="tns:AuthenticateWithCachedCredentialsSoapIn" />
+      <wsdl:output message="tns:AuthenticateWithCachedCredentialsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method authenticates a user against their passcode [PIN+OTP] in the AuthAnvil Strong Authentication Server</wsdl:documentation>
+
+      <wsdl:input message="tns:AuthenticateSoapIn" />
+      <wsdl:output message="tns:AuthenticateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Version">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method returns the current version of AuthAnvil</wsdl:documentation>
+      <wsdl:input message="tns:VersionSoapIn" />
+      <wsdl:output message="tns:VersionSoapOut" />
+    </wsdl:operation>
+
+    <wsdl:operation name="AuthenticateMSCHAP2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This method authenticates a user against their passcode [PIN+OTP] in the AuthAnvil Strong Authentication Server through an MS-CHAP2 session used in VPN and RADIUS.</wsdl:documentation>
+      <wsdl:input message="tns:AuthenticateMSCHAP2SoapIn" />
+      <wsdl:output message="tns:AuthenticateMSCHAP2SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TokenValidatorSoap" type="tns:TokenValidatorSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+
+    <wsdl:operation name="AuthenticateWithCachedCredentials">
+      <soap:operation soapAction="http://www.scorpionsoft.com/authanvil/AuthenticateWithCachedCredentials" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Authenticate">
+      <soap:operation soapAction="http://www.scorpionsoft.com/authanvil/Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Version">
+      <soap:operation soapAction="http://www.scorpionsoft.com/authanvil/Version" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="AuthenticateMSCHAP2">
+      <soap:operation soapAction="http://www.scorpionsoft.com/authanvil/AuthenticateMSCHAP2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:binding>
+  <wsdl:binding name="TokenValidatorSoap12" type="tns:TokenValidatorSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AuthenticateWithCachedCredentials">
+      <soap12:operation soapAction="http://www.scorpionsoft.com/authanvil/AuthenticateWithCachedCredentials" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap12:operation soapAction="http://www.scorpionsoft.com/authanvil/Authenticate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Version">
+      <soap12:operation soapAction="http://www.scorpionsoft.com/authanvil/Version" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthenticateMSCHAP2">
+      <soap12:operation soapAction="http://www.scorpionsoft.com/authanvil/AuthenticateMSCHAP2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TokenValidator">
+    <wsdl:port name="TokenValidatorSoap" binding="tns:TokenValidatorSoap">
+      <soap:address location="http://10.20.2.90/AuthAnvil/SAS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TokenValidatorSoap12" binding="tns:TokenValidatorSoap12">
+
+      <soap12:address location="http://10.20.2.90/AuthAnvil/SAS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

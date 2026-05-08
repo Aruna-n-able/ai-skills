@@ -1,0 +1,2861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:impl="http://www.n-able.com/mickey" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+				  xmlns:tns1="http://www.n-able.com/mickey" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.n-able.com/mickey">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.n-able.com/mickey">
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <complexType name="T_Acknowledge">
+        <sequence>
+          <element name="TaskID" nillable="true" type="xsd:int"/>
+          <element name="LocalScanTime" nillable="true" type="xsd:string"/>
+          <element name="DataDelay" nillable="true" type="xsd:int"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_Action">
+        <sequence>
+          <element name="ActionID" nillable="true" type="xsd:int"/>
+          <element name="ActionName" nillable="true" type="xsd:string"/>
+          <element name="ActionType" nillable="true" type="xsd:string"/>
+	  <element name="Parameters" nillable="true" type="impl:ArrayOf_tns1_T_Parameter"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_ActionModule">
+        <sequence>
+          <element name="Description" nillable="true" type="xsd:string"/>
+          <element name="ActionType" nillable="true" type="xsd:string"/>
+          <element name="Filename" nillable="true" type="xsd:string"/>
+	  <element name="SHA1digest" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_ActionReport">
+        <sequence>
+          <element name="ActionID" nillable="true" type="xsd:int"/>
+          <element name="ActionStatus" nillable="true" type="xsd:string"/>
+          <element name="ResultsDetail" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_Appliance">
+        <sequence>
+          <element name="ApplianceName" nillable="true" type="xsd:string"/>
+          <element name="ApplianceID" nillable="true" type="xsd:int"/>
+          <element name="CustomerID" nillable="true" type="xsd:int"/>
+          <element name="DeviceID" nillable="true" type="xsd:int"/>
+          <element name="ApplianceType" nillable="true" type="xsd:string"/>
+          <element name="IsSoftwareAgent" nillable="true" type="xsd:boolean"/>
+          <element name="URI" nillable="true" type="xsd:string"/>
+          <element name="Description" nillable="true" type="xsd:string"/>
+          <element name="MACAddress" nillable="true" type="xsd:string"/>
+          <element name="OS" nillable="true" type="xsd:string"/>
+          <element name="Version" nillable="true" type="xsd:string"/>
+          <element name="LastLogin" nillable="true" type="xsd:string"/>
+          <element name="AutoUpdate" nillable="true" type="xsd:string"/>
+          <element name="NumAttempts" nillable="true" type="xsd:int"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_Config">
+        <sequence>
+          <element name="key1" nillable="false" type="xsd:string"/>
+          <element name="key2" nillable="true" type="xsd:string"/>
+          <element name="agenttype" nillable="true" type="xsd:string"/>
+          <element name="valuetype" nillable="true" type="xsd:string"/>
+          <element name="itemtype" nillable="true" type="xsd:string"/>
+          <element name="values" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+          <element name="complexValues" nillable="true" type="impl:ArrayOf_tns1_T_Config"/>
+        </sequence>
+      </complexType>
+	<complexType name="ArrayOf_tns1_T_Config">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Config[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+      <complexType name="T_CheckConfig">
+        <sequence>
+          <element name="configtype" nillable="false" type="xsd:string"/>
+          <element name="signature" nillable="true" type="xsd:string"/>
+          <element name="properties" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+          <element name="complexValues" nillable="true" type="impl:ArrayOf_tns1_T_Config"/>
+        </sequence>
+      </complexType>
+	<complexType name="ArrayOf_tns1_T_CheckConfig">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_CheckConfig[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+
+       <complexType name="T_ConfigValue">
+        <sequence>
+          <element name="pKey" nillable="true" type="xsd:string"/>
+          <element name="pValue" nillable="true" type="xsd:string"/>
+          <element name="Description" nillable="true" type="xsd:string"/>
+          <element name="Datatype" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_Cooked">
+        <sequence>
+          <element name="ScanDetail" nillable="true" type="xsd:string"/>
+          <element name="CookedData" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_Data">
+        <sequence>
+          <element name="TaskID" nillable="true" type="xsd:int"/>
+          <element name="DataDelay" nillable="true" type="xsd:int"/>
+          <element name="LocalScanTime" nillable="true" type="xsd:string"/>
+          <element name="ErrorMessage" nillable="true" type="xsd:string"/>
+          <element name="Cooked" nillable="true" type="impl:ArrayOf_tns1_T_Cooked"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_DiscoverService">
+        <sequence>
+          <element name="Port" nillable="true" type="xsd:int"/>
+          <element name="ServiceName" nillable="true" type="xsd:string"/>
+          <element name="RegEx" nillable="true" type="xsd:string"/>
+          <element name="StartChat" nillable="true" type="xsd:string"/>
+          <element name="EndChat" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_DiscoveryJobConfig">
+        <sequence>
+          <element name="DiscoveryJobID" nillable="true" type="xsd:int"/>
+          <element name="DiscoveryID" nillable="true" type="xsd:int"/>
+          <element name="Configs" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+        </sequence>
+      </complexType>
+	  <complexType name="T_DroneConfig">
+        <sequence>
+          <element name="ApplianceID" nillable="true" type="xsd:int"/>
+          <element name="MirrorURL" nillable="true" type="xsd:string"/>
+          <element name="Command" nillable="true" type="xsd:string"/>
+          <element name="DroneVersion" nillable="true" type="xsd:string"/>
+		  <element name="IsConfigRequired" nillable="true" type="xsd:boolean"/>
+          <element name="Schedules" nillable="true" type="impl:ArrayOf_tns1_T_DroneSchedule"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_DroneSchedule">
+        <sequence>
+          <element name="DroneUpdateScheduleID" nillable="true" type="xsd:int"/>
+          <element name="Schedule" nillable="true" type="xsd:string"/>
+		  <element name="ScheduleType" nillable="true" type="xsd:string"/>
+		  <element name="PackageName" nillable="true" type="xsd:string"/>
+          <element name="Message" nillable="true" type="xsd:string"/>
+          <element name="State" nillable="true" type="xsd:int"/>
+		  <element name="StateChangeTimestamp" nillable="true" type="xsd:dateTime"/>
+		  <element name="NotifyEmail" nillable="true" type="xsd:string"/>
+		  <element name="IsDeleted" nillable="true" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_InterfaceData">
+        <sequence>
+          <element name="InterfaceJobID" nillable="true" type="xsd:int"/>
+          <element name="ifDescr" nillable="true" type="xsd:string"/>
+          <element name="ifType" nillable="true" type="xsd:int"/>
+          <element name="ErrorMessage" nillable="true" type="xsd:string"/>
+          <element name="JobState" nillable="true" type="xsd:string"/>
+          <element name="ifIndex" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_InterfaceJob">
+        <sequence>
+          <element name="InterfaceJobID" nillable="true" type="xsd:int"/>
+          <element name="CustomerID" nillable="true" type="xsd:int"/>
+          <element name="ApplianceID" nillable="true" type="xsd:int"/>
+          <element name="DeviceID" nillable="true" type="xsd:int"/>
+          <element name="DeviceURI" nillable="true" type="xsd:string"/>
+          <element name="Community" nillable="true" type="xsd:string"/>
+          <element name="JobState" nillable="true" type="xsd:string"/>
+          <element name="JobExpiry" nillable="true" type="xsd:string"/>
+          <element name="NotifyOnSuccess" nillable="true" type="xsd:boolean"/>
+          <element name="NotifyOnFailure" nillable="true" type="xsd:boolean"/>
+          <element name="UserNotificationPreferenceID" nillable="true" type="xsd:int"/>
+          <element name="SNMPPort" nillable="true" type="xsd:string"/>
+          <element name="SNMPVersion" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="T_Module">
+        <sequence>
+          <element name="ModuleID" nillable="true" type="xsd:int"/>
+          <element name="ServiceID" nillable="true" type="xsd:int"/>
+          <element name="ModuleName" nillable="true" type="xsd:string"/>
+          <element name="Filename" nillable="true" type="xsd:string"/>
+          <element name="Version" nillable="true" type="xsd:string"/>
+          <element name="ApplianceType" nillable="true" type="xsd:string"/>
+          <element name="OSID" nillable="true" type="xsd:string"/>
+          <element name="Aggregate" nillable="true" type="xsd:boolean"/>
+          <element name="SchedulerType" nillable="true" type="xsd:string"/>
+          <element name="CurrentInstances" nillable="true" type="xsd:int"/>
+          <element name="MaxInstances" nillable="true" type="xsd:int"/>
+          <element name="Checksum" nillable="true" type="xsd:string"/>
+		  <element name="SHA1digest" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+	<complexType name="T_MMS_Module">
+        <sequence>
+          <element name="ModuleID" nillable="true" type="xsd:int"/>
+          <element name="ServiceID" nillable="true" type="xsd:int"/>
+          <element name="ModuleName" nillable="true" type="xsd:string"/>
+          <element name="Filename" nillable="true" type="xsd:string"/>
+          <element name="Version" nillable="true" type="xsd:string"/>
+          <element name="ApplianceType" nillable="true" type="xsd:string"/>
+          <element name="OSID" nillable="true" type="xsd:string"/>
+          <element name="Aggregate" nillable="true" type="xsd:boolean"/>
+          <element name="SchedulerType" nillable="true" type="xsd:string"/>
+          <element name="CurrentInstances" nillable="true" type="xsd:int"/>
+          <element name="MaxInstances" nillable="true" type="xsd:int"/>
+          <element name="Checksum" nillable="true" type="xsd:string"/>
+		  <element name="SHA1digest" nillable="true" type="xsd:string"/>
+          <element name="Classname" nillable="true" type="xsd:string"/>
+          <element name="DownloadPath" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+		<complexType name="T_NetworkData">
+			<sequence>
+				<element name="NetworkJobID" nillable="true" type="xsd:int"/>
+				<element name="IPAddress" nillable="true" type="xsd:string"/>
+				<element name="Hostname" nillable="true" type="xsd:string"/>
+				<element name="MACAddress" nillable="true" type="xsd:string"/>
+				<element name="Description" nillable="true" type="xsd:string"/>
+				<element name="DeviceClasses" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+				<element name="HostOS" nillable="true" type="xsd:string"/>
+				<element name="ErrorMessage" nillable="true" type="xsd:string"/>
+				<element name="SupportedOSs" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+				<element name="ServiceFound" nillable="true" type="impl:ArrayOf_tns1_T_DiscoverService"/>
+			</sequence>
+		</complexType>
+		<complexType name="T_NetworkJob">
+			<sequence>
+				<element name="NetworkJobID" nillable="true" type="xsd:int"/>
+				<element name="CustomerID" nillable="true" type="xsd:int"/>
+				<element name="JobName" nillable="true" type="xsd:string"/>
+				<element name="ApplianceID" nillable="true" type="xsd:int"/>
+				<element name="IPRange" nillable="true" type="xsd:string"/>
+				<element name="IPNetmask" nillable="true" type="xsd:string"/>
+				<element name="JobState" nillable="true" type="xsd:string"/>
+				<element name="JobExpiry" nillable="true" type="xsd:string"/>
+				<element name="NotifyOnSuccess" nillable="true" type="xsd:boolean"/>
+				<element name="NotifyOnFailure" nillable="true" type="xsd:boolean"/>
+				<element name="UserNotificationPreferenceID" nillable="true" type="xsd:int"/>
+				<element name="Ports" nillable="true" type="impl:ArrayOf_tns1_T_DiscoverService"/>
+				<element name="JobStateLabel" nillable="true" type="xsd:string"/>
+			</sequence>
+		</complexType>
+
+      <complexType name="T_Parameter">
+	<sequence>
+	  <element name="TaskID" nillable="true" type="xsd:int"/>
+	  <element name="PKey" nillable="true" type="xsd:string"/>
+	  <element name="PValue" nillable="true" type="xsd:string"/>
+	  <element name="ShortName" nillable="true" type="xsd:string"/>
+	  <element name="LongName" nillable="true" type="xsd:string"/>
+	  <element name="HelpText" nillable="true" type="xsd:string"/>
+	  <element name="Min" nillable="true" type="xsd:string"/>
+	  <element name="Max" nillable="true" type="xsd:string"/>
+	  <element name="PType" nillable="true" type="xsd:int"/>
+	</sequence>
+      </complexType>
+      <complexType name="T_TaskConfig">
+        <sequence>
+          <element name="TaskID" nillable="true" type="xsd:int"/>
+          <element name="ServiceID" nillable="true" type="xsd:int"/>
+          <element name="TargetURI" nillable="true" type="xsd:string"/>
+          <element name="Parameter" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+        </sequence>
+      </complexType>
+      <complexType name="T_TaskConfig2">
+        <sequence>
+          <element name="TaskID" nillable="true" type="xsd:int"/>
+          <element name="ServiceID" nillable="true" type="xsd:int"/>
+          <element name="TargetURI" nillable="true" type="xsd:string"/>
+          <element name="Parameter" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+          <element name="Threshold" nillable="true" type="impl:ArrayOf_tns1_T_ThresholdConfiguration"/>
+          <element name="SelfHealing" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+          <element name="LastState" nillable="true" type="xsd:int"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="T_TaskConfig3">
+		<complexContent>
+			<extension base="tns1:T_TaskConfig2">
+				<sequence>
+					<element name="LastStatus" nillable="true" type="xsd:int"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_Update">
+        <sequence>
+          <element name="Filename" nillable="true" type="xsd:string"/>
+          <element name="Bytes" nillable="true" type="xsd:base64Binary"/>
+        </sequence>
+      </complexType>
+      <complexType name="ArrayOf_xsd_int">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:int[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_xsd_string">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="T_RemoteExecutionTaskFile">
+			<sequence>
+				<element name="RemoteExecutionTaskID" nillable="true" type="xsd:int"/>
+				<element name="FileName" nillable="true" type="xsd:string"/>
+				<element name="FileType" nillable="true" type="xsd:string"/>
+				<element name="FileDigest" nillable="true" type="xsd:string"/>
+				<element name="FileLength" nillable="true" type="xsd:int"/>
+			</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_RemoteExecutionTaskFile">
+	  		<complexContent>
+				<restriction base="soapenc:Array">
+					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_RemoteExecutionTaskFile[]"/>
+				</restriction>
+			</complexContent>
+	  </complexType>
+
+			<complexType name="T_RemoteExecutionSchedule">
+				<sequence>
+					<element name="type" nillable="true" type="xsd:string"/>
+					<element name="value" nillable="true" type="xsd:string"/>
+					<element name="expiry" nillable="true" type="xsd:dateTime"/>
+				</sequence>
+			</complexType>
+			<complexType name="ArrayOf_tns1_T_RemoteExecutionSchedule">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_RemoteExecutionSchedule[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+
+      <complexType name="T_RemoteExecutionTask">
+			<sequence>
+				<element name="RemoteExecutionTaskID" nillable="true" type="xsd:int"/>
+				<element name="RemoteExecutionItemID" nillable="true" type="xsd:string"/>
+                                <element name="RemoteExecutionItemName" nillable="true" type="xsd:string"/>
+				<element name="Files" nillable="true" type="impl:ArrayOf_tns1_T_RemoteExecutionTaskFile"/>
+				<element name="Properties" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+				<element name="DeviceURIs" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+			</sequence>
+	  </complexType>
+      <complexType name="T_TargetConfig">
+		<sequence>
+			<element name="Parameter" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+		</sequence>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_TargetConfig">
+      	<complexContent>
+		<restriction base="soapenc:Array">
+			<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_TargetConfig[]"/>
+		</restriction>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_ScheduledTask">
+		<complexContent>
+			<extension base="tns1:T_RemoteExecutionTask2">
+				<sequence>
+					<element name="Schedules" nillable="true" type="impl:ArrayOf_tns1_T_RemoteExecutionSchedule"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+
+      <complexType name="T_RemoteExecutionTask2">
+		<complexContent>
+			<extension base="tns1:T_RemoteExecutionTask">
+				<sequence>
+					<element name="ExecuteTargets" nillable="true" type="impl:ArrayOf_tns1_T_TargetConfig"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_ManagementTask">
+			<sequence>
+				<element name="TaskID" nillable="true" type="xsd:int"/>
+                <element name="TaskType" nillable="true" type="xsd:string"/>
+                <element name="Files" nillable="true" type="impl:ArrayOf_tns1_T_RemoteExecutionTaskFile"/>
+          		<element name="Properties" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+			</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_ManagementTask">
+	  		<complexContent>
+				<restriction base="soapenc:Array">
+					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ManagementTask[]"/>
+				</restriction>
+			</complexContent>
+	  </complexType>
+	  <complexType name="T_AV1QuarantineTaskItem">
+			<sequence>
+		  		<element name="FileGUID" nillable="true" type="xsd:string"/>
+	      		<element name="Action" nillable="true" type="xsd:string"/>
+	     		 <element name="RestorePath" nillable="true" type="xsd:string"/>
+	   		</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_AV1QuarantineTaskItem">
+	       <complexContent>
+	          <restriction base="soapenc:Array">
+	            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_AV1QuarantineTaskItem[]"/>
+	          </restriction>
+	       </complexContent>
+	   </complexType>
+	   <complexType name="T_AV1QuarantineManagementTask">
+	      <complexContent>
+	        <extension base="tns1:T_ManagementTask">
+	        <sequence>
+	              <element name="QuarantinedItems" nillable="true" type="impl:ArrayOf_tns1_T_AV1QuarantineTaskItem"/>
+	        </sequence>
+	        </extension>
+	      </complexContent>
+	   </complexType>
+	   <complexType name="T_ConfigMultiValue">
+			<sequence>
+		  		<element name="pkey" nillable="true" type="xsd:string"/>
+	      		<element name="pvalue" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+	   		</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_ConfigMultiValue">
+	       <complexContent>
+	          <restriction base="soapenc:Array">
+	            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ConfigMultiValue[]"/>
+	          </restriction>
+	       </complexContent>
+	   </complexType>
+	   <complexType name="T_AVDefenderManagementTask">
+	      <complexContent>
+	        <extension base="tns1:T_ManagementTask">
+	        <sequence>
+	              <element name="AdditionalProperties" nillable="true" type="impl:ArrayOf_tns1_T_ConfigMultiValue"/>
+	        </sequence>
+	        </extension>
+	      </complexContent>
+	   </complexType>
+
+	   <complexType name="T_DiscoveryConfigProfile">
+				<sequence>
+					<element name="ID" nillable="true" type="xsd:int"/>
+					<element name="Name" nillable="true" type="xsd:string"/>
+					<element name="Type" nillable="true" type="xsd:string"/>
+					<element name="Version" nillable="true" type="xsd:string"/>
+					<element name="Properties" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+				</sequence>
+			</complexType>
+		<complexType name="ArrayOf_tns1_T_DiscoveryConfigProfile">
+    			<complexContent>
+     				<restriction base="soapenc:Array">
+      					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DiscoveryConfigProfile[]"/>
+     				</restriction>
+    			</complexContent>
+		</complexType>
+
+	   <complexType name="T_DiscoveryCredentials">
+				<sequence>
+					<element name="Username" nillable="true" type="xsd:string"/>
+					<element name="Password" nillable="true" type="xsd:string"/>
+				</sequence>
+			</complexType>
+		<complexType name="ArrayOf_tns1_T_DiscoveryCredentials">
+    			<complexContent>
+     				<restriction base="soapenc:Array">
+      					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DiscoveryCredentials[]"/>
+     				</restriction>
+    			</complexContent>
+		</complexType>
+
+	   <complexType name="T_NetworkAssetDiscovery">
+				<sequence>
+					<element name="JobID" nillable="true" type="xsd:int"/>
+					<element name="JobName" nillable="true" type="xsd:string"/>
+					<element name="IPRange" nillable="true" type="xsd:string"/>
+					<element name="IPNetmask" nillable="true" type="xsd:string"/>
+					<element name="AutoImport" nillable="true" type="xsd:boolean"/>
+					<element name="SNMPDiscoveryEnabled" nillable="true" type="xsd:boolean"/>
+					<element name="SNMPNumberOfRetries" nillable="true" type="xsd:int"/>
+					<element name="SNMPTimeout" nillable="true" type="xsd:int"/>
+					<element name="SNMPVersion" nillable="true" type="xsd:string"/>
+					<element name="SNMPCommunity" nillable="true" type="xsd:string"/>
+					<element name="SNMPPort" nillable="true" type="xsd:int"/>
+					<element name="NetworkBackupDiscovery" nillable="true" type="impl:ArrayOf_tns1_T_NetworkBackupDiscovery"/>
+					<element name="AssetJobProperties" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+					<element name="Credentials" nillable="true" type="impl:ArrayOf_tns1_T_DiscoveryCredentials"/>
+				</sequence>
+			</complexType>
+		<complexType name="ArrayOf_tns1_T_NetworkAssetDiscovery">
+    			<complexContent>
+     				<restriction base="soapenc:Array">
+      					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_NetworkAssetDiscovery[]"/>
+     				</restriction>
+    			</complexContent>
+		</complexType>
+	   <complexType name="T_NetworkBackupDiscovery">
+				<sequence>
+					<element name="DiscoveryType" nillable="true" type="xsd:string"/>
+					<element name="DBInstance" nillable="true" type="xsd:string"/>
+					<element name="Port" nillable="true" type="xsd:int"/>
+					<element name="UserName" nillable="true" type="xsd:string"/>
+					<element name="Password" nillable="true" type="xsd:string"/>
+				</sequence>
+			</complexType>
+		<complexType name="ArrayOf_tns1_T_NetworkBackupDiscovery">
+    			<complexContent>
+     				<restriction base="soapenc:Array">
+      					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_NetworkBackupDiscovery[]"/>
+     				</restriction>
+    			</complexContent>
+		</complexType>
+
+	  <complexType name="T_ApplianceRegistration">
+        <sequence>
+          <element name="ApplianceID" nillable="true" type="xsd:int"/>
+          <element name="CustomerID" nillable="true" type="xsd:int"/>
+          <element name="IPAddress" nillable="true" type="xsd:string"/>
+          <element name="ApplianceType" nillable="true" type="xsd:string"/>
+          <element name="OSID" nillable="true" type="xsd:string"/>
+          <element name="Version" nillable="true" type="xsd:string"/>
+          <element name="ProxyString" nillable="true" type="xsd:string"/>
+          <element name="AMTCredentials" nillable="true" type="xsd:string"/>
+          <element name="AutoImport" nillable="true" type="xsd:boolean"/>
+          <element name="SilentInstall" nillable="true" type="xsd:boolean"/>
+          <element name="LocalAsset" nillable="true" type="impl:T_AssetData"/>
+          <element name="NetworkAssetDiscovery" nillable="true" type="impl:ArrayOf_tns1_T_NetworkAssetDiscovery"/>
+          <element name="RegistrationToken" minOccurs="0" nillable="false" type="xsd:string"/>
+          <element name="HardwareID" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+	  <complexType name="ArrayOf_tns1_T_RemoteExecutionTask">
+	  		<complexContent>
+				<restriction base="soapenc:Array">
+					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_RemoteExecutionTask[]"/>
+				</restriction>
+			</complexContent>
+	  </complexType>
+	  <complexType name="T_ActivityResult">
+			<sequence>
+				<element name="DeviceURI" nillable="true" type="xsd:string"/>
+				<element name="Status" nillable="true" type="xsd:string"/>
+				<element name="Message" nillable="true" type="xsd:string"/>
+			</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_ActivityResult">
+	  		<complexContent>
+				<restriction base="soapenc:Array">
+					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ActivityResult[]"/>
+				</restriction>
+			</complexContent>
+	  </complexType>
+
+      <complexType name="T_ActivityResult2">
+		<complexContent>
+			<extension base="tns1:T_ActivityResult">
+				<sequence>
+					<element name="Username" nillable="true" type="xsd:string"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_ActivityResult3">
+		<complexContent>
+			<extension base="tns1:T_ActivityResult2">
+				<sequence>
+					<element name="start_time" nillable="true" type="xsd:dateTime"/>
+					<element name="finish_time" nillable="true" type="xsd:dateTime"/>
+					<element name="return_code" nillable="true" type="xsd:int"/>
+					<element name="limited_output" nillable="true" type="xsd:string"/>
+					<element name="output_capture_file" nillable="true" type="xsd:base64Binary"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_ActivityResult4">
+		<complexContent>
+			<extension base="tns1:T_ActivityResult3">
+				<sequence>
+					<element name="parameter_output" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_ActivityResult5">
+		<complexContent>
+			<extension base="tns1:T_ActivityResult4">
+				<sequence>
+					<element name="parameter_input" nillable="true" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+	  <complexType name="T_RemoteExecutionTaskResult">
+			<sequence>
+				<element name="RemoteExecutionTaskID" nillable="true" type="xsd:int"/>
+				<element name="Status" nillable="true" type="xsd:string"/>
+				<element name="StatusMessage" nillable="true" type="xsd:string"/>
+				<element name="DeviceResults" nillable="true" type="impl:ArrayOf_tns1_T_ActivityResult"/>
+			</sequence>
+	  </complexType>
+	  <complexType name="ArrayOf_tns1_T_RemoteExecutionTaskResult">
+	  		<complexContent>
+				<restriction base="soapenc:Array">
+					<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_RemoteExecutionTaskResult[]"/>
+				</restriction>
+			</complexContent>
+	  </complexType>
+	<complexType name="T_KeyValuePair">
+		<sequence>
+			<element name="Key" nillable="true" type="xsd:string"/>
+			<element name="Value" nillable="true" type="xsd:string"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_KeyValuePair">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_KeyValuePair[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+        <complexType name="ArrayOf_tns1_ArrayOf_tns1_T_KeyValuePair">
+                <complexContent>
+                        <restriction base="soapenc:Array">
+                                <attribute ref="soapenc:arrayType" wsdl:arrayType="impl:ArrayOf_tns1_T_KeyValuePair[]"/>
+                        </restriction>
+                </complexContent>
+        </complexType>
+	<complexType name="T_MIBOID">
+		<sequence>
+			<element name="MIBOID" nillable="true" type="xsd:string"/>
+			<element name="Index" nillable="true" type="xsd:string"/>
+			<element name="Value" nillable="true" type="xsd:string"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_MIBOID">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_MIBOID[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_MMS_AssetJob">
+		<sequence>
+			<element name="AssetJobID" nillable="true" type="xsd:int"/>
+			<element name="JobName" nillable="true" type="xsd:string"/>
+			<element name="IPRange" nillable="true" type="xsd:string"/>
+			<element name="Netmask" nillable="true" type="xsd:string"/>
+			<element name="Recurring" nillable="true" type="xsd:boolean"/>
+			<element name="ScanTime" nillable="true" type="xsd:string"/>
+			<element name="Ports" nillable="true" type="impl:ArrayOf_tns1_T_DiscoverService"/>
+			<element name="MIBOIDs" nillable="true" type="impl:ArrayOf_tns1_T_MIBOID"/>
+			<element name="Properties" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_MMS_AssetJob">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_MMS_AssetJob[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_MMS_AssetJobTask">
+	      <complexContent>
+	        <extension base="tns1:T_MMS_AssetJob">
+	        <sequence>
+	          <element name="Credentials" nillable="true" type="impl:ArrayOf_tns1_T_DiscoveryCredentials"/>
+		      <element name="MacCredentials" nillable="true" type="impl:ArrayOf_tns1_T_DiscoveryCredentials"/>
+		      <element name="SNMPConfigProfiles" nillable="true" type="impl:ArrayOf_tns1_T_DiscoveryConfigProfile"/>
+		      <element name="SSHCredentials" nillable="true" type="impl:ArrayOf_tns1_T_DiscoveryCredentials"/>
+	        </sequence>
+	        </extension>
+	      </complexContent>
+	   </complexType>
+	   <complexType name="ArrayOf_tns1_T_MMS_AssetJobTask">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_MMS_AssetJobTask[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_AssetResendList">
+		<sequence>
+			<element name="primaryIP" nillable="true" type="xsd:string"/>
+            <element name="resendCimList" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+		 </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_AssetResendList">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_AssetResendList[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_AssetData">
+		<sequence>
+			<element name="primaryIP" nillable="true" type="xsd:string"/>
+			<element name="name" nillable="true" type="xsd:string"/>
+			<element name="fqdn" nillable="true" type="xsd:string"/>
+			<element name="extraDetails" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+			<element name="cimData" nillable="true" type="impl:ArrayOf_tns1_T_CimData"/>
+		 </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_AssetData">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_AssetData[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_CimData">
+		<sequence>
+			<element name="cimTableName" nillable="true" type="xsd:string"/>
+			<element name="delta" nillable="false" type="xsd:boolean"/>
+			<element name="contentHash" nillable="true" type="xsd:string"/>
+			<element name="lastContentHash" nillable="true" type="xsd:string"/>
+            <element name="cimFieldNames" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+			<element name="cimRecords" nillable="true" type="impl:ArrayOf_tns1_T_CimRecord"/>
+            <element name="deletedRecordIDs" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+		 </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_CimData">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_CimData[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_CimRecord">
+		<sequence>
+			<element name="recordid" nillable="true" type="xsd:string"/>
+			<element name="contentHash" nillable="true" type="xsd:string"/>
+            <element name="cimValueFields" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_CimRecord">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_CimRecord[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_Cim">
+		<sequence>
+			<element name="CimTableName" nillable="true" type="xsd:string"/>
+			<element name="CimData" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_Cim">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Cim[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+	<complexType name="T_DeviceAssetDisco">
+		<sequence>
+			<element name="DeviceAssetData" nillable="true" type="impl:ArrayOf_tns1_T_Cim"/>
+		    </sequence>
+	</complexType>
+	<complexType name="ArrayOf_tns1_T_DeviceAssetDisco">
+		<complexContent>
+			<restriction base="soapenc:Array">
+				<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DeviceAssetDisco[]"/>
+			</restriction>
+		</complexContent>
+	</complexType>
+      <complexType name="ArrayOf_tns1_T_Acknowledge">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Acknowledge[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_Action">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Action[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_ActionModule">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ActionModule[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_ActionReport">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ActionReport[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_ConfigValue">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ConfigValue[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_Cooked">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Cooked[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_Data">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Data[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_DiscoverService">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DiscoverService[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_DiscoveryJobConfig">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DiscoveryJobConfig[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_DroneSchedule">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DroneSchedule[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_InterfaceData">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_InterfaceData[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_InterfaceJob">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_InterfaceJob[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+
+      <complexType name="ArrayOf_tns1_T_Module">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Module[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_MMS_Module">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_MMS_Module[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_NetworkJob">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_NetworkJob[]"/>
+          </restriction>
+        </complexContent>StatusEnum
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_NetworkData">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_NetworkData[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+
+      <complexType name="ArrayOf_tns1_T_Parameter">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_Parameter[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_TaskConfig">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_TaskConfig[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_TaskConfig2">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_TaskConfig2[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+	<simpleType name="T_StatusEnum">
+	  <restriction  base="xsd:string">
+		<enumeration value="FAILED"/>
+		<enumeration value="IN PROGRESS"/>
+	  </restriction>
+	</simpleType>
+	  <complexType name="T_UpgradeStatusInfo">
+        <sequence>
+          <element name="Status" nillable="false" type="impl:T_StatusEnum"></element>
+          <element name="Message" type="xsd:string" nillable="false"></element>
+        </sequence>
+      </complexType>
+
+    <!-- Algie 41 -->
+
+      <complexType name="T_ThresholdBasicConfiguration">
+      	<sequence>
+            <element name="ScanDetailName" nillable="true" type="xsd:string"/>
+            <element name="State" nillable="true" type="xsd:int"/>
+            <element name="ValueLow" nillable="true" type="xsd:string"/>
+            <element name="ValueHigh" nillable="true" type="xsd:string"/>
+	    <element name="ValueString" nillable="true" type="xsd:string"/>
+	    <element name="ValueStringEval" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ArrayOf_tns1_T_ThresholdBasicConfiguration">
+      	<complexContent>
+      		<restriction base="soapenc:Array">
+        		<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ThresholdBasicConfiguration[]"/>
+        	</restriction>
+        </complexContent>
+        </complexType>
+
+      <complexType name="T_ThresholdConfiguration">
+      	<sequence>
+	    <element name="ScanDetailName" nillable="true" type="xsd:string"/>
+            <element name="MonitoringTypeOn" nillable="true" type="xsd:boolean"/>
+            <element name="ProcessForState" nillable="true" type="xsd:boolean"/>
+            <element name="Thresholds" nillable="true" type="impl:ArrayOf_tns1_T_ThresholdBasicConfiguration"/>
+        </sequence>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_ThresholdConfiguration">
+      	<complexContent>
+        	<restriction base="soapenc:Array">
+            	<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ThresholdConfiguration[]"/>
+            </restriction>
+        </complexContent>
+      </complexType>
+
+      <complexType name="T_ThresholdConfiguration2">
+		<complexContent>
+			<extension base="tns1:T_ThresholdConfiguration">
+				<sequence>
+					<element name="CookID" nillable="true" type="xsd:int"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_TasksStateStatusPriority">
+      	<sequence>
+        	<element name="TaskState" nillable="true" type="xsd:int"/>
+            <element name="StateDesc" nillable="true" type="xsd:string"/>
+            <element name="Priority" nillable="true" type="xsd:int"/>
+        </sequence>
+      </complexType>
+      <complexType name="ArrayOf_tns1_T_TasksStateStatusPriority">
+      	<complexContent>
+        	<restriction base="soapenc:Array">
+            	<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_TasksStateStatusPriority[]"/>
+            </restriction>
+        </complexContent>
+      </complexType>
+
+      <complexType name="T_SelfHealStatus">
+         <sequence>
+           <element name="SelfHealStatus" nillable="true" type="xsd:string"/>
+           <element name="SelfHealType" nillable="true" type="xsd:string"/>
+           <element name="SelfHealTypeDetail" nillable="true" type="xsd:string"/>
+           <element name="NumberOfRetries" nillable="true" type="xsd:int"/>
+           <element name="Message" nillable="true" type="xsd:string"/>
+         </sequence>
+      </complexType>
+
+      <complexType name="T_SelfHealStatus2">
+		<complexContent>
+			<extension base="tns1:T_SelfHealStatus">
+				<sequence>
+					<element name="DeviceResult" nillable="true" type="tns1:T_ActivityResult4"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_SelfHealStatus3">
+		<complexContent>
+			<extension base="tns1:T_SelfHealStatus2">
+				<sequence>
+					<element name="TriggeredByScanDetails" nillable="true" type="impl:ArrayOf_tns1_T_CookedWithState"/>
+				</sequence>
+			</extension>
+		</complexContent>
+      </complexType>
+
+      <complexType name="T_CookedWithState">
+        <sequence>
+          <element name="ScanDetail" nillable="true" type="xsd:string"/>
+          <element name="CookedData" nillable="true" type="xsd:string"/>
+          <element name="State"      nillable="true" type="xsd:int"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ArrayOf_tns1_T_CookedWithState">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_CookedWithState[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+
+      <complexType name="T_DataWithState">
+        <sequence>
+          <element name="TaskID" nillable="true" type="xsd:int"/>
+          <element name="TaskState" nillable="true" type="xsd:int"/>
+          <element name="DataDelay" nillable="true" type="xsd:int"/>
+          <element name="LocalScanTime" nillable="true" type="xsd:string"/>
+          <element name="ErrorMessage" nillable="true" type="xsd:string"/>
+          <element name="Cooked" nillable="true" type="impl:ArrayOf_tns1_T_CookedWithState"/>
+          <element name="SelfHealing" nillable="true" type="impl:T_SelfHealStatus"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ArrayOf_tns1_T_DataWithState">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_DataWithState[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+   <!-- Algie 41 -->
+
+   <!-- Algie 32 -->
+   <complexType name="T_QuarantinedItem">
+        <sequence>
+          <element name="FileGUID" nillable="true" type="xsd:string"/>
+          <element name="FileName" nillable="true" type="xsd:string"/>
+          <element name="FileLocation" nillable="true" type="xsd:string"/>
+          <element name="DateQuarantined" nillable="true" type="xsd:string"/>
+          <element name="ReasonQuarantined" nillable="true" type="xsd:string"/>
+          <element name="Message" nillable="true" type="xsd:string"/>
+        </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_T_QuarantinedItem">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_QuarantinedItem[]"/>
+          </restriction>
+        </complexContent>
+   </complexType>
+
+   <complexType name="T_ApplianceAction">
+        <sequence>
+          <element name="ActionType" nillable="true" type="xsd:string"/>
+          <element name="ActionDetails" nillable="true" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+        </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns1_T_ApplianceAction">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_ApplianceAction[]"/>
+          </restriction>
+        </complexContent>
+   </complexType>
+
+   <!-- Algie 32 -->
+
+	<complexType name="T_EventDataRecord">
+		<sequence>
+		<element name="eventTime" nillable="true" type="xsd:dateTime"/>
+		<element name="sequence" nillable="true" type="xsd:int"/>
+		<element name="valueFields" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOf_tns1_T_EventDataRecord">
+	<complexContent>
+		<restriction base="soapenc:Array">
+			<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_EventDataRecord[]"/>
+		</restriction>
+	</complexContent>
+	</complexType>
+
+
+	<complexType name="T_EventData">
+		<sequence>
+		<element name="tableName" nillable="true"  type="xsd:string"/>
+		<element name="fieldNames" nillable="true" type="tns1:ArrayOf_xsd_string"/>
+		<element name="records" nillable="true" type="impl:ArrayOf_tns1_T_EventDataRecord"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="ArrayOf_tns1_T_EventData">
+	<complexContent>
+		<restriction base="soapenc:Array">
+			<attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:T_EventData[]"/>
+		</restriction>
+	</complexContent>
+	</complexType>
+
+
+
+      </schema>
+  </wsdl:types>
+
+  <wsdl:message name="MaintActionGetRequest">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="MaintActionGetResponse">
+    <wsdl:part name="Actions" type="tns1:ArrayOf_xsd_string"/>
+  </wsdl:message>
+
+	<wsdl:message name="EventDataSubmitRequest">
+		<wsdl:part name="SessionID" type="xsd:int"/>
+		<wsdl:part name="dataArray" type="impl:ArrayOf_tns1_T_EventData"/>
+	</wsdl:message>
+	<wsdl:message name="EventDataSubmitResponse">
+	</wsdl:message>
+
+  <wsdl:message name="ActionModule.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="ActionModule.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="ActionModule.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="ActionModule.ListResponse">
+    <wsdl:part name="ActionModuleArray" type="impl:ArrayOf_tns1_T_ActionModule"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="ActionModule.UpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ActionType" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="ActionModule.UpdateResponse">
+    <wsdl:part name="Update" type="tns1:T_Update"/>
+  </wsdl:message>
+
+  <wsdl:message name="Agent.InstallerCheckRequest">
+    <wsdl:part name="PType" type="xsd:string"/>
+    <wsdl:part name="PValue" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="Agent.InstallerCheckCustomerRequest">
+    <wsdl:part name="customerID" type="xsd:int"/>
+    <wsdl:part name="customerName" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="Agent.InstallerCheckResponse">
+    <wsdl:part name="CustomerID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Agent.InstallerCheckCustomerResponse">
+    <wsdl:part name="CustomerID" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.GetConfigRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ConfigTypes" type="tns1:ArrayOf_xsd_string"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.GetConfigRequest2">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ConfigTypes" type="tns1:ArrayOf_xsd_string"/>
+    <wsdl:part name="InputParameters" type="impl:ArrayOf_tns1_T_Config"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.GetConfigResponse">
+    <wsdl:part name="ConfigData" type="impl:ArrayOf_tns1_T_Config"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.ConfigRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.ConfigResponse">
+    <wsdl:part name="Appliance" type="tns1:T_Appliance"/>
+    <wsdl:part name="Options" type="impl:ArrayOf_tns1_T_ConfigValue"/>
+  </wsdl:message>
+
+ <wsdl:message name="Appliance.LogSubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="LogType" type="xsd:string"/>
+    <wsdl:part name="Contents" type="xsd:base64Binary"/>
+  </wsdl:message>
+
+   <wsdl:message name="Appliance.LogSubmitResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+
+  <wsdl:message name="Appliance.RegistrationRequest">
+     <wsdl:part name="ApplianceRegistration" type="tns1:T_ApplianceRegistration"/>
+    <wsdl:part name="TimeZone" type="xsd:string"/>
+  </wsdl:message>
+
+   <wsdl:message name="Appliance.RegistrationResponse">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.PingRequest">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.PingResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.UpgradeStatusSendRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Info" type="impl:T_UpgradeStatusInfo"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.UpgradeStatusSendResponse">
+  </wsdl:message>
+
+  <wsdl:message name="AssetDiscoJob.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="AssetDiscoJob.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.ListResponse">
+    <wsdl:part name="Job" type="impl:ArrayOf_tns1_T_MMS_AssetJob"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.ListNewRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.ListNewResponse">
+    <wsdl:part name="Job" type="impl:ArrayOf_tns1_T_MMS_AssetJobTask"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+<!-- BEGIN Sprint 35 Messages-->
+    <wsdl:message name="PatchSubmitTableDataRequest">
+      <wsdl:part name="SessionID" type="xsd:int"/>
+      <wsdl:part name="TableName" type="xsd:string"/>
+      <wsdl:part name="TableData" type="impl:ArrayOf_tns1_ArrayOf_tns1_T_KeyValuePair"/>
+    </wsdl:message>
+    <wsdl:message name="PatchSubmitTableDataResponse">
+    </wsdl:message>
+<!-- END Sprint 35 Messages-->
+  <wsdl:message name="AssetDiscoJob.SubmitRequestOld">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="JobID" type="xsd:int"/>
+    <wsdl:part name="JobComplete" type="xsd:boolean"/>
+    <wsdl:part name="ErrorMessage" type="xsd:string"/>
+    <wsdl:part name="Asset" type="impl:ArrayOf_tns1_T_DeviceAssetDisco"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.SubmitResponseOld">
+    <wsdl:part name="MalformedJob" type="xsd:boolean"/>
+    <wsdl:part name="InvalidJob" type="xsd:boolean"/>
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="AssetDiscoJob.SubmitRequest">
+    <wsdl:part name="sessionID" type="xsd:int"/>
+    <wsdl:part name="errorMessage" type="xsd:string"/>
+    <wsdl:part name="assetData" type="impl:ArrayOf_tns1_T_AssetData"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.SubmitResponse">
+    <wsdl:part name="resendList" type="tns1:ArrayOf_tns1_T_AssetResendList"/>
+  </wsdl:message>
+
+  <wsdl:message name="AssetDiscoJob.SubmitRequest2">
+    <wsdl:part name="sessionID" type="xsd:int"/>
+    <wsdl:part name="jobID" type="xsd:int"/>
+    <wsdl:part name="jobComplete" type="xsd:boolean"/>
+    <wsdl:part name="errorMessage" type="xsd:string"/>
+    <wsdl:part name="assetData" type="impl:ArrayOf_tns1_T_AssetData"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoJob.SubmitResponse2">
+    <wsdl:part name="invalidJob" type="xsd:boolean"/>
+    <wsdl:part name="resendList" type="tns1:ArrayOf_tns1_T_AssetResendList"/>
+  </wsdl:message>
+
+  <wsdl:message name="DiscoveryJob.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryJob.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryJob.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryJob.ListResponse">
+    <wsdl:part name="DiscoveryJobConfigs" type="impl:ArrayOf_tns1_T_DiscoveryJobConfig"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryJob.SubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="JobComplete" type="xsd:boolean"/>
+    <wsdl:part name="DataArray" type="impl:ArrayOf_tns1_T_Data"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryJob.SubmitResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+    <wsdl:part name="InvalidDiscoJobList" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="MalformedDiscoJobList" type="tns1:ArrayOf_xsd_int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.ListResponse">
+    <wsdl:part name="DiscoveryModules" type="impl:ArrayOf_tns1_T_Module"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.UpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="DiscoveryModuleID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="DiscoveryModule.UpdateResponse">
+    <wsdl:part name="DiscoveryModuleUpdate" type="tns1:T_Update"/>
+  </wsdl:message>
+
+  <wsdl:message name="Drone.GetConfigRequest">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Drone.GetConfigResponse">
+    <wsdl:part name="DroneConfig" type="tns1:T_DroneConfig"/>
+  </wsdl:message>
+  <wsdl:message name="Drone.IsConfigRequiredRequest">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Drone.IsConfigRequiredResponse">
+    <wsdl:part name="Appliance" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="Drone.UpdateRequest">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="DroneConfig" type="tns1:T_DroneConfig"/>
+  </wsdl:message>
+  <wsdl:message name="Drone.UpdateResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="InterfaceJob.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="InterfaceJob.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="InterfaceJob.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <!-- alternate signature for InterfaceJob.List
+  -->
+
+  <wsdl:message name="InterfaceJob.ListRequest2">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="InterfaceJob.ListResponse">
+    <wsdl:part name="InterfaceJob" type="impl:ArrayOf_tns1_T_InterfaceJob"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="InterfaceJob.SubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="JobComplete" type="xsd:boolean"/>
+    <wsdl:part name="InterfaceData" type="impl:ArrayOf_tns1_T_InterfaceData"/>
+  </wsdl:message>
+  <wsdl:message name="InterfaceJob.SubmitResponse">
+    <wsdl:part name="InvalidTaskList" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="MalformedTaskList" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="Module.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Module.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <!--  Module.Count has been renamed to ScanModule.Count in Zoot
+  -->
+
+  <wsdl:message name="ScanModule.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="ScanModule.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="Module.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Module.ListResponse">
+    <wsdl:part name="ModuleArray" type="impl:ArrayOf_tns1_T_Module"/>
+  </wsdl:message>
+
+  <wsdl:message name="Module.ListAllRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Module.ListAllResponse">
+    <wsdl:part name="ModuleArray" type="impl:ArrayOf_tns1_T_MMS_Module"/>
+  </wsdl:message>
+
+  <!-- Module.List has been renamed to ScanModule.List in Zoot
+  -->
+  <wsdl:message name="ScanModule.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="ScanModule.ListResponse">
+    <wsdl:part name="ModuleArray" type="impl:ArrayOf_tns1_T_Module"/>
+  </wsdl:message>
+
+  <wsdl:message name="Module.UpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ModuleID" type="xsd:int"/>
+    <wsdl:part name="Version" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="Module.UpdateResponse">
+    <wsdl:part name="Update" type="tns1:T_Update"/>
+  </wsdl:message>
+
+  <!-- Module.Update has been renamed to ScanModule.Update in Zoot
+  -->
+  <wsdl:message name="ScanModule.UpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ModuleID" type="xsd:int"/>
+    <wsdl:part name="Version" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="ScanModule.UpdateResponse">
+    <wsdl:part name="Update" type="tns1:T_Update"/>
+  </wsdl:message>
+
+  <wsdl:message name="NetworkJob.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="NetworkJob.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="NetworkJob.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="NetworkJob.ListResponse">
+    <wsdl:part name="NetworkJob" type="impl:ArrayOf_tns1_T_NetworkJob"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="NetworkJob.SubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="JobComplete" type="xsd:boolean"/>
+    <wsdl:part name="Network" type="impl:ArrayOf_tns1_T_NetworkData"/>
+  </wsdl:message>
+  <wsdl:message name="NetworkJob.SubmitResponse">
+    <wsdl:part name="InvalidTaskList" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="MalformedTaskList" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="RemediationAction.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="RemediationAction.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="RemediationAction.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="RemediationAction.ListResponse">
+    <wsdl:part name="Job" type="impl:ArrayOf_tns1_T_Action"/>
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="RemediationAction.ReportRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Job" type="impl:ArrayOf_tns1_T_ActionReport"/>
+  </wsdl:message>
+  <wsdl:message name="RemediationAction.ReportResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="Session.HelloRequest">
+    <wsdl:part name="Version" type="xsd:string"/>
+    <wsdl:part name="ApplianceVersion" type="xsd:string"/>
+    <wsdl:part name="Agent_OSID" type="xsd:string"/>
+    <wsdl:part name="Agent_OS" type="xsd:string"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+  </wsdl:message>
+  <!-- alternate signature for Session.Hello
+  -->
+  <wsdl:message name="Session.HelloRequest2">
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="Version" type="xsd:string"/>
+    <wsdl:part name="ApplianceVersion" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="Session.HelloRequest3">
+    <wsdl:part name="Version" type="xsd:string"/>
+    <wsdl:part name="ApplianceVersion" type="xsd:string"/>
+    <wsdl:part name="Agent_OSID" type="xsd:string"/>
+    <wsdl:part name="Agent_OS" type="xsd:string"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="TimeZoneID" type="xsd:string"/>
+  </wsdl:message>
+  <wsdl:message name="Session.HelloResponse">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="Session.QuitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Shutdown" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="Session.QuitResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+  </wsdl:message>
+
+  <wsdl:message name="System.IsConfigRequiredRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="System.IsConfigRequiredResponse">
+    <wsdl:part name="Appliance" type="xsd:boolean"/>
+    <wsdl:part name="ScanModule" type="xsd:boolean"/>
+    <wsdl:part name="ScanTask" type="xsd:boolean"/>
+    <wsdl:part name="Reload" type="xsd:boolean"/>
+    <wsdl:part name="Job" type="xsd:boolean"/>
+    <wsdl:part name="ActionModule" type="xsd:boolean"/>
+    <wsdl:part name="ActionTask" type="xsd:boolean"/>
+    <wsdl:part name="DiscoveryModule" type="xsd:boolean"/>
+    <wsdl:part name="DiscoveryJob" type="xsd:boolean"/>
+    <wsdl:part name="RemoteExecutionTask" type="xsd:boolean"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.CheckConfigRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.CheckConfigResponse">
+    <wsdl:part name="Values" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+  </wsdl:message>
+
+  <wsdl:message name="Appliance.CheckConfig2Request">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="Appliance.CheckConfig2Response">
+    <wsdl:part name="Values" type="impl:ArrayOf_tns1_T_CheckConfig"/>
+  </wsdl:message>
+
+
+  <wsdl:message name="Task.AcknowledgeRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Acknowledge" type="impl:ArrayOf_tns1_T_Acknowledge"/>
+  </wsdl:message>
+  <wsdl:message name="Task.AcknowledgeResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+    <wsdl:part name="InvalidTasks" type="tns1:ArrayOf_xsd_int"/>
+  </wsdl:message>
+
+  <wsdl:message name="Task.CountRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="Task.CountResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+  </wsdl:message>
+
+  <wsdl:message name="Task.ListRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="Task.ListResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+    <wsdl:part name="TaskConfig" type="impl:ArrayOf_tns1_T_TaskConfig"/>
+  </wsdl:message>
+
+  <wsdl:message name="Task.ListWithThresholdRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Offset" type="xsd:int"/>
+    <wsdl:part name="Limit" type="xsd:int"/>
+    <wsdl:part name="ChangedOnly" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="Task.ListWithThresholdResponse">
+    <wsdl:part name="Count" type="xsd:int"/>
+    <wsdl:part name="TaskConfig" type="impl:ArrayOf_tns1_T_TaskConfig2"/>
+  </wsdl:message>
+
+  <wsdl:message name="Task.SubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="DataArray" type="impl:ArrayOf_tns1_T_Data"/>
+  </wsdl:message>
+  <wsdl:message name="Task.SubmitRequest2">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="DataArray" type="impl:ArrayOf_tns1_T_DataWithState"/>
+  </wsdl:message>
+  <wsdl:message name="Task.SubmitResponse">
+    <wsdl:part name="Msg" type="xsd:string"/>
+    <wsdl:part name="InvalidTasks" type="tns1:ArrayOf_xsd_int"/>
+    <wsdl:part name="MalformedTasks" type="tns1:ArrayOf_xsd_int"/>
+  </wsdl:message>
+
+   <wsdl:message name="RemoteExecutionTask.CountRequest">
+      <wsdl:part name="SessionID" type="xsd:int"/>
+      <wsdl:part name="IsStartUp" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="RemoteExecutionTask.CountResponse">
+      <wsdl:part name="Count" type="xsd:int"/>
+   </wsdl:message>
+
+   <wsdl:message name="ManagementTask.ListRequest">
+      <wsdl:part name="SessionID" type="xsd:int"/>
+      <wsdl:part name="IsStartUp" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="ManagementTask.ListResponse">
+      <wsdl:part name="ManagementTasks" type="impl:ArrayOf_tns1_T_ManagementTask"/>
+   </wsdl:message>
+
+   <wsdl:message name="RemoteExecutionTask.ListRequest">
+      <wsdl:part name="SessionID" type="xsd:int"/>
+      <wsdl:part name="Offset" type="xsd:int"/>
+      <wsdl:part name="Limit" type="xsd:int"/>
+      <wsdl:part name="IsStartUp" type="xsd:boolean"/>
+   </wsdl:message>
+   <wsdl:message name="RemoteExecutionTask.ListResponse">
+      <wsdl:part name="RemoteExecutionTasks" type="impl:ArrayOf_tns1_T_RemoteExecutionTask"/>
+      <wsdl:part name="Count" type="xsd:int"/>
+   </wsdl:message>
+
+   <wsdl:message name="RemoteExecutionTask.SubmitRequest">
+      <wsdl:part name="SessionID" type="xsd:int"/>
+      <wsdl:part name="RemoteExecutionTaskResults" type="impl:ArrayOf_tns1_T_RemoteExecutionTaskResult"/>
+   </wsdl:message>
+   <wsdl:message name="RemoteExecutionTask.SubmitResponse">
+      <wsdl:part name="Msg" type="xsd:string"/>
+      <wsdl:part name="InvalidTasks" type="tns1:ArrayOf_xsd_int"/>
+      <wsdl:part name="MalformedTasks" type="tns1:ArrayOf_xsd_int"/>
+   </wsdl:message>
+
+   <!-- Vendaface 01 -->
+   <wsdl:message name="AssetDiscoSimplifiedInfo.SubmitRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="JobID" type="xsd:int"/>
+    <wsdl:part name="Asset" type="tns1:T_DeviceAssetDisco"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoSimplifiedInfo.SubmitResponse">
+    <wsdl:part name="InvalidJob" type="xsd:boolean"/>
+  </wsdl:message>
+   <!-- Vendaface 01 -->
+
+
+   <wsdl:message name="GetTaskStateStatusPriorityRequest">
+     <wsdl:part name="SessionID" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="GetTaskStateStatusPriorityResponse">
+     <wsdl:part name="TaskStateStatusPriority" type="impl:ArrayOf_tns1_T_TasksStateStatusPriority"/>
+   </wsdl:message>
+
+   <wsdl:message name="Appliance.RestartedRequest">
+     <wsdl:part name="SessionID" type="xsd:int"/>
+     <wsdl:part name="ApplianceID" type="xsd:int"/>
+   </wsdl:message>
+   <wsdl:message name="Appliance.RestartedResponse">
+    <wsdl:part name="Message" type="xsd:string"/>
+   </wsdl:message>
+
+   <!--Algie 34 -->
+   <wsdl:message name="QuarantinedItems.SubmitRequest">
+     <wsdl:part name="SessionID" type="xsd:int"/>
+     <wsdl:part name="ApplianceID" type="xsd:int"/>
+     <wsdl:part name="QuarantinedItems" type="impl:ArrayOf_tns1_T_QuarantinedItem"/>
+   </wsdl:message>
+   <wsdl:message name="QuarantinedItems.SubmitResponse">
+     <wsdl:part name="Message" type="xsd:string"/>
+   </wsdl:message>
+   <!--Algie 34 -->
+
+   <wsdl:message name="Component.StatusUpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="ConfigUpdate" type="impl:ArrayOf_tns1_T_Config"/>
+  </wsdl:message>
+  <wsdl:message name="Component.StatusUpdateResponse">
+    <wsdl:part name="Message" type="xsd:string"/>
+  </wsdl:message>
+
+   <wsdl:message name="CheckAssetJobOrTask.ValidityRequest">
+     <wsdl:part name="SessionID" type="xsd:int"/>
+     <wsdl:part name="ApplianceID" type="xsd:int"/>
+     <wsdl:part name="UniqueID" type="xsd:int"/>
+     <wsdl:part name="Type" type="xsd:string"/>
+   </wsdl:message>
+   <wsdl:message name="CheckAssetJobOrTask.ValidityResponse">
+     <wsdl:part name="IsValid" type="xsd:boolean"/>
+   </wsdl:message>
+
+
+  <wsdl:message name="KeepAliveRequest">
+     <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="Details" type="impl:ArrayOf_tns1_T_KeyValuePair"/>
+  </wsdl:message>
+  <wsdl:message name="KeepAliveResponse">
+  </wsdl:message>
+
+  <wsdl:message name="MspaEventRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="Event" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="MspaEventResponse">
+  </wsdl:message>
+
+  <wsdl:message name="ApplianceAction.UpdateRequest">
+    <wsdl:part name="SessionID" type="xsd:int"/>
+    <wsdl:part name="ApplianceID" type="xsd:int"/>
+    <wsdl:part name="ActionDetail" type="impl:ArrayOf_tns1_T_ApplianceAction"/>
+  </wsdl:message>
+  <wsdl:message name="ApplianceAction.UpdateResponse">
+    <wsdl:part name="Message" type="tns1:ArrayOf_xsd_string"/>
+  </wsdl:message>
+
+  <wsdl:message name="AssetDiscoveryDeletedJobListRequest">
+    <wsdl:part name="SessionId" type="xsd:int"/>
+    <wsdl:part name="ApplianceId" type="xsd:int"/>
+  </wsdl:message>
+  <wsdl:message name="AssetDiscoveryDeletedJobListResponse">
+    <wsdl:part name="AssetJobIds" type="tns1:ArrayOf_xsd_int"/>
+  </wsdl:message>
+  <wsdl:portType name="ServerMMS_PortType">
+
+    <wsdl:operation name="MaintActionGet" parameterOrder="ApplianceID">
+      <wsdl:input message="impl:MaintActionGetRequest" name="MaintActionGetRequest"/>
+      <wsdl:output message="impl:MaintActionGetResponse" name="MaintActionGetResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="EventDataSubmit" parameterOrder="SessionID dataArray">
+      <wsdl:input message="impl:EventDataSubmitRequest" name="EventDataSubmitRequest"/>
+      <wsdl:output message="impl:EventDataSubmitResponse" name="EventDataSubmitResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="ActionModule.Count" parameterOrder="SessionID">
+      <wsdl:input message="impl:ActionModule.CountRequest" name="ActionModule.CountRequest"/>
+      <wsdl:output message="impl:ActionModule.CountResponse" name="ActionModule.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ActionModule.List" parameterOrder="SessionID">
+      <wsdl:input message="impl:ActionModule.ListRequest" name="ActionModule.ListRequest"/>
+      <wsdl:output message="impl:ActionModule.ListResponse" name="ActionModule.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ActionModule.Update" parameterOrder="SessionID ActionType">
+      <wsdl:input message="impl:ActionModule.UpdateRequest" name="ActionModule.UpdateRequest"/>
+      <wsdl:output message="impl:ActionModule.UpdateResponse" name="ActionModule.UpdateResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Agent.InstallerCheck" parameterOrder="PType PValue">
+      <wsdl:input message="impl:Agent.InstallerCheckRequest" name="Agent.InstallerCheckRequest"/>
+      <wsdl:output message="impl:Agent.InstallerCheckResponse" name="Agent.InstallerCheckResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Agent.InstallerCheckCustomer" parameterOrder="customerID customerName">
+      <wsdl:input message="impl:Agent.InstallerCheckCustomerRequest" name="Agent.InstallerCheckCustomerRequest"/>
+      <wsdl:output message="impl:Agent.InstallerCheckCustomerResponse" name="Agent.InstallerCheckCustomerResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.Config" parameterOrder="SessionID Appliance Options">
+      <wsdl:input message="impl:Appliance.ConfigRequest" name="Appliance.ConfigRequest"/>
+      <wsdl:output message="impl:Appliance.ConfigResponse" name="Appliance.ConfigResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.GetConfig" parameterOrder="SessionID ConfigTypes">
+      <wsdl:input message="impl:Appliance.GetConfigRequest" name="Appliance.GetConfigRequest"/>
+      <wsdl:output message="impl:Appliance.GetConfigResponse" name="Appliance.GetConfigResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Appliance.GetConfig" parameterOrder="SessionID ConfigTypes InputParameters">
+      <wsdl:input message="impl:Appliance.GetConfigRequest2" name="Appliance.GetConfigRequest2"/>
+      <wsdl:output message="impl:Appliance.GetConfigResponse" name="Appliance.GetConfigResponse"/>
+    </wsdl:operation>
+
+     <wsdl:operation name="Appliance.LogSubmit" parameterOrder="SessionID LogType Contents Msg">
+      <wsdl:input message="impl:Appliance.LogSubmitRequest" name="Appliance.LogSubmitRequest"/>
+      <wsdl:output message="impl:Appliance.LogSubmitResponse" name="Appliance.LogSubmitResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.Registration" parameterOrder="ApplianceRegistration TimeZone">
+      <wsdl:input message="impl:Appliance.RegistrationRequest" name="Appliance.RegistrationRequest"/>
+      <wsdl:output message="impl:Appliance.RegistrationResponse" name="Appliance.RegistrationResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.Ping" parameterOrder="ApplianceID">
+      <wsdl:input message="impl:Appliance.PingRequest" name="Appliance.PingRequest"/>
+      <wsdl:output message="impl:Appliance.PingResponse" name="Appliance.PingResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.UpgradeStatusSend" parameterOrder="SessionID Info">
+      <wsdl:input message="impl:Appliance.UpgradeStatusSendRequest" name="Appliance.UpgradeStatusSendRequest"/>
+      <wsdl:output message="impl:Appliance.UpgradeStatusSendResponse" name="Appliance.UpgradeStatusSendResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="AssetDiscoJob.Count" parameterOrder="SessionID ApplianceID ChangedOnly">
+      <wsdl:input message="impl:AssetDiscoJob.CountRequest" name="AssetDiscoJob.CountRequest"/>
+      <wsdl:output message="impl:AssetDiscoJob.CountResponse" name="AssetDiscoJob.CountResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="AssetDiscoJob.List" parameterOrder="SessionID ApplianceID ChangedOnly Offset Limit">
+      <wsdl:input message="impl:AssetDiscoJob.ListRequest" name="AssetDiscoJob.ListRequest"/>
+      <wsdl:output message="impl:AssetDiscoJob.ListResponse" name="AssetDiscoJob.ListResponse"/>
+    </wsdl:operation>
+<!--BEGIN DEFINITIONS FOR SPRINT 35-->
+    <wsdl:operation name="PatchSubmitTableData" parameterOrder="SessionID TableName TableData">
+      <wsdl:input message="impl:PatchSubmitTableDataRequest" name="PatchSubmitTableDataRequest"/>
+      <wsdl:output message="impl:PatchSubmitTableDataResponse" name="PatchSubmitTableDataResponse"/>
+    </wsdl:operation>
+<!--END DEFINITIONS FOR SPRINT 35-->
+    <wsdl:operation name="AssetDiscoJob.ListNew" parameterOrder="SessionID ApplianceID ChangedOnly Offset Limit">
+      <wsdl:input message="impl:AssetDiscoJob.ListNewRequest" name="AssetDiscoJob.ListNewRequest"/>
+      <wsdl:output message="impl:AssetDiscoJob.ListNewResponse" name="AssetDiscoJob.ListNewResponse"/>
+    </wsdl:operation>
+
+	<!-- new installed_time from Sprint 2 -->
+    <wsdl:operation name="AssetDiscoJob.Submit" parameterOrder="sessionID errorMessage assetData">
+      <wsdl:input message="impl:AssetDiscoJob.SubmitRequest" name="AssetDiscoJob.SubmitRequest"/>
+      <wsdl:output message="impl:AssetDiscoJob.SubmitResponse" name="AssetDiscoJob.SubmitResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="AssetDiscoJob.Submit" parameterOrder="sessionID jobID jobComplete errorMessage assetData">
+      <wsdl:input message="impl:AssetDiscoJob.SubmitRequest2" name="AssetDiscoJob.SubmitRequest2"/>
+      <wsdl:output message="impl:AssetDiscoJob.SubmitResponse2" name="AssetDiscoJob.SubmitResponse2"/>
+    </wsdl:operation>
+
+	<!-- old (pre-Sprint 2) AssetDiscoJobSubmit -->
+    <wsdl:operation name="AssetDiscoJob.Submit" parameterOrder="SessionID ApplianceID JobID JobComplete ErrorMessage Asset">
+      <wsdl:input message="impl:AssetDiscoJob.SubmitRequestOld" name="AssetDiscoJob.SubmitRequestOld"/>
+      <wsdl:output message="impl:AssetDiscoJob.SubmitResponseOld" name="AssetDiscoJob.SubmitResponseOld"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="DiscoveryJob.Count" parameterOrder="SessionID ChangedOnly">
+      <wsdl:input message="impl:DiscoveryJob.CountRequest" name="DiscoveryJob.CountRequest"/>
+      <wsdl:output message="impl:DiscoveryJob.CountResponse" name="DiscoveryJob.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryJob.List" parameterOrder="SessionID Offset Limit DiscoveryJobConfigs Count">
+      <wsdl:input message="impl:DiscoveryJob.ListRequest" name="DiscoveryJob.ListRequest"/>
+      <wsdl:output message="impl:DiscoveryJob.ListResponse" name="DiscoveryJob.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryJob.Submit" parameterOrder="SessionID JobComplete DataArray Msg InvalidDiscoJobList MalformedDiscoJobList">
+      <wsdl:input message="impl:DiscoveryJob.SubmitRequest" name="DiscoveryJob.SubmitRequest"/>
+      <wsdl:output message="impl:DiscoveryJob.SubmitResponse" name="DiscoveryJob.SubmitResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.Count" parameterOrder="SessionID">
+      <wsdl:input message="impl:DiscoveryModule.CountRequest" name="DiscoveryModule.CountRequest"/>
+      <wsdl:output message="impl:DiscoveryModule.CountResponse" name="DiscoveryModule.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.List" parameterOrder="SessionID">
+      <wsdl:input message="impl:DiscoveryModule.ListRequest" name="DiscoveryModule.ListRequest"/>
+      <wsdl:output message="impl:DiscoveryModule.ListResponse" name="DiscoveryModule.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.Update" parameterOrder="SessionID DiscoveryModuleID">
+      <wsdl:input message="impl:DiscoveryModule.UpdateRequest" name="DiscoveryModule.UpdateRequest"/>
+      <wsdl:output message="impl:DiscoveryModule.UpdateResponse" name="DiscoveryModule.UpdateResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.GetConfig" parameterOrder="ApplianceID">
+      <wsdl:input message="impl:Drone.GetConfigRequest" name="Drone.GetConfigRequest"/>
+      <wsdl:output message="impl:Drone.GetConfigResponse" name="Drone.GetConfigResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.IsConfigRequired" parameterOrder="ApplianceID">
+      <wsdl:input message="impl:Drone.IsConfigRequiredRequest" name="Drone.IsConfigRequiredRequest"/>
+      <wsdl:output message="impl:Drone.IsConfigRequiredResponse" name="Drone.IsConfigRequiredResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.Update" parameterOrder="ApplianceID DroneConfig">
+      <wsdl:input message="impl:Drone.UpdateRequest" name="Drone.UpdateRequest"/>
+      <wsdl:output message="impl:Drone.UpdateResponse" name="Drone.UpdateResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.Count" parameterOrder="SessionID">
+      <wsdl:input message="impl:InterfaceJob.CountRequest" name="InterfaceJob.CountRequest"/>
+      <wsdl:output message="impl:InterfaceJob.CountResponse" name="InterfaceJob.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.List" parameterOrder="SessionID Offset Limit">
+      <wsdl:input message="impl:InterfaceJob.ListRequest" name="InterfaceJob.ListRequest"/>
+      <wsdl:output message="impl:InterfaceJob.ListResponse" name="InterfaceJob.ListResponse"/>
+    </wsdl:operation>
+    <!-- alternate signature for InterfaceJob.List
+    -->
+    <wsdl:operation name="InterfaceJob.List" parameterOrder="SessionID">
+      <wsdl:input message="impl:InterfaceJob.ListRequest2" name="InterfaceJob.ListRequest2"/>
+      <wsdl:output message="impl:InterfaceJob.ListResponse" name="InterfaceJob.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.Submit" parameterOrder="SessionID JobComplete InterfaceData">
+      <wsdl:input message="impl:InterfaceJob.SubmitRequest" name="InterfaceJob.SubmitRequest"/>
+      <wsdl:output message="impl:InterfaceJob.SubmitResponse" name="InterfaceJob.SubmitResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Module.Count" parameterOrder="SessionID Count">
+      <wsdl:input message="impl:Module.CountRequest" name="Module.CountRequest"/>
+      <wsdl:output message="impl:Module.CountResponse" name="Module.CountResponse"/>
+    </wsdl:operation>
+    <!-- Module.Count has been renamed to ScanModule.Count in Zoot
+    -->
+    <wsdl:operation name="ScanModule.Count" parameterOrder="SessionID Count">
+      <wsdl:input message="impl:ScanModule.CountRequest" name="ScanModule.CountRequest"/>
+      <wsdl:output message="impl:ScanModule.CountResponse" name="ScanModule.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Module.List" parameterOrder="SessionID Offset Limit ModuleArray">
+      <wsdl:input message="impl:Module.ListRequest" name="Module.ListRequest"/>
+      <wsdl:output message="impl:Module.ListResponse" name="Module.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Module.ListAll" parameterOrder="SessionID ModuleArray">
+      <wsdl:input message="impl:Module.ListAllRequest" name="Module.ListAllRequest"/>
+      <wsdl:output message="impl:Module.ListAllResponse" name="Module.ListAllResponse"/>
+    </wsdl:operation>
+    <!-- Module.List has been renamed to ScanModule.List in Zoot
+    -->
+    <wsdl:operation name="ScanModule.List" parameterOrder="SessionID Offset Limit ModuleArray">
+      <wsdl:input message="impl:ScanModule.ListRequest" name="ScanModule.ListRequest"/>
+      <wsdl:output message="impl:ScanModule.ListResponse" name="ScanModule.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Module.Update" parameterOrder="SessionID ModuleID Version Update">
+      <wsdl:input message="impl:Module.UpdateRequest" name="Module.UpdateRequest"/>
+      <wsdl:output message="impl:Module.UpdateResponse" name="Module.UpdateResponse"/>
+    </wsdl:operation>
+    <!-- Module.Update has been renamed to ScanModule.Update in Zoot
+    -->
+    <wsdl:operation name="ScanModule.Update" parameterOrder="SessionID ModuleID Version Update">
+      <wsdl:input message="impl:ScanModule.UpdateRequest" name="ScanModule.UpdateRequest"/>
+      <wsdl:output message="impl:ScanModule.UpdateResponse" name="ScanModule.UpdateResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="NetworkJob.Count" parameterOrder="SessionID">
+      <wsdl:input message="impl:NetworkJob.CountRequest" name="NetworkJob.CountRequest"/>
+      <wsdl:output message="impl:NetworkJob.CountResponse" name="NetworkJob.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="NetworkJob.List" parameterOrder="SessionID">
+      <wsdl:input message="impl:NetworkJob.ListRequest" name="NetworkJob.ListRequest"/>
+      <wsdl:output message="impl:NetworkJob.ListResponse" name="NetworkJob.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="NetworkJob.Submit" parameterOrder="SessionID JobComplete Network">
+      <wsdl:input message="impl:NetworkJob.SubmitRequest" name="NetworkJob.SubmitRequest"/>
+      <wsdl:output message="impl:NetworkJob.SubmitResponse" name="NetworkJob.SubmitResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="RemediationAction.Count" parameterOrder="SessionID">
+      <wsdl:input message="impl:RemediationAction.CountRequest" name="RemediationAction.CountRequest"/>
+      <wsdl:output message="impl:RemediationAction.CountResponse" name="RemediationAction.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="RemediationAction.List" parameterOrder="SessionID Limit">
+      <wsdl:input message="impl:RemediationAction.ListRequest" name="RemediationAction.ListRequest"/>
+      <wsdl:output message="impl:RemediationAction.ListResponse" name="RemediationAction.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="RemediationAction.Report" parameterOrder="SessionID Job">
+      <wsdl:input message="impl:RemediationAction.ReportRequest" name="RemediationAction.ReportRequest"/>
+      <wsdl:output message="impl:RemediationAction.ReportResponse" name="RemediationAction.ReportResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Session.Hello" parameterOrder="Version ApplianceVersion Agent_OSID Agent_OS ApplianceID SessionID">
+      <wsdl:input message="impl:Session.HelloRequest" name="Session.HelloRequest"/>
+      <wsdl:output message="impl:Session.HelloResponse" name="Session.HelloResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Session.Hello" parameterOrder="Version ApplianceVersion Agent_OSID Agent_OS ApplianceID TimeZoneID SessionID">
+      <wsdl:input message="impl:Session.HelloRequest3" name="Session.HelloRequest3"/>
+      <wsdl:output message="impl:Session.HelloResponse" name="Session.HelloResponse"/>
+    </wsdl:operation>
+    <!-- alternate signature for Session.Hello
+    -->
+    <wsdl:operation name="Session.Hello" parameterOrder="ApplianceID Version ApplianceVersion SessionID">
+      <wsdl:input message="impl:Session.HelloRequest2" name="Session.HelloRequest2"/>
+      <wsdl:output message="impl:Session.HelloResponse" name="Session.HelloResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Session.Quit" parameterOrder="SessionID Shutdown Msg">
+      <wsdl:input message="impl:Session.QuitRequest" name="Session.QuitRequest"/>
+      <wsdl:output message="impl:Session.QuitResponse" name="Session.QuitResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="System.IsConfigRequired" parameterOrder="SessionID Appliance ScanModule ScanTask Reload Job ActionModule ActionTask DiscoveryModule DiscoveryJob RemoteExecutionTask">
+      <wsdl:input message="impl:System.IsConfigRequiredRequest" name="System.IsConfigRequiredRequest"/>
+      <wsdl:output message="impl:System.IsConfigRequiredResponse" name="System.IsConfigRequiredResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Appliance.CheckConfig" parameterOrder="SessionID">
+      <wsdl:input message="impl:Appliance.CheckConfigRequest" name="Appliance.CheckConfigRequest"/>
+      <wsdl:output message="impl:Appliance.CheckConfigResponse" name="Appliance.CheckConfigResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Appliance.CheckConfig2" parameterOrder="SessionID">
+      <wsdl:input message="impl:Appliance.CheckConfig2Request" name="Appliance.CheckConfig2Request"/>
+      <wsdl:output message="impl:Appliance.CheckConfig2Response" name="Appliance.CheckConfig2Response"/>
+    </wsdl:operation>
+    <wsdl:operation name="Task.Acknowledge" parameterOrder="SessionID Acknowledge Msg InvalidTasks">
+      <wsdl:input message="impl:Task.AcknowledgeRequest" name="Task.AcknowledgeRequest"/>
+      <wsdl:output message="impl:Task.AcknowledgeResponse" name="Task.AcknowledgeResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Task.Count" parameterOrder="SessionID ChangedOnly Count">
+      <wsdl:input message="impl:Task.CountRequest" name="Task.CountRequest"/>
+      <wsdl:output message="impl:Task.CountResponse" name="Task.CountResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Task.List" parameterOrder="SessionID Offset Limit ChangedOnly Count TaskConfig">
+      <wsdl:input message="impl:Task.ListRequest" name="Task.ListRequest"/>
+      <wsdl:output message="impl:Task.ListResponse" name="Task.ListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="Task.ListWithThreshold" parameterOrder="SessionID Offset Limit ChangedOnly Count TaskConfig">
+      <wsdl:input message="impl:Task.ListWithThresholdRequest" name="Task.ListWithThresholdRequest"/>
+      <wsdl:output message="impl:Task.ListWithThresholdResponse" name="Task.ListWithThresholdResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Task.Submit" parameterOrder="SessionID DataArray Msg InvalidTasks MalformedTasks">
+      <wsdl:input message="impl:Task.SubmitRequest" name="Task.SubmitRequest"/>
+      <wsdl:output message="impl:Task.SubmitResponse" name="Task.SubmitResponse"/>
+    </wsdl:operation>
+
+    <wsdl:operation name="Task.Submit" parameterOrder="SessionID DataArray Msg InvalidTasks MalformedTasks">
+      <wsdl:input message="impl:Task.SubmitRequest2" name="Task.SubmitRequest2"/>
+      <wsdl:output message="impl:Task.SubmitResponse" name="Task.SubmitResponse"/>
+    </wsdl:operation>
+
+     <wsdl:operation name="Task.SubmitWithState" parameterOrder="SessionID DataArray Msg InvalidTasks MalformedTasks">
+      <wsdl:input message="impl:Task.SubmitRequest2" name="Task.SubmitRequest2"/>
+      <wsdl:output message="impl:Task.SubmitResponse" name="Task.SubmitResponse"/>
+     </wsdl:operation>
+
+     <wsdl:operation name="RemoteExecutionTask.Count" parameterOrder="SessionID IsStartUp">
+         <wsdl:input name="RemoteExecutionTask.CountRequest" message="impl:RemoteExecutionTask.CountRequest"/>
+         <wsdl:output name="RemoteExecutionTask.CountResponse" message="impl:RemoteExecutionTask.CountResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="RemoteExecutionTask.List" parameterOrder="SessionID Offset Limit IsStartUp">
+         <wsdl:input name="RemoteExecutionTask.ListRequest" message="impl:RemoteExecutionTask.ListRequest"/>
+         <wsdl:output name="RemoteExecutionTask.ListResponse" message="impl:RemoteExecutionTask.ListResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="RemoteExecutionTask.Submit" parameterOrder="SessionID RemoteExecutionTaskResults">
+         <wsdl:input name="RemoteExecutionTask.SubmitRequest" message="impl:RemoteExecutionTask.SubmitRequest"/>
+         <wsdl:output name="RemoteExecutionTask.SubmitResponse" message="impl:RemoteExecutionTask.SubmitResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="ManagementTask.List" parameterOrder="SessionID IsStartUp">
+         <wsdl:input name="ManagementTask.ListRequest" message="impl:ManagementTask.ListRequest"/>
+         <wsdl:output name="ManagementTask.ListResponse" message="impl:ManagementTask.ListResponse"/>
+      </wsdl:operation>
+
+      <!--Vendaface 01 -->
+       <wsdl:operation name="AssetDiscoSimplifiedInfo.Submit" parameterOrder="SessionID ApplianceID JobID Asset">
+         <wsdl:input name="AssetDiscoSimplifiedInfo.SubmitRequest" message="impl:AssetDiscoSimplifiedInfo.SubmitRequest"/>
+         <wsdl:output name="AssetDiscoSimplifiedInfo.SubmitResponse" message="impl:AssetDiscoSimplifiedInfo.SubmitResponse"/>
+      </wsdl:operation>
+      <!--Vendaface 01 -->
+
+      <wsdl:operation name="GetTaskStateStatusPriority" parameterOrder="SessionID">
+         <wsdl:input name="GetTaskStateStatusPriorityRequest" message="impl:GetTaskStateStatusPriorityRequest"/>
+         <wsdl:output name="GetTaskStateStatusPriorityResponse" message="impl:GetTaskStateStatusPriorityResponse"/>
+      </wsdl:operation>
+
+      <wsdl:operation name="Appliance.Restarted" parameterOrder="SessionID ApplianceID">
+         <wsdl:input name="Appliance.RestartedRequest" message="impl:Appliance.RestartedRequest"/>
+         <wsdl:output name="Appliance.RestartedResponse" message="impl:Appliance.RestartedResponse"/>
+      </wsdl:operation>
+
+      <!-- Algie 34 -->
+      <wsdl:operation name="QuarantinedItems.Submit" parameterOrder="SessionID ApplianceID QuarantinedItems">
+       <wsdl:input message="impl:QuarantinedItems.SubmitRequest" name="QuarantinedItems.SubmitRequest"/>
+       <wsdl:output message="impl:QuarantinedItems.SubmitResponse" name="QuarantinedItems.SubmitResponse"/>
+     </wsdl:operation>
+      <!-- Algie 34 -->
+
+      <wsdl:operation name="Component.StatusUpdate" parameterOrder="SessionID ApplianceID ConfigUpdate">
+       <wsdl:input message="impl:Component.StatusUpdateRequest" name="Component.StatusUpdateRequest"/>
+       <wsdl:output message="impl:Component.StatusUpdateResponse" name="Component.StatusUpdateResponse"/>
+     </wsdl:operation>
+
+
+      <wsdl:operation name="CheckAssetJobOrTask.Validity" parameterOrder="SessionID ApplianceID UniqueID Type">
+       <wsdl:input message="impl:CheckAssetJobOrTask.ValidityRequest" name="CheckAssetJobOrTask.ValidityRequest"/>
+       <wsdl:output message="impl:CheckAssetJobOrTask.ValidityResponse" name="CheckAssetJobOrTask.ValidityResponse"/>
+     </wsdl:operation>
+
+      <wsdl:operation name="KeepAlive" parameterOrder="SessionID Details">
+       <wsdl:input message="impl:KeepAliveRequest" name="KeepAliveRequest"/>
+       <wsdl:output message="impl:KeepAliveResponse" name="KeepAliveResponse"/>
+     </wsdl:operation>
+
+	  <wsdl:operation name="MspaEvent" parameterOrder="SessionID ApplianceID Event">
+		  <wsdl:input message="impl:MspaEventRequest" name="MspaEventRequest"/>
+		  <wsdl:output message="impl:MspaEventResponse" name="MspaEventResponse"/>
+	  </wsdl:operation>
+
+      <wsdl:operation name="ApplianceAction.Update" parameterOrder="SessionID ApplianceID ActionDetail">
+       <wsdl:input message="impl:ApplianceAction.UpdateRequest" name="ApplianceAction.UpdateRequest"/>
+       <wsdl:output message="impl:ApplianceAction.UpdateResponse" name="ApplianceAction.UpdateResponse"/>
+     </wsdl:operation>
+
+      <wsdl:operation name="AssetDiscoveryDeletedJobList" parameterOrder="SessionId ApplianceId">
+       <wsdl:input message="impl:AssetDiscoveryDeletedJobListRequest" name="AssetDiscoveryDeletedJobListRequest"/>
+       <wsdl:output message="impl:AssetDiscoveryDeletedJobListResponse" name="AssetDiscoveryDeletedJobListResponse"/>
+     </wsdl:operation>
+
+  </wsdl:portType>
+  <wsdl:binding name="ServerMMSSoapBinding" type="impl:ServerMMS_PortType">
+    <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <wsdl:operation name="MaintActionGet">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="MaintActionGetRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="MaintActionGetResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="EventDataSubmit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="EventDataSubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="EventDataSubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ActionModule.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ActionModule.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ActionModule.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ActionModule.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ActionModule.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ActionModule.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ActionModule.Update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ActionModule.UpdateRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ActionModule.UpdateResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Agent.InstallerCheck">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Agent.InstallerCheckRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Agent.InstallerCheckResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Agent.InstallerCheckCustomer">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Agent.InstallerCheckCustomerRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Agent.InstallerCheckCustomerResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.Config">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.ConfigRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.ConfigResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.GetConfig">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.GetConfigRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.GetConfigResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Appliance.GetConfig">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.GetConfigRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.GetConfigResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+ 	<wsdl:operation name="Appliance.LogSubmit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.LogSubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.LogSubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+	<wsdl:operation name="Appliance.Registration">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.RegistrationRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.RegistrationResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.Ping">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.PingRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.PingResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.UpgradeStatusSend">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.UpgradeStatusSendRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.UpgradeStatusSendResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="AssetDiscoJob.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+     <wsdl:operation name="AssetDiscoJob.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+<!--BEGIN DEFINITIONS FOR SPRINT 35-->
+    <wsdl:operation name="PatchSubmitTableData">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="PatchSubmitTableDataRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="PatchSubmitTableDataResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+<!--END DEFINITIONS FOR SPRINT 35-->
+    <wsdl:operation name="AssetDiscoJob.ListNew">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.ListNewRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.ListNewResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="AssetDiscoJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.SubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetDiscoJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.SubmitRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.SubmitResponse2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetDiscoJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="AssetDiscoJob.SubmitRequestOld">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="AssetDiscoJob.SubmitResponseOld">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryJob.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryJob.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryJob.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryJob.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryJob.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryJob.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryJob.SubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryJob.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryModule.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryModule.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryModule.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryModule.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DiscoveryModule.Update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="DiscoveryModule.UpdateRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="DiscoveryModule.UpdateResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.GetConfig">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Drone.GetConfigRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Drone.GetConfigResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.IsConfigRequired">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Drone.IsConfigRequiredRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Drone.IsConfigRequiredResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Drone.Update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Drone.UpdateRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Drone.UpdateResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="InterfaceJob.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="InterfaceJob.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="InterfaceJob.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="InterfaceJob.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- alternate signature for InterfaceJob.List
+    -->
+    <wsdl:operation name="InterfaceJob.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="InterfaceJob.ListRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="InterfaceJob.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InterfaceJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="InterfaceJob.SubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="InterfaceJob.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Module.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Module.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Module.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <!-- Module.Count has been renamed to ScanModule.Count in Zoot
+    -->
+    <wsdl:operation name="ScanModule.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ScanModule.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ScanModule.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Module.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Module.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Module.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Module.ListAll">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Module.ListAllRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Module.ListAllResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <!-- Module.List has been renamed to ScanModule.List in Zoot
+    -->
+    <wsdl:operation name="ScanModule.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ScanModule.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ScanModule.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Module.Update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Module.UpdateRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Module.UpdateResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <!-- Module.Update has been renamed to ScanModule.Update in Zoot
+    -->
+    <wsdl:operation name="ScanModule.Update">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ScanModule.UpdateRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="ScanModule.UpdateResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="NetworkJob.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="NetworkJob.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="NetworkJob.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NetworkJob.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="NetworkJob.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="NetworkJob.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NetworkJob.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="NetworkJob.SubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="NetworkJob.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RemediationAction.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="RemediationAction.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="RemediationAction.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RemediationAction.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="RemediationAction.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="RemediationAction.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RemediationAction.Report">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="RemediationAction.ReportRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="RemediationAction.ReportResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Session.Hello">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Session.HelloRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Session.HelloResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <!-- alternate signature for Session.Hello
+    -->
+    <wsdl:operation name="Session.Hello">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Session.HelloRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Session.HelloResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Session.Hello">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Session.HelloRequest3">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Session.HelloResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Session.Quit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Session.QuitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Session.QuitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="System.IsConfigRequired">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="System.IsConfigRequiredRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="System.IsConfigRequiredResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="Appliance.CheckConfig">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.CheckConfigRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.CheckConfigResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Appliance.CheckConfig2">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Appliance.CheckConfig2Request">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Appliance.CheckConfig2Response">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+   <wsdl:operation name="Task.Acknowledge">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.AcknowledgeRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.AcknowledgeResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Task.Count">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.CountRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.CountResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Task.List">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.ListRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.ListResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+     <wsdl:operation name="Task.ListWithThreshold">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.ListWithThresholdRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.ListWithThresholdResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Task.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.SubmitRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+     <wsdl:operation name="Task.Submit">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.SubmitRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Task.SubmitWithState">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="Task.SubmitRequest2">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="Task.SubmitResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+      </wsdl:output>
+    </wsdl:operation>
+	  <wsdl:operation name="RemoteExecutionTask.Count">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="RemoteExecutionTask.CountRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="RemoteExecutionTask.CountResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="RemoteExecutionTask.List">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="RemoteExecutionTask.ListRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="RemoteExecutionTask.ListResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="RemoteExecutionTask.Submit">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="RemoteExecutionTask.SubmitRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="RemoteExecutionTask.SubmitResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="ManagementTask.List">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="ManagementTask.ListRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="ManagementTask.ListResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <!-- Vendaface 01 -->
+      <wsdl:operation name="AssetDiscoSimplifiedInfo.Submit">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="AssetDiscoSimplifiedInfo.SubmitRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="AssetDiscoSimplifiedInfo.SubmitResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <!-- Vendaface 01 -->
+
+      <wsdl:operation name="GetTaskStateStatusPriority">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="GetTaskStateStatusPriorityRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="GetTaskStateStatusPriorityResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="Appliance.Restarted">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="Appliance.RestartedRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="Appliance.RestartedResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <!--Algie 34 -->
+      <wsdl:operation name="QuarantinedItems.Submit">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="QuarantinedItems.SubmitRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="QuarantinedItems.SubmitResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <!--Algie 34 -->
+
+      <wsdl:operation name="Component.StatusUpdate">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="Component.StatusUpdateRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="Component.StatusUpdateResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+      <wsdl:operation name="CheckAssetJobOrTask.Validity">
+         <wsdlsoap:operation soapAction=""/>
+         <wsdl:input name="CheckAssetJobOrTask.ValidityRequest">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:input>
+         <wsdl:output name="CheckAssetJobOrTask.ValidityResponse">
+            <wsdlsoap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey"/>
+         </wsdl:output>
+      </wsdl:operation>
+
+	<wsdl:operation name="KeepAlive">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="KeepAliveRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output name="KeepAliveResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:output>
+	</wsdl:operation>
+
+	  <wsdl:operation name="MspaEvent">
+		  <wsdlsoap:operation soapAction=""/>
+		  <wsdl:input name="MspaEventRequest">
+			  <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+		  </wsdl:input>
+		  <wsdl:output name="MspaEventResponse">
+			  <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+		  </wsdl:output>
+	  </wsdl:operation>
+
+	<wsdl:operation name="ApplianceAction.Update">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="ApplianceAction.UpdateRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output name="ApplianceAction.UpdateResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:output>
+	</wsdl:operation>
+
+	<wsdl:operation name="AssetDiscoveryDeletedJobList">
+			<wsdlsoap:operation soapAction=""/>
+			<wsdl:input name="AssetDiscoveryDeletedJobListRequest">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:input>
+			<wsdl:output name="AssetDiscoveryDeletedJobListResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.n-able.com/mickey" use="encoded"/>
+			</wsdl:output>
+	</wsdl:operation>
+
+
+  </wsdl:binding>
+  <wsdl:service name="ServerMMSService">
+    <wsdl:port binding="impl:ServerMMSSoapBinding" name="ServerMMS">
+      <wsdlsoap:address location="http://127.0.0.1:8080/dms/services/ServerMMS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

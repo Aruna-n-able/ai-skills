@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://n-able.com/auditor/" xmlns:s="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  targetNamespace="http://n-able.com/auditor/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://n-able.com/auditor/">
+      <s:element name="ExportComplete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dataSourceID" type="s:unsignedByte"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportCompleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExportCompleteResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunETL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dataSourceID" type="s:unsignedByte"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RunETLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RunETLResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportReady">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dataSourceID" type="s:unsignedByte"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportReadyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ExportReadyResult" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportReady6_7">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="dataSourceID" type="s:unsignedByte"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportReady6_7Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportReady6_7Result" type="tns:ExportInfo"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExportInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="NCompassVersion" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ExportReady" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="info" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExportCompleteSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportComplete"/>
+  </wsdl:message>
+  <wsdl:message name="ExportCompleteSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportCompleteResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RunETLSoapIn">
+    <wsdl:part name="parameters" element="tns:RunETL"/>
+  </wsdl:message>
+  <wsdl:message name="RunETLSoapOut">
+    <wsdl:part name="parameters" element="tns:RunETLResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ExportReadySoapIn">
+    <wsdl:part name="parameters" element="tns:ExportReady"/>
+  </wsdl:message>
+  <wsdl:message name="ExportReadySoapOut">
+    <wsdl:part name="parameters" element="tns:ExportReadyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ExportReady6_7SoapIn">
+    <wsdl:part name="parameters" element="tns:ExportReady6_7"/>
+  </wsdl:message>
+  <wsdl:message name="ExportReady6_7SoapOut">
+    <wsdl:part name="parameters" element="tns:ExportReady6_7Response"/>
+  </wsdl:message>
+  <wsdl:portType name="AuditorServiceSoap">
+    <wsdl:operation name="ExportComplete">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inform N-compass that data export has complete and the ETL may be launched.</wsdl:documentation>
+      <wsdl:input message="tns:ExportCompleteSoapIn"/>
+      <wsdl:output message="tns:ExportCompleteSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="RunETL">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Runs the ETL for a Single Data source</wsdl:documentation>
+      <wsdl:input message="tns:RunETLSoapIn"/>
+      <wsdl:output message="tns:RunETLSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inquire if N-compass is ready for an export.</wsdl:documentation>
+      <wsdl:input message="tns:ExportReadySoapIn"/>
+      <wsdl:output message="tns:ExportReadySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady6_7">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Used by N-central 6.7 to get the N-compass version number and query if an export is ready</wsdl:documentation>
+      <wsdl:input message="tns:ExportReady6_7SoapIn"/>
+      <wsdl:output message="tns:ExportReady6_7SoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AuditorServiceSoap" type="tns:AuditorServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ExportComplete">
+      <soap:operation soapAction="http://n-able.com/auditor/ExportComplete" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunETL">
+      <soap:operation soapAction="http://n-able.com/auditor/RunETL" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady">
+      <soap:operation soapAction="http://n-able.com/auditor/ExportReady" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady6_7">
+      <soap:operation soapAction="http://n-able.com/auditor/ExportReady6_7" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AuditorServiceSoap12" type="tns:AuditorServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ExportComplete">
+      <soap12:operation soapAction="http://n-able.com/auditor/ExportComplete" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RunETL">
+      <soap12:operation soapAction="http://n-able.com/auditor/RunETL" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady">
+      <soap12:operation soapAction="http://n-able.com/auditor/ExportReady" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportReady6_7">
+      <soap12:operation soapAction="http://n-able.com/auditor/ExportReady6_7" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AuditorService">
+    <wsdl:port name="AuditorServiceSoap" binding="tns:AuditorServiceSoap">
+      <soap:address location="http://localhost/WebService/WebService.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="AuditorServiceSoap12" binding="tns:AuditorServiceSoap12">
+      <soap12:address location="http://localhost/WebService/WebService.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
