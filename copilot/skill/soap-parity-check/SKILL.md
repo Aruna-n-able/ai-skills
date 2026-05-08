@@ -10,15 +10,24 @@ This ensures the output pastes correctly into Jira's rich text editor without re
 INPUT
 ══════════════════════════════════════════════════════════
 SOAP Operation  : {SOAP_OPERATION_NAME}
-WSDL Source     : {ServerEI | ServerUI}          ← pick one
+WSDL Source     : {auto-detected — all .wsdl files in wsdl/ are searched}
 EPIC            : NCCF-1206785
 
 ══════════════════════════════════════════════════════════
 STEP 1 — SOAP Contract (from WSDL)
 ══════════════════════════════════════════════════════════
-Open (from this repo's `wsdl/` folder — https://github.com/Aruna-n-able/ai-skills/tree/main/wsdl):
-• ServerEI  → Aruna-n-able/ai-skills : wsdl/ServerEI.wsdl
-• ServerUI  → Aruna-n-able/ai-skills : wsdl/ServerUI.wsdl
+Open and scan **every** `.wsdl` file in this repo's `wsdl/` folder
+(https://github.com/Aruna-n-able/ai-skills/tree/main/wsdl).
+Treat the folder as the source of truth — if new `.wsdl` files are added later,
+include them automatically without changing this skill.
+
+For the given `{SOAP_OPERATION_NAME}`:
+1. Search across **all** WSDL files in `wsdl/` for matching `<wsdl:operation>`,
+   `<wsdl:message>`, and related `<wsdl:part>` / `<xsd:element>` definitions.
+2. Record which WSDL file(s) the operation is defined in (an operation may
+   appear in more than one WSDL — report each occurrence).
+3. If the operation is not found in any WSDL, report that explicitly before
+   proceeding to later steps.
 
 Extract:
 a) All <wsdl:part> input parameters (name + xsd type + required?)
